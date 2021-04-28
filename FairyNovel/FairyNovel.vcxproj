@@ -145,9 +145,11 @@
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Config.hpp" />
     <ClInclude Include="Logger.hpp" />
+    <ClInclude Include="MusicPlayer.hpp" />
     <ClInclude Include="Option.hpp" />
     <ClInclude Include="ResourceIdentifiers.hpp" />
     <ClInclude Include="ResourceManager.hpp" />
+    <ClInclude Include="SoundPlayer.hpp" />
     <ClInclude Include="Utility.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,7 +157,9 @@
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MusicPlayer.cpp" />
     <ClCompile Include="Option.cpp" />
+    <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>

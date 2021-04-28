@@ -4,6 +4,8 @@
 #include "Config.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "ResourceManager.hpp"
+#include "SoundPlayer.hpp"
+#include "MusicPlayer.hpp"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -33,8 +35,8 @@ private:
 
 	TextureManager nTextures;
 	FontManager nFonts;
-//	SoundPlayer nSoundPlayer;
-//	MusicPlayer nMusicPlayer;
+	SoundPlayer nSoundPlayer;
+	MusicPlayer nMusicPlayer;
 
 //	StateStack nStateStack;
 

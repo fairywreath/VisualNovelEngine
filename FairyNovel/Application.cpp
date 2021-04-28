@@ -9,12 +9,13 @@ Application::Application(std::string configPath) :
 	nWindow(),
 	nTextures(),
 	nFonts(),
-//	nSoundPlayer(),
-//	nMusicPlayer(),
+	nSoundPlayer(),
+	nMusicPlayer(),
 //	nStateStack(State::Context(nWindow, nTextures, nFonts, nMusicPlayer, nSoundPlayer)),		// create new state context here and pass it in
 	nStatisticsText(),
 	nStatisticsUpdateTime(),
-	nTimePerFrame()
+	nTimePerFrame(),
+	nStatisticsNumFrames()
 {
 	nConfig.setPath(configPath);
 	nConfig.parse();

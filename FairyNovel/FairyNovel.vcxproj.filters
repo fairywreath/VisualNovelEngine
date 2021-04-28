@@ -22,6 +22,12 @@
     <Filter Include="Source Files\Utility">
       <UniqueIdentifier>{941bd3e9-46f5-4064-b267-62ab980342a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Resources">
+      <UniqueIdentifier>{974aa192-6b19-4a5e-802c-8344774438f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{c4c8e148-1788-4756-8c11-1bbe52832a8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Option.cpp">
@@ -42,20 +48,14 @@
     <ClCompile Include="Utility.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="MusicPlayer.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundPlayer.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Option.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Config.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Application.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceIdentifiers.hpp">
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
@@ -64,6 +64,24 @@
     </ClInclude>
     <ClInclude Include="Utility.hpp">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicPlayer.hpp">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundPlayer.hpp">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Option.hpp">
+      <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
