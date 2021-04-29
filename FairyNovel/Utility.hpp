@@ -19,5 +19,10 @@ sf::String wrapText(sf::String string, unsigned width, const sf::Font& font, uns
 	unsigned extraLen, bool bold = false);
 sf::Color parseColor(std::string str);
 
+std::vector<std::string> split(const std::string& s, char delimiter);
+std::string trim(const std::string& str);
+bool checkEnds(std::string& str, char lhs, char rhs);
+std::string trimEnds(const std::string& str);
+
 #include "Utility.inl"
 #endif

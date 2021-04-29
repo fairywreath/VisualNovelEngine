@@ -16,14 +16,15 @@ class SoundPlayer : private sf::NonCopyable
 public:
 	SoundPlayer();
 
-	void play(std::string& id);
-	void play(std::string& id, sf::Vector2f position);
+	void play(const std::string& id);
+	void play(const std::string& id, sf::Vector2f position);
 	
 	void removeStoppedSounds();
 	void setListenerPosition(sf::Vector2f position);
 	sf::Vector2f getListenerPosition() const;
 
-	void addSound(std::string& id, std::string& path);
+	void addSound(const std::string& id, const std::string& path);
+	bool find(const std::string& id) const;
 
 	void setVolume(float amount);
 	float getVolume() const;

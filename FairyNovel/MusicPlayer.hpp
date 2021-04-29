@@ -15,7 +15,7 @@ class MusicPlayer : private sf::NonCopyable
 public:
 	MusicPlayer();
 
-	void play(std::string& id);
+	void play(const std::string& id);
 	void stop();
 
 	void setPaused(bool paused);
@@ -23,11 +23,12 @@ public:
 	bool isMusicPlaying() const;
 
 	sf::Time getCurrentMusicOffset() const;
-	void setCurrentMusicOffset(sf::Time time);
+	void setCurrentMusicOffset(const sf::Time& time);
 
 	std::string getCurrentMusic() const;
 
-	void addMusic(std::string& id, std::string& path);
+	void addMusic(const std::string& id, const std::string& path);
+	bool find(const std::string& id) const;
 
 	void setVolume(float amount);
 	float getVolume() const;

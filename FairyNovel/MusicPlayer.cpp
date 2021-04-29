@@ -13,7 +13,7 @@ MusicPlayer::MusicPlayer() :
 //	nFileNames[Music::Secondary] = "Media/Music/SecondaryTheme.ogg";
 }
 
-void MusicPlayer::play(std::string& id)
+void MusicPlayer::play(const std::string& id)
 {
 	if (nFileNames.find(id) != nFileNames.end())
 		throw std::runtime_error("Music ID does not exist in Map: " + id);
@@ -58,7 +58,7 @@ std::string MusicPlayer::getCurrentMusic() const
 	return nCurrentMusic;
 }
 
-void MusicPlayer::addMusic(std::string& id, std::string& path)
+void MusicPlayer::addMusic(const std::string& id, const std::string& path)
 {
 	if (nFileNames.find(id) != nFileNames.end())
 		throw std::runtime_error("Redefinition of music ID: " + id);
@@ -66,12 +66,18 @@ void MusicPlayer::addMusic(std::string& id, std::string& path)
 	nFileNames.insert(std::make_pair(id, path));
 }
 
+bool MusicPlayer::find(const std::string& id) const
+{
+	if (nFileNames.find(id) != nFileNames.end()) return true;
+	return false;
+}
+
 sf::Time MusicPlayer::getCurrentMusicOffset() const
 {
 	return nMusic.getPlayingOffset();
 }
 
-void MusicPlayer::setCurrentMusicOffset(sf::Time offset)
+void MusicPlayer::setCurrentMusicOffset(const sf::Time& offset)
 {
 	nMusic.setPlayingOffset(offset);
 }

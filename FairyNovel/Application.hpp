@@ -6,6 +6,9 @@
 #include "ResourceManager.hpp"
 #include "SoundPlayer.hpp"
 #include "MusicPlayer.hpp"
+#include "StateStack.hpp"
+#include "Scanner.hpp"
+#include "RegisterEngine.hpp"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -33,12 +36,20 @@ private:
 	sf::Time nTimePerFrame;		// 1/FPS
 	sf::RenderWindow nWindow;
 
+	std::vector<std::unique_ptr<Command>> nCommands;
+	CommandFactory nCommandFactory;
+
+	std::vector<std::unique_ptr<Command>> nRegCommands;
+
+	std::unique_ptr<Scanner> nScanner;
+	RegisterEngine nRegEngine;
+
 	TextureManager nTextures;
 	FontManager nFonts;
 	SoundPlayer nSoundPlayer;
 	MusicPlayer nMusicPlayer;
 
-//	StateStack nStateStack;
+	StateStack nStateStack;
 
 	sf::Text nStatisticsText;
 	sf::Time nStatisticsUpdateTime;

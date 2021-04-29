@@ -26,14 +26,14 @@ SoundPlayer::SoundPlayer() :
 
 
 // play the sound; add to list and play the last element
-void SoundPlayer::play(std::string& effect)
+void SoundPlayer::play(const std::string& effect)
 {
 	play(effect, getListenerPosition());
 }
 
 
 // play with given position
-void SoundPlayer::play(std::string& effect, sf::Vector2f position)
+void SoundPlayer::play(const std::string& effect, sf::Vector2f position)
 {
 	nSounds.push_back(sf::Sound());
 	sf::Sound& sound = nSounds.back();
@@ -66,9 +66,15 @@ sf::Vector2f SoundPlayer::getListenerPosition() const
 	return sf::Vector2f(position.x, -position.y);
 }
 
-void SoundPlayer::addSound(std::string& id, std::string& path)
+void SoundPlayer::addSound(const std::string& id, const std::string& path)
 {
 	nSoundBuffers.load(id, path);
+}
+
+bool SoundPlayer::find(const std::string& id) const
+{
+	// TODO: add find functionality
+	return false;
 }
 
 void SoundPlayer::setVolume(float amount)

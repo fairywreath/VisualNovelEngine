@@ -1,5 +1,5 @@
 template <typename Resource, typename Identifier>
-void ResourceManager<Resource, Identifier>::load(Identifier id, const std::string& filename)		
+void ResourceManager<Resource, Identifier>::load(const Identifier& id, const std::string& filename)
 {
 	std::unique_ptr<Resource> resource = std::make_unique<Resource>();
 
@@ -35,7 +35,7 @@ const Resource& ResourceManager<Resource, Identifier>::get(Identifier id) const
 // load method for sf classes that takes extra parameter/s, eg. sf::shader
 template <typename Resource, typename Identifier>
 template <typename Parameter>
-void ResourceManager<Resource, Identifier>::load(Identifier id, const std::string& filename, const Parameter& secondParam)
+void ResourceManager<Resource, Identifier>::load(const Identifier& id, const std::string& filename, const Parameter& secondParam)
 {
 	std::unique_ptr<Resource> resource = std::make_unique<Resource>();
 	if (!resource->loadFromFile(filename, secondParam))		

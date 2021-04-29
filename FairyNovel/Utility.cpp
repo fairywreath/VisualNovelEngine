@@ -3,6 +3,52 @@
 
 #define PI 3.141592653589793238462643383f
 
+std::vector<std::string> split(const std::string& s, char delimiter)
+{
+	std::vector<std::string> tokens;
+	std::string token;
+	std::istringstream tokenStream(s);
+	while (std::getline(tokenStream, token, delimiter))
+	{
+		tokens.push_back(token);
+	}
+	return tokens;
+}
+
+std::string trim(const std::string& str)
+{
+	if (str.empty())
+		return "";
+
+	size_t i = 0; 
+	size_t j = str.size() - 1;
+
+	while (i < j && str[i] == ' ')
+		i++;
+
+	while (j > i && str[j] == ' ')
+		j--;
+
+	return str.substr(i, (size_t)j - i + 1);
+}
+
+bool checkEnds(std::string& str, char lhs, char rhs)
+{
+	if (str.empty()) return true;
+
+	if (str[0] == lhs && str[str.size() - 1] == rhs) {
+		str = trimEnds(str);
+		return true;
+	}
+	return false;
+}
+
+std::string trimEnds(const std::string& str)
+{
+	if (str.size() <= 3) return "";
+	return str.substr(1, str.size() - 2);
+}
+
 sf::String wrapText(sf::String string, unsigned width, const sf::Font& font, unsigned characterSize, unsigned extraLen, bool bold)
 {
 	unsigned currentOffset = 0;

@@ -2,6 +2,8 @@
 #include "Logger.hpp"
 #include "Utility.hpp"
 
+#include "TitleState.hpp"
+
 #include <SFML/Window/Event.hpp>
 #include <iostream>
 
@@ -11,16 +13,24 @@ Application::Application(std::string configPath) :
 	nFonts(),
 	nSoundPlayer(),
 	nMusicPlayer(),
-//	nStateStack(State::Context(nWindow, nTextures, nFonts, nMusicPlayer, nSoundPlayer)),		// create new state context here and pass it in
+	nStateStack(State::Context(nWindow, nTextures, nFonts, nMusicPlayer, nSoundPlayer)),		// create new state context here and pass it in
 	nStatisticsText(),
 	nStatisticsUpdateTime(),
 	nTimePerFrame(),
-	nStatisticsNumFrames()
+	nStatisticsNumFrames(),
+	nCommands(),
+	nRegEngine(nTextures, nFonts, nSoundPlayer, nMusicPlayer)
 {
+
 	nConfig.setPath(configPath);
 	nConfig.parse();
 	std::string logPath = nConfig.getOption("LOG_PATH");
 	Logger::SetLogger(logPath);
+
+	nScanner = std::make_unique<Scanner>((std::string)nConfig.getOption("SCRIPT_PATH"), 
+		nCommandFactory, nCommands);
+
+	nScanner->scan();
 
 	nTimePerFrame = sf::seconds(1.f / (float)nConfig.getOption("FPS"));
 	nWindow.create(sf::VideoMode((int)nConfig.getOption("WINDOW_WIDTH"), 
@@ -28,6 +38,14 @@ Application::Application(std::string configPath) :
 		sf::String((std::string)nConfig.getOption("WINDOW_NAME")),
 		sf::Style::Close);
 
+	nFonts.load("overlock", "Media/Fonts/Overlock-Mod.ttf");
+
+	nStatisticsText.setFont(nFonts.get("overlock"));
+	nStatisticsText.setCharacterSize(25);
+	nStatisticsText.setFillColor(sf::Color::White);
+
+	registerStates();
+	nStateStack.pushState(States::Title);
 }
 
 void Application::run()
@@ -47,7 +65,7 @@ void Application::run()
 			processInput();
 			update(nTimePerFrame);
 
-		//	if (nStateStack.isEmpty())	nWindow.close();
+			if (nStateStack.isEmpty())	nWindow.close();
 		}
 
 		render();
@@ -60,7 +78,7 @@ void Application::processInput()
 	sf::Event event;
 	while (nWindow.pollEvent(event))
 	{
-	//	nStateStack.handleEvent(event);
+		nStateStack.handleEvent(event);
 		if (event.type == sf::Event::Closed)
 			nWindow.close();
 	}
@@ -68,14 +86,14 @@ void Application::processInput()
 
 void Application::update(sf::Time elapsedTime)
 {
-//	nStateStack.update(elapsedTime);
+	nStateStack.update(elapsedTime);
 }
 
 void Application::render()
 {
 	nWindow.clear();
 
-//	nStateStack.draw();
+	nStateStack.draw();
 	nWindow.setView(nWindow.getDefaultView());
 	nWindow.draw(nStatisticsText);
 	nWindow.display();
@@ -100,7 +118,6 @@ void Application::updateStatistics(sf::Time elapsedTime)
 
 void Application::registerStates()
 {
-//	nStateStack.registerState<TitleState>(States::Title);
-//	nStateStack.registerState<GameState>(States::Game);
+	nStateStack.registerState<TitleState>(States::Title);
 }
 

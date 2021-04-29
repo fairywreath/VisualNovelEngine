@@ -48,6 +48,7 @@ void Config::startStream()
 	if (!nFileStream.is_open()) {
 		nFileStream.open(nFilePath.c_str());
 		if (!nFileStream.good()) {
+			nFileStream.clear();		// clear error state, basic guarantee
 			throw std::exception("Config file does not exist / cannot be opened");
 		}
 	}
