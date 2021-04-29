@@ -55,7 +55,7 @@ Engine::Engine(State::Context context) :
 	displayText("I love you Darren", "Mayuri");
 	setBackground("MMBG");
 
-	removeSprite("mayuri1");
+	// removeSprite("mayuri1");
 }
 
 void Engine::draw(sf::RenderTarget& target, sf::RenderStates states) const
