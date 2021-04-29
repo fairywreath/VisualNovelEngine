@@ -12,7 +12,7 @@ TitleState::TitleState(StateStack& stack, Context context) :
 	nShowText(true),
 	nTextEffectTime(sf::Time::Zero)	
 {
-	if(context.musicPlayer->find("main")) context.musicPlayer->play("main");
+	if(context.musicPlayer->find("title")) context.musicPlayer->play("title");
 	
 	nText.setFont(context.fonts->get("overlock"));
 	nText.setString("Press Any Key to Start");
