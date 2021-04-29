@@ -167,6 +167,9 @@
     <ClInclude Include="RegisterEngine.hpp">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Engine.hpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ResourceManager.inl">

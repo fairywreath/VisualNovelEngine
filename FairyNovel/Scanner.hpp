@@ -18,29 +18,24 @@ public:
 	typedef std::unique_ptr<Command> CommandPtr;
 
 public:
-	Scanner(const std::string& scriptPath, CommandFactory& commandFactory, std::vector<CommandPtr>& commands);
+	Scanner(const std::string& scriptPath, const std::string& regPath, 
+		CommandFactory& commandFactory, std::vector<CommandPtr>& commands);
 	~Scanner();
 
 	bool isComplete();
-	void scan();
-
-private:
-	enum class ScanState
-	{ 
-		Inactive, 
-		Register,
-		Script
-	};
+	void scanAll();
+	
+	void scan(bool script);
 
 private:
 	CommandFactory& nCommandFactory;
 
 	std::ifstream nFile;
 	std::string nScriptPath;
+	std::string nRegPath;
 	std::vector<CommandPtr>& nCommands;
 
-	
-	ScanState CurrentState;
+
 };
 
 #endif

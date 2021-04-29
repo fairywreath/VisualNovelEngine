@@ -1,5 +1,6 @@
 #include "Scanner.hpp"
 #include "Utility.hpp"
+#include "Logger.hpp"
 
 #include <cassert>
 
@@ -8,19 +9,14 @@
 #include <stdexcept>
 #include <iostream>
 
-Scanner::Scanner(const std::string& scriptPath, CommandFactory& commandFactory, std::vector<CommandPtr>& commands) :
+Scanner::Scanner(const std::string& scriptPath, const std::string& regPath, 
+		CommandFactory& commandFactory, std::vector<CommandPtr>& commands) :
 	nScriptPath(scriptPath),
+	nRegPath(regPath),
 	nCommandFactory(commandFactory),
 	nCommands(commands),
-	nFile(),
-	CurrentState(ScanState::Inactive)
+	nFile()
 {
-	nFile.open(scriptPath);
-	if (!nFile.good())
-	{
-		nFile.clear();
-		throw std::runtime_error("Could not open script file");
-	}
 }
 
 Scanner::~Scanner()
@@ -33,22 +29,48 @@ bool Scanner::isComplete()
 	return nFile.eof();
 }
 
-void Scanner::scan()
+void Scanner::scanAll()
+{
+	scan(false);
+	scan(true);
+}
+
+void Scanner::scan(bool script)
 {
 	sf::Clock clock;
-
 
 	std::string str = "";
 	std::string kw = "";
 	std::string id = "";
 	std::string args = "";
 
+	if (script)
+	{
+		nFile.open(nScriptPath);
+		if (!nFile.good())
+		{
+			nFile.clear();
+			throw std::runtime_error("Could not open script file");
+		}
+		std::cout << "<<< SCRIPT SCAN START >>>\n";
+	}
+	else
+	{
+		nFile.open(nRegPath);
+		if (!nFile.good())
+		{
+			nFile.clear();
+			throw std::runtime_error("Could not open reg file");
+		}
+		std::cout << "<<< REG SCAN START >>>\n";
+	}
+
 	while (std::getline(nFile, str))
 	{
 		str = trim(str);
 		if (str.size() == 0 || str[0] == '#') continue;		// commented line
 		
-		std::cout << "Line: "  << str << std::endl;
+		// std::cout << "Line: "  << str << std::endl;
 		
 		std::vector<size_t> spaces;
 
@@ -62,11 +84,6 @@ void Scanner::scan()
 
 		if (!spaces.empty())
 		{
-		/*	if(spaces.empty()) 
-				throw std::runtime_error("Script Line must have valid spaces and arguments");*/
-			if (CurrentState == ScanState::Inactive)
-				throw std::runtime_error("Scanner must be in a valid state");
-
 			kw = str.substr(0, spaces[0]);
 			if (spaces.size() < 2)
 			{
@@ -78,34 +95,28 @@ void Scanner::scan()
 				id = str.substr(spaces[0] + 1, spaces[1] - spaces[0] - 1);
 				args = str.substr(spaces[1] + 1, str.size() - spaces[1] - 1);
 			}
-
-			if (CurrentState == ScanState::Register)
-				nCommands.push_back(std::move(nCommandFactory.generateCommand(kw, id, args, true)));
-			else
-				nCommands.push_back(std::move(nCommandFactory.generateCommand(kw, id, args)));
-
-			// debug
-			//std::cout << "KW: [" << kw << "] ID: [" << id << "] Args: [" << args <<  "]" << std::endl;
-
-			if(!checkEnds(kw, '<', '>'))
+			
+			if (!checkEnds(kw, '<', '>'))
 				throw std::runtime_error("Keywords must have closing <> brackets");
-			if(!checkEnds(id, '(', ')'))
+			if (!checkEnds(id, '(', ')'))
 				throw std::runtime_error("Identifiers must have closing () brakets");
-			if(!checkEnds(args, '"', '"'))
+			if (!checkEnds(args, '"', '"'))
 				throw std::runtime_error("Arguments must have closing quotation marks ");
 
-			// debug
-			//std::cout << "KW: " << kw << " ID: " << id << " Args: " << args << std::endl;
+			if (script)
+				nCommands.push_back(std::move(nCommandFactory.generateCommand(kw, id, args)));
+			else
+				nCommands.push_back(std::move(nCommandFactory.generateRegCommand(kw, id, args)));
+
+			std::cout << "KW: " << kw << " ID: " << id << " Args: " << args << std::endl;
 		}
 		else
 		{
-			if (!spaces.empty()) str = str.substr(0, spaces[0]);
-			if (str == "Register") CurrentState = ScanState::Register;
-			else if (str == "Script")  CurrentState = ScanState::Script;
-			else
-				throw std::runtime_error("Unrecognized Script Mode, must be either Script or Register");
+			nFile.clear();
+			throw std::runtime_error("Script Commands must contain valid spaces");
 		}
-
 	}
 
+	nFile.close();
+	nFile.clear();
 }

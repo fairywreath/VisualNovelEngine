@@ -15,8 +15,13 @@ public:
 		RegisterSE,
 		RegisterMusic, 
 		RegisterFont,
+	//	RegisterTextBox,			// special case of texture
+	//	RegisterButtonClick,
+	//	RegisterButtonHover,
+	//	RegisterTitleMusic,		// main menu music
 
-		Display,
+		DisplayText,
+		DisplaySprite,
 		Blur,
 		Animation
 	};

@@ -1,13 +1,15 @@
 #include "Command.hpp"
 
 #include "Utility.hpp"
+#include <iostream>
+
 
 Command::Command(Type type, const std::string& identifier, const std::string& arguments) :
 	nType(type),
 	nIdentifier(identifier),
-	nArguments()
+	nArguments(arguments)
 {
-	
+	// std::cout << "created command of type: " <<  (int)nType << std::endl;
 }
 
 Command::~Command()

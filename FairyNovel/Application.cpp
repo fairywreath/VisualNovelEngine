@@ -3,6 +3,7 @@
 #include "Utility.hpp"
 
 #include "TitleState.hpp"
+#include "GameState.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <iostream>
@@ -13,12 +14,12 @@ Application::Application(std::string configPath) :
 	nFonts(),
 	nSoundPlayer(),
 	nMusicPlayer(),
-	nStateStack(State::Context(nWindow, nTextures, nFonts, nMusicPlayer, nSoundPlayer)),		// create new state context here and pass it in
+	nCommands(),
+	nStateStack(State::Context(nWindow, nTextures, nFonts, nMusicPlayer, nSoundPlayer, nCommands)),		// create new state context here and pass it in
 	nStatisticsText(),
 	nStatisticsUpdateTime(),
 	nTimePerFrame(),
 	nStatisticsNumFrames(),
-	nCommands(),
 	nRegEngine(nTextures, nFonts, nSoundPlayer, nMusicPlayer)
 {
 
@@ -28,9 +29,10 @@ Application::Application(std::string configPath) :
 	Logger::SetLogger(logPath);
 
 	nScanner = std::make_unique<Scanner>((std::string)nConfig.getOption("SCRIPT_PATH"), 
-		nCommandFactory, nCommands);
+		(std::string)nConfig.getOption("REG_PATH") ,nCommandFactory, nCommands);
 
-	nScanner->scan();
+	// nScanner->scanAll();
+	readCommands();
 
 	nTimePerFrame = sf::seconds(1.f / (float)nConfig.getOption("FPS"));
 	nWindow.create(sf::VideoMode((int)nConfig.getOption("WINDOW_WIDTH"), 
@@ -71,6 +73,19 @@ void Application::run()
 		render();
 		updateStatistics(elapsedTime);
 	}
+}
+
+void Application::readCommands()
+{
+	nScanner->scan(false);
+	std::cout << "Register Commands Size: " << nCommands.size() << std::endl;
+	for (const auto& ptr : nCommands) 
+	{
+		nRegEngine.runCommand(ptr.get());
+	}
+	nCommands.clear();
+	nScanner->scan(true);
+	std::cout << "Script Commands Size: " << nCommands.size() << std::endl;
 }
 
 void Application::processInput()
@@ -119,5 +134,6 @@ void Application::updateStatistics(sf::Time elapsedTime)
 void Application::registerStates()
 {
 	nStateStack.registerState<TitleState>(States::Title);
+	nStateStack.registerState<GameState>(States::Game);
 }
 

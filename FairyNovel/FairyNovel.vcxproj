@@ -146,6 +146,7 @@
     <ClInclude Include="Command.hpp" />
     <ClInclude Include="CommandFactory.hpp" />
     <ClInclude Include="Config.hpp" />
+    <ClInclude Include="Engine.hpp" />
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="Logger.hpp" />
     <ClInclude Include="MusicPlayer.hpp" />

@@ -2,12 +2,13 @@
 #include "StateStack.hpp"
 
 State::Context::Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts, 
-	MusicPlayer& music, SoundPlayer& sound) :
+	MusicPlayer& music, SoundPlayer& sound, std::vector<std::unique_ptr<Command>>& commands) :
 	window(&window),		
 	textures(&textures),
 	fonts(&fonts),
 	musicPlayer(&music),
-	soundPlayer(&sound)
+	soundPlayer(&sound),
+	commands(&commands)
 {
 }
 

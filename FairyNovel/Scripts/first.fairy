@@ -1,5 +1,7 @@
-Register
 <addSprite> (Mayuri) "default;30,40"
 <addSprite> (Suoh) "default"
 <removSprite> (Nerine)
+
+#
+<displayText> (Suoh) "you suck ass;dsadas; dsadasd; sadasd; dsa asjd askd"
 

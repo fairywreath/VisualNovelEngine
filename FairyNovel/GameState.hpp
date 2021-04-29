@@ -2,9 +2,15 @@
 #define GAMESTATE_HPP
 
 #include "State.hpp"
+#include "Engine.hpp"
+
+#include <SFML/Graphics/Sprite.hpp>
 
 class GameState : public State
 {
+public:
+	typedef std::unique_ptr<Command> CommandPtr;
+
 public:
 	GameState(StateStack& stack, Context context);
 
@@ -14,6 +20,10 @@ public:
 	virtual bool handleEvent(const sf::Event& event);
 
 private:
+	sf::Sprite nBackgroundSprite;
+
+	std::vector<CommandPtr>::const_iterator nIP;		// instruction pointer
+
 	// engine
 	// characters and commands
 };

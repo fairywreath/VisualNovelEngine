@@ -40,6 +40,7 @@ bool checkEnds(std::string& str, char lhs, char rhs)
 		str = trimEnds(str);
 		return true;
 	}
+
 	return false;
 }
 

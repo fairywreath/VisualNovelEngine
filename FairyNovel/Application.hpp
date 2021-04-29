@@ -24,12 +24,15 @@ public:
 	void run();
 
 private:
+	void readCommands();
+
 	void processInput();
 	void update(sf::Time elapseTime);
 	void render();
 
 	void updateStatistics(sf::Time elapsedTime);
 	void registerStates();
+
 
 private:
 	Config nConfig; 

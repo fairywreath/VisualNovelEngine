@@ -6,6 +6,7 @@
 #include "MusicPlayer.hpp"
 #include "SoundPlayer.hpp"
 #include "Config.hpp"
+#include "Command.hpp"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Window/Event.hpp>
@@ -25,13 +26,14 @@ public:
 	struct Context
 	{
 		Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts,
-			MusicPlayer& music, SoundPlayer& sound);
+			MusicPlayer& music, SoundPlayer& sound, std::vector<std::unique_ptr<Command>>& commands);
 
 		sf::RenderWindow* window;
 		TextureManager* textures;
 		FontManager* fonts;
 		MusicPlayer* musicPlayer;
 		SoundPlayer* soundPlayer;
+		std::vector<std::unique_ptr<Command>>* commands;
 	};
 
 public:

@@ -15,7 +15,7 @@ MusicPlayer::MusicPlayer() :
 
 void MusicPlayer::play(const std::string& id)
 {
-	if (nFileNames.find(id) != nFileNames.end())
+	if (nFileNames.find(id) == nFileNames.end())
 		throw std::runtime_error("Music ID does not exist in Map: " + id);
 
 	// trhow exception if it does not exist 

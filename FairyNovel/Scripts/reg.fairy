@@ -1,0 +1,7 @@
+<Texture> (BG1) "Media/Backgrounds/city_night.png"
+<Music> (title) "Media/Music/SecondaryTheme.ogg"
+<SoundEffect> (ButtonClick) "Media/Sound/ButtonActivate.wav"
+<Texture> (MMBG) "Media/Backgrounds/school-gate-night.png"
+<Music> (mainmenu) "Media/Music/MainTheme.ogg"
+
+# test for character 'objects'
