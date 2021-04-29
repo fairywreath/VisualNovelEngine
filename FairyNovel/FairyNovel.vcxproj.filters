@@ -55,6 +55,12 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{213bb06b-a366-4951-9fa0-9c0ee606f929}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Entities">
+      <UniqueIdentifier>{ceb3411b-cffa-49b0-be50-1d17815d56ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{b9fa6d1d-74f4-4abe-9c63-7b6bc96e5a93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utility.cpp">
@@ -107,6 +113,12 @@
     </ClCompile>
     <ClCompile Include="RegisterEngine.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,7 +180,10 @@
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine.hpp">
-      <Filter>Source Files\Engine</Filter>
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -23,7 +23,9 @@ public:
 		DisplayText,
 		DisplaySprite,
 		Blur,
-		Animation
+		Animation,
+		Fade,
+		Zoom
 	};
 
 public:

@@ -4,7 +4,9 @@
 
 GameState::GameState(StateStack& stack, Context context) :
 	State(stack, context),
-	nIP(context.commands->begin())
+	nCommands(*context.commands),
+	nIP(context.commands->begin()),
+	nEngine(context)
 {
 	nBackgroundSprite.setTexture(context.textures->get("MMBG"));
 	context.musicPlayer->play("mainmenu");
@@ -14,14 +16,15 @@ void GameState::draw()
 {
 	// draw the engine
 	sf::RenderWindow& window = *getContext().window;
-	window.draw(nBackgroundSprite);
+	window.draw(nEngine);
+//	window.draw(nBackgroundSprite);
 }
 
 bool GameState::update(sf::Time dt)
 {
 	// let engine update
 	// if engine not int wait state
-	
+	nEngine.update(dt);
 	
 
 	// push to title state if instructions are over
