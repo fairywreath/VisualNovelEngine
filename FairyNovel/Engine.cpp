@@ -1,5 +1,6 @@
 #include "Engine.hpp"
 #include "Utility.hpp"
+#include "Character.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -23,7 +24,7 @@ Engine::Engine(State::Context context) :
 	nTextInterval(BaseInterval),
 	nDelaySpeed(1),
 	nDelay(BaseDelay),
-	nDialogueBoxOpacity(100),
+	nDialogueBoxOpacity(10),
 	nWait(false),
 	nHideText(false),
 	nEntities()
@@ -48,14 +49,26 @@ Engine::Engine(State::Context context) :
 	float dby = (float)context.window->getSize().y - (float)dbT.getSize().y - 30.f;
 	nDialogueBox.setPosition(dbx, dby);
 
+	setDialogueBoxOpacity(nDialogueBoxOpacity);
+
 	nTextClock.restart();
 
-	displaySprite("mayuri1", sf::Vector2f(700.f, 40.f));
+	//displaySprite("mayuri1", sf::Vector2f(700.f, 40.f));
 
-	displayText("I love you Darren", "Mayuri");
+	//displayText("I love you Darren", "Mayuri");
 	setBackground("MMBG");
 
 	// removeSprite("mayuri1");
+
+	auto ctr = std::make_unique<Character>("Mayuri", nTextures.get("mayuri1"), "default");
+	ctr->setPosition(sf::Vector2f(500, 40));
+	Character* ptr = ctr.get();
+	nEntities.push_back(std::move(ctr));
+	// ptr->setOpacityAlpha(255);
+	ptr->fade(1.5, 0, 255);
+	ptr->insertState("second", nTextures.get("mayuri2"));
+	ptr->setState("second");
+	ptr->setState("default");
 }
 
 void Engine::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -76,7 +89,7 @@ void Engine::update(sf::Time dt)
 		nTextPos++;
 		if (nTextPos >= nTextString.size()) {
 			nLinePrinted = true;
-			nWait = false;
+			// nWait = false;
 			nDelayClock.restart();
 		}
 		else {
@@ -106,12 +119,31 @@ void Engine::update(sf::Time dt)
 
 bool Engine::handleEvent(const sf::Event& event)
 {
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
+	{
+		// case to case basis???
+		if (!nLinePrinted)
+		{
+			skipDialogueLine();
+		}
+		else if (nWait)
+		{
+			// std::cout << "detected\n";
+			nWait = false;
+		}
+	}
+
 	return false;
 }
 
 void Engine::playMusic(const std::string& id)
 {
 	nMusicPlayer.play(id);
+}
+
+void Engine::playSound(const std::string& id)
+{
+	nSoundPlayer.play(id);
 }
 
 void Engine::setDialogueSpeed(int amount)
@@ -164,15 +196,30 @@ void Engine::displaySprite(const std::string& id, const sf::Vector2f& pos)
 
 void Engine::removeSprite(const std::string& id)
 {
+	std::cout << "sprite to remove: " << id << std::endl;
 	auto test = nEntities.begin();
 
 	for (auto itr = nEntities.begin(); itr != nEntities.end(); itr++)
 	{
 		if ((*itr)->getIdentifier() == id)
 		{
+			std::cout << "sprite found\n";
 			nEntities.erase(itr);
 			return;
 		}
 	}
+}
+
+void Engine::addEntity(EntityPtr entity)
+{
+	nEntities.push_back(std::move(entity));
+}
+
+void Engine::setDialogueBoxOpacity(float amount)
+{
+	// set opacity, 100% = 225
+	nDialogueBoxOpacity = amount;
+	float alpha = (amount / (float)100) * (float)255;
+	nDialogueBox.setColor(sf::Color(255, 255, 255, (int)alpha));
 }
 

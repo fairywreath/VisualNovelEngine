@@ -21,8 +21,13 @@ public:
 	};
 
 public:
-	Entity(const std::string& identifier, sf::Texture& texture);
-	void update(sf::Time dt);
+	Entity(const std::string& identifier, const sf::Texture& texture);
+	
+	virtual void update(sf::Time dt);
+
+	virtual void fade(float time, int alpha = 255);
+	virtual void move(float time, sf::Vector2f dest);
+
 
 	virtual sf::FloatRect getBoundingRect() const;
 
@@ -32,6 +37,9 @@ public:
 
 	std::string getIdentifier() const;
 
+	void setTexture(const sf::Texture& texture);
+	void setOpacityAlpha(int alpha);
+
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
@@ -39,6 +47,7 @@ private:
 	std::string nIdentifier;		// texture name for the texture manager
 	sf::Vector2f nVelocity;
 	sf::Sprite nSprite;
+
 
 };
 

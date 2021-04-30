@@ -2,6 +2,8 @@
 
 #include <sfml/Graphics/RenderWindow.hpp>
 
+#include <iostream>
+
 GameState::GameState(StateStack& stack, Context context) :
 	State(stack, context),
 	nCommands(*context.commands),
@@ -26,6 +28,13 @@ bool GameState::update(sf::Time dt)
 	// if engine not int wait state
 	nEngine.update(dt);
 	
+	if (!nEngine.shouldWait() && nIP != nCommands.end())
+	{
+		if((*nIP) != nullptr)
+			(*nIP)->execute(nEngine);
+		
+		nIP++;
+	}
 
 	// push to title state if instructions are over
 
@@ -35,5 +44,8 @@ bool GameState::update(sf::Time dt)
 bool GameState::handleEvent(const sf::Event& event)
 {
 	// let engine handle events
+	nEngine.handleEvent(event);
+//	std::cout << "handling\n";
+
 	return false;
 }

@@ -143,17 +143,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="Character.hpp" />
     <ClInclude Include="Command.hpp" />
     <ClInclude Include="CommandFactory.hpp" />
     <ClInclude Include="Config.hpp" />
+    <ClInclude Include="DisplaySpriteCommand.hpp" />
+    <ClInclude Include="DisplayTextCommand.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="Logger.hpp" />
     <ClInclude Include="MusicPlayer.hpp" />
     <ClInclude Include="Option.hpp" />
+    <ClInclude Include="PlayMusicCommand.hpp" />
+    <ClInclude Include="PlaySoundCommand.hpp" />
     <ClInclude Include="RegisterCommand.hpp" />
     <ClInclude Include="RegisterEngine.hpp" />
+    <ClInclude Include="RemoveSpriteCommand.hpp" />
     <ClInclude Include="ResourceIdentifiers.hpp" />
     <ClInclude Include="ResourceManager.hpp" />
     <ClInclude Include="Scanner.hpp" />
@@ -166,9 +172,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandFactory.cpp" />
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="DisplaySpriteCommand.cpp" />
+    <ClCompile Include="DisplayTextCommand.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -176,8 +185,11 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MusicPlayer.cpp" />
     <ClCompile Include="Option.cpp" />
+    <ClCompile Include="PlayMusicCommand.cpp" />
+    <ClCompile Include="PlaySoundCommand.cpp" />
     <ClCompile Include="RegisterCommand.cpp" />
     <ClCompile Include="RegisterEngine.cpp" />
+    <ClCompile Include="RemoveSpriteCommand.cpp" />
     <ClCompile Include="Scanner.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="State.cpp" />

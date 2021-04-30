@@ -1,12 +1,13 @@
 #include "Application.hpp"
 #include "Logger.hpp"
 #include "Utility.hpp"
-
 #include "TitleState.hpp"
 #include "GameState.hpp"
 
+
 #include <SFML/Window/Event.hpp>
 #include <iostream>
+#include <chrono>
 
 Application::Application(std::string configPath) :
 	nWindow(),

@@ -11,7 +11,7 @@ public:
 	RegisterCommand(Command::Type type, const std::string& identifier, const std::string& arguments);
 
 	virtual void execute(Engine& engine) override;
-	virtual std::vector<std::string> getArguments() override;
+	virtual std::vector<std::string> getArguments() const override;
 };
 
 #endif

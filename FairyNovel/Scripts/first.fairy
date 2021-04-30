@@ -1,7 +1,25 @@
-<addSprite> (Mayuri) "default;30,40"
-<addSprite> (Suoh) "default"
-<removSprite> (Nerine)
+# coordiantes split by ;
+# <DisplaySprite> (mayuri1) "700;40"
+# format, args must be separated in 1 space:
+# <DisplayCharacter> (character id) "coords state fadetime shouldwait=false"
+
+
+<DisplaySprite> (suoh1) "100;40"
+<DisplayText> (Mayuri) " I hate Jordy"
+<DisplayText> (Suoh) "Jordy sucks balls "
+<DisplayText> (Mayuri) "Yeah he does, jordy sucks fucking balls"
+# <RemoveSprite> (mayuri1)
+# <DisplaySprite> (mayuri2) "700;40"
+<DisplayText> (Mayuri) "You are very very very very very very pretty today"
+<DisplayText> () "(maybe i like it dark....)"
+<PlayMusic> (title)
+<PlaySound> (ButtonClick)
+#<StopMusic> () {eg. fade parameters, etc.}
+# <moveSprite>
+# <fadeSprite>
+
+
 
 #
-<displayText> (Suoh) "you suck ass;dsadas; dsadasd; sadasd; dsa asjd askd"
+<DisplayText> (Suoh) "you suck ass;dsadas; dsadasd; sadasd; dsa asjd askd"
 

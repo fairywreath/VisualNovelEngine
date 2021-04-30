@@ -22,10 +22,13 @@ public:
 
 		DisplayText,
 		DisplaySprite,
+		RemoveSprite,
 		Blur,
 		Animation,
 		Fade,
-		Zoom
+		Zoom,
+		PlayMusic,
+		PlaySound
 	};
 
 public:
@@ -37,7 +40,7 @@ public:
 	Type getType() const;
 	const std::string& getIdentifier() const;
 	std::string getArgumentString() const;
-	virtual std::vector<std::string> getArguments() = 0;
+	virtual std::vector<std::string> getArguments() const = 0;
 
 private:
 	Type nType;

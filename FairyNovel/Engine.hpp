@@ -27,7 +27,8 @@ public:
 	bool handleEvent(const sf::Event& event);
 
 	void playMusic(const std::string& id);
-// 	void playSound(const std::string& id;
+ 	void playSound(const std::string& id);
+	void stopMusic();
 
 	void setDialogueSpeed(int amount);
 	void setAuto(bool autoState);
@@ -43,6 +44,9 @@ public:
 	void displaySprite(const std::string& id, const sf::Vector2f& pos);
 	void removeSprite(const std::string& id);
 
+	void addEntity(EntityPtr entity);
+
+	void setDialogueBoxOpacity(float amount);
 
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

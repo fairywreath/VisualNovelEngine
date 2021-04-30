@@ -10,7 +10,7 @@ void RegisterCommand::execute(Engine& engine)
 {
 }
 
-std::vector<std::string> RegisterCommand::getArguments()
+std::vector<std::string> RegisterCommand::getArguments() const
 {
 	return std::vector<std::string>();
 }

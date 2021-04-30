@@ -1,5 +1,10 @@
 #include "CommandFactory.hpp"
 #include "RegisterCommand.hpp"
+#include "DisplaySpriteCommand.hpp"
+#include "DisplayTextCommand.hpp"
+#include "RemoveSpriteCommand.hpp"
+#include "PlayMusicCommand.hpp"
+#include "PlaySoundCommand.hpp"
 
 #include "Logger.hpp"
 
@@ -9,7 +14,31 @@
 CommandFactory::CommandPtr CommandFactory::generateCommand(const std::string& kw, const std::string& id, 
     const std::string& args)
 {
-     return CommandPtr();
+    if (kw == "DisplayText")
+    {
+        return std::make_unique <DisplayTextCommand>(Command::Type::DisplayText, id, args);
+    }
+    else if (kw == "DisplaySprite")
+    {
+        return std::make_unique<DisplaySpriteCommand>(Command::Type::DisplaySprite, id, args);
+    }
+    else if (kw == "RemoveSprite")
+    {
+        return std::make_unique <RemoveSpriteCommand>(Command::Type::RemoveSprite, id, args);
+    }
+    else if (kw == "PlayMusic")
+    {
+        return std::make_unique <PlayMusicCommand>(Command::Type::PlayMusic, id, args);
+    }
+    else if (kw == "PlaySound")
+    {
+        return std::make_unique <PlaySoundCommand>(Command::Type::PlaySound, id, args);
+    }
+    else
+    {
+    throwError("Command Read", "Unrecognized script Keyword");
+    return CommandPtr();
+    }
 }
 
 CommandFactory::CommandPtr CommandFactory::generateRegCommand(const std::string& kw, const std::string& id, const std::string& args)
