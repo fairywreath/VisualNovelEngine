@@ -24,7 +24,7 @@ Engine::Engine(State::Context context) :
 	nTextInterval(BaseInterval),
 	nDelaySpeed(1),
 	nDelay(BaseDelay),
-	nDialogueBoxOpacity(10),
+	nDialogueBoxOpacity(70),
 	nWait(false),
 	nHideText(false),
 	nEntities()
@@ -61,14 +61,15 @@ Engine::Engine(State::Context context) :
 	// removeSprite("mayuri1");
 
 	auto ctr = std::make_unique<Character>("Mayuri", nTextures.get("mayuri1"), "default");
-	ctr->setPosition(sf::Vector2f(500, 40));
+	ctr->setPosition(sf::Vector2f(900, 40));
 	Character* ptr = ctr.get();
 	nEntities.push_back(std::move(ctr));
 	// ptr->setOpacityAlpha(255);
-	ptr->fade(1.5, 0, 255);
+	ptr->fade(2, 255, 0);
 	ptr->insertState("second", nTextures.get("mayuri2"));
 	ptr->setState("second");
 	ptr->setState("default");
+	ptr->move(0.75, sf::Vector2f(700, 40));
 }
 
 void Engine::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -132,7 +133,19 @@ bool Engine::handleEvent(const sf::Event& event)
 			nWait = false;
 		}
 	}
-
+	else if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left)
+	{
+		// case to case basis???
+		if (!nLinePrinted)
+		{
+			skipDialogueLine();
+		}
+		else if (nWait)
+		{
+			// std::cout << "detected\n";
+			nWait = false;
+		}
+	}
 	return false;
 }
 

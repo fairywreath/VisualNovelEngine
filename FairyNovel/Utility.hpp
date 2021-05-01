@@ -24,5 +24,9 @@ std::string trim(const std::string& str);
 bool checkEnds(std::string& str, char lhs, char rhs);
 std::string trimEnds(const std::string& str);
 
+// vector operations
+float length(sf::Vector2f vector);			// get modulus
+sf::Vector2f unitVector(sf::Vector2f vector);
+
 #include "Utility.inl"
 #endif

@@ -21,14 +21,16 @@ void Entity::update(sf::Time dt)
     // posible animation updates
 }
 
-void Entity::fade(float time, int alpha)
+void Entity::fade(float time, int targetAlpha, int startAlpha)
 {
+    // maybe implement it in base class?
 }
 
-void Entity::move(float time, sf::Vector2f dest)
+void Entity::move(float time, sf::Vector2f dest, sf::Vector2f source)
 {
-
+    // maybe implement it here in base class?
 }
+
 
 sf::FloatRect Entity::getBoundingRect() const
 {

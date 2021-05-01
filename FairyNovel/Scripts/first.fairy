@@ -5,12 +5,13 @@
 
 
 <DisplaySprite> (suoh1) "100;40"
-<DisplayText> (Mayuri) " I hate Jordy"
-<DisplayText> (Suoh) "Jordy sucks balls "
-<DisplayText> (Mayuri) "Yeah he does, jordy sucks fucking balls"
+<DisplayText> (Mayuri) "Suoh?"
+<DisplayText> (Suoh) "I love you Mayuri, please do not leave me"
+<DisplayText> (Mayuri) "I am sorry Suoh, I will never leave you again"
 # <RemoveSprite> (mayuri1)
 # <DisplaySprite> (mayuri2) "700;40"
 <DisplayText> (Mayuri) "You are very very very very very very pretty today"
+<DisplayText> (Suoh) "You too Mayuri, you are always pretty"
 <DisplayText> () "(maybe i like it dark....)"
 <PlayMusic> (title)
 <PlaySound> (ButtonClick)
@@ -21,5 +22,5 @@
 
 
 #
-<DisplayText> (Suoh) "you suck ass;dsadas; dsadasd; sadasd; dsa asjd askd"
+<DisplayText> () "(hmm, it does not matter anyways"
 

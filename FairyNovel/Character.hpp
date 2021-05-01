@@ -17,11 +17,8 @@ public:
 	
 	bool inAnimation();
 
-	virtual void fade(float time, int alpha = 255) override;		// 0 = transparent, 255 = full opacity
-	
-	void fade(float time, int startAlpha, int targetAlpha);
-	
-	virtual void move(float time, sf::Vector2f) override;
+	virtual void fade(float time, int targetAlpha, int startAlpha = INT_MAX) override;
+	virtual void move(float time, sf::Vector2f dest, sf::Vector2f source = sf::Vector2f(FLT_MAX, FLT_MAX));
 
 	virtual void update(sf::Time dt);
 
@@ -36,15 +33,15 @@ private:
 	int nOpacity;	// starting opacity
 	int nTargetOpacity;	// end opacity
 	float nFadeTime;	// in seconds
-//	int nFadeDirection;		// -1 or +!
-
-	sf::Clock nFadeClock;
-	
-	sf::Vector2f nTargetPosition;
-	sf::Clock nMovementClock;
-
 	bool nInFade;
-	bool nInMovement;		// blur, move in, fade etc.
+
+	sf::Vector2f nStartingPosition;
+	sf::Vector2f nTargetPosition;
+	float nMoveTime;
+	bool nInMovement;	
+
+	sf::Time nFadeElapsed;
+	sf::Time nMoveElapsed;
 };
 
 #endif

@@ -7,6 +7,7 @@
 #include <SFML/System/Time.hpp>
 
 #include <string>
+#include <limits>
 
 // entity class, identifier is their sprite name
 // possibly create a character class with possible state changes in the future 
@@ -25,9 +26,8 @@ public:
 	
 	virtual void update(sf::Time dt);
 
-	virtual void fade(float time, int alpha = 255);
-	virtual void move(float time, sf::Vector2f dest);
-
+	virtual void fade(float time, int targetAlpha, int startAlpha = -1);
+	virtual void move(float time, sf::Vector2f dest, sf::Vector2f source = sf::Vector2f(FLT_MAX, FLT_MAX ));
 
 	virtual sf::FloatRect getBoundingRect() const;
 

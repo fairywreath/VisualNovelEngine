@@ -11,8 +11,10 @@ Character::Character(const std::string& identifier, const sf::Texture& texture,
 	nInMovement(false),
 	nOpacity(255),		// start at 0 or 255?
 	nFadeTime(0),
-	nTargetOpacity(255)
-//	nFadeDirection(0)
+	nTargetOpacity(255),
+	nMoveTime(0),
+	nFadeElapsed(sf::Time::Zero),
+	nMoveElapsed(sf::Time::Zero)
 {
 	insertState(defState, texture);
 }
@@ -21,58 +23,74 @@ void Character::update(sf::Time dt)
 {
 	if (nInFade)
 	{
-		if (nFadeClock.getElapsedTime().asSeconds() >= nFadeTime)
+		nFadeElapsed += dt;
+		//if (nFadeClock.getElapsedTime().asSeconds() >= nFadeTime)
+		if (nFadeElapsed.asSeconds() >= nFadeTime)
 		{
 			nInFade = false;
 			nOpacity = nTargetOpacity;
-			std::cout << "fade done\n";
+			setOpacityAlpha((int)nTargetOpacity);
+			nFadeElapsed = sf::Time::Zero;
 		}
 		else
 		{
 			float alpha = (float)nOpacity + (float)(nTargetOpacity - nOpacity) 
-				* nFadeClock.getElapsedTime().asSeconds() / nFadeTime;
+				* nFadeElapsed.asSeconds() / nFadeTime;
 			setOpacityAlpha((int)alpha);
-			if (alpha == nTargetOpacity) 
-			{
-				nInFade = false;
-				nOpacity = nTargetOpacity;
-			}
 		}
 	}
 	
 	if (nInMovement)
 	{
-
+		nMoveElapsed += dt;
+		if (nMoveElapsed.asSeconds() > nMoveTime)
+		{
+			nInMovement = false;
+			setPosition(nTargetPosition);
+			nMoveElapsed = sf::Time::Zero;
+		}
+		else
+		{
+			sf::Vector2f pos = nStartingPosition + (nTargetPosition - nStartingPosition)
+				* nMoveElapsed.asSeconds() / nMoveTime;
+			
+			setPosition(pos);
+		}
 	}
 }
 
-void Character::fade(float time, int alpha)
+void Character::fade(float time, int targetAlpha,  int startAlpha)
 {
-	nTargetOpacity = alpha;
-	nFadeTime = time;
+	if (targetAlpha < 0 || targetAlpha > 255 || startAlpha < 0 || (startAlpha > 255 && startAlpha != INT_MAX))
+		throw std::runtime_error("Invalid Alpha amount for fade\n");
 
-	//if (alpha - nOpacity >= 0) nFadeDirection = 1;
-	//else nFadeDirection = -1;
+	if (startAlpha != INT_MAX)		// given starting alpha, do not use current
+		nOpacity = startAlpha;
+	else
+		startAlpha = nOpacity;
 
-	nInFade = true;
-	nFadeClock.restart();
-}
-
-void Character::fade(float time, int startAlpha, int targetAlpha)
-{
-	nOpacity = startAlpha;
 	nTargetOpacity = targetAlpha;
 	nFadeTime = time;
 	setOpacityAlpha(startAlpha);
 
 	nInFade = true;
-	nFadeClock.restart();
+//	nFadeElapsed = sf::Time::Zero;  // sanity check
 }
 
-void Character::move(float time, sf::Vector2f dest)
+void Character::move(float time, sf::Vector2f dest, sf::Vector2f source)
 {
+	if (source.x == FLT_MAX)		// flag to use current position
+		source = getPosition();		// from current position
+	else
+		setPosition(source);
 
+	nStartingPosition = source;
+	nTargetPosition = dest;
+	nMoveTime = time;
+	nInMovement = true;
+//	nMoveElapsed = sf::Time::Zero;
 }
+
 
 void Character::insertState(const std::string& id, const sf::Texture& texture)
 {
