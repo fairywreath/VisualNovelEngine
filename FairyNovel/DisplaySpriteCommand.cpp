@@ -25,7 +25,7 @@ DisplaySpriteCommand::~DisplaySpriteCommand()
 
 void DisplaySpriteCommand::execute(Engine& engine)
 {
-	engine.displaySprite(getIdentifier(), nPosition);
+	engine.addEntity(getIdentifier(), getIdentifier(), nPosition);
 }
 
 std::vector<std::string> DisplaySpriteCommand::getArguments() const

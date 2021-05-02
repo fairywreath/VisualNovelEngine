@@ -61,6 +61,9 @@
     <Filter Include="Source Files\Entities">
       <UniqueIdentifier>{b9fa6d1d-74f4-4abe-9c63-7b6bc96e5a93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ShaderFIles">
+      <UniqueIdentifier>{2166e50d-27a9-4f4f-9b4b-86c124f3c54e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utility.cpp">
@@ -228,6 +231,27 @@
     </None>
     <None Include="Utility.inl">
       <Filter>Header Files\Utility</Filter>
+    </None>
+    <None Include="Media\Shaders\Add.frag">
+      <Filter>Header Files\ShaderFIles</Filter>
+    </None>
+    <None Include="Media\Shaders\Blur2.frag">
+      <Filter>Header Files\ShaderFIles</Filter>
+    </None>
+    <None Include="Media\Shaders\Brightness.frag">
+      <Filter>Header Files\ShaderFIles</Filter>
+    </None>
+    <None Include="Media\Shaders\DownSample.frag">
+      <Filter>Header Files\ShaderFIles</Filter>
+    </None>
+    <None Include="Media\Shaders\Fullpass.vert">
+      <Filter>Header Files\ShaderFIles</Filter>
+    </None>
+    <None Include="Media\Shaders\GuassianBlur.frag">
+      <Filter>Header Files\ShaderFIles</Filter>
+    </None>
+    <None Include="Blur.frag">
+      <Filter>Header Files\ShaderFIles</Filter>
     </None>
   </ItemGroup>
 </Project>

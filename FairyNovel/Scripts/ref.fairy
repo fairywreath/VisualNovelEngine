@@ -1,2 +1,30 @@
-<texture> (titlebg) "Media\Backgrounds\city_night.png"
-<music> (title) "Media\Music\MainTheme.ogg"
+Register [
+    
+<texture> (BG1) "path here"
+<music> (MainTheme) "path"
+<soundEffect> (ButtonClick) "path"
+
+<character> (Shirahane) {
+    <state> (default) "texture name here"
+    <state> (secondary) "texture name here"
+}
+
+# comment
+
+]
+
+Script [
+
+<addSprite> (Mayuri) "default;30,40"
+<addSprite> (Suoh)  "default"
+<background> (Garden)
+<playMusic> (SecondaryTheme)
+<moveSprite> (Mayuri) "40;00"
+<text> (Mayuri) "I love you Shirahane"
+<modifySprite> (Mayuri;Secondary)
+<removeSprite> (Mayuri)
+<choice> (2) "Give her the book;Keep the book to yourself"
+<stopMusic>
+
+
+]

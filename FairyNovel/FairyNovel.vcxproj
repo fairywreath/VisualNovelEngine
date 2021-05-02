@@ -198,6 +198,13 @@
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Blur.frag" />
+    <None Include="Media\Shaders\Add.frag" />
+    <None Include="Media\Shaders\Blur2.frag" />
+    <None Include="Media\Shaders\Brightness.frag" />
+    <None Include="Media\Shaders\DownSample.frag" />
+    <None Include="Media\Shaders\Fullpass.vert" />
+    <None Include="Media\Shaders\GuassianBlur.frag" />
     <None Include="ResourceManager.inl" />
     <None Include="Utility.inl" />
   </ItemGroup>

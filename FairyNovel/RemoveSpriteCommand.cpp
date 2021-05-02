@@ -15,7 +15,7 @@ RemoveSpriteCommand::~RemoveSpriteCommand()
 void RemoveSpriteCommand::execute(Engine& engine)
 {
 	// possibly change including extra args later
-	engine.removeSprite(getIdentifier());
+	engine.removeEntity(getIdentifier());
 }
 
 std::vector<std::string> RemoveSpriteCommand::getArguments() const

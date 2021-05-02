@@ -1,9 +1,9 @@
 #ifndef ENGINE_HPP
 #define ENGINE_HPP
 
-// all game logic
 #include "State.hpp"
 #include "Entity.hpp"
+#include "Character.hpp"
 
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/System/Time.hpp>
@@ -34,56 +34,59 @@ public:
 	void setAuto(bool autoState);
 
 	void skipDialogueLine();
-
+	
+	void skipAnimations();
+	bool isInAnimation() const;
 	bool shouldWait() const;
 
-	// to be run by commands
 	void setBackground(const std::string& id);
 	void displayText(const std::string& text, const std::string& name);
 
-	void displaySprite(const std::string& id, const sf::Vector2f& pos);
-	void removeSprite(const std::string& id);
-
 	void addEntity(EntityPtr entity);
+	void addEntity(const std::string& id, const std::string& texture, const sf::Vector2f& pos);
+	void removeEntity(const std::string& id);
 
+	// can remove all of these later and just use getEntity())
+	void fadeEntity(const std::string& id, float time, int targetAlpha, int startingAlpha = 0);
+	void moveEntity(const std::string& id, float time, const sf::Vector2f& dest, const sf::Vector2f& source = sf::Vector2f(FLT_MAX, FLT_MAX));
+	void fadeScreen(float time, int targetAlpha, int startAlpha = INT_MAX);
+	
 	void setDialogueBoxOpacity(float amount);
+	void setWait(bool w);
+	void setWaitAnimation(bool w);
 
+	void clearTransparentEntities();
+
+	Entity* getEntity(const std::string& id);
+	
 private:
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-	enum class CommandState
-	{
-		None,
-		ShowDialogue,
-		ShowAnimation
-	};
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
 	MusicPlayer& nMusicPlayer;
 	SoundPlayer& nSoundPlayer;
-//	DialoguePlayer& nDialoguePlayer;		// TODO
 	TextureManager& nTextures;
 	sf::Font& nFont;		// most likely can be removed later
 
-	sf::Sprite nBackground;
-	sf::Sprite nDialogueBox;
+	Entity nDialogueBox;
+	Entity nBackground;		// derive entity class later for zoom effects
 
-	// possible change to unique_ptr for covariance
 	std::list<EntityPtr> nEntities;
 
 	sf::Text nText;
 	sf::Text nCharName;
 
+	// change to time
 	sf::Clock nTextClock;
 	sf::Clock nDelayClock;
 
-	float nDialogueBoxOpacity;		// percentage
+	float nDialogueBoxOpacity;		// percentage later?
 
 	int nDialogueSpeed;
-	int nTextInterval;			// in ms
+	int nTextInterval;			
 	static const int BaseInterval;
 
-	int nDelay;		// delay in ms
+	int nDelay;	
 	int nDelaySpeed;
 	static const int BaseDelay;
 
@@ -94,11 +97,11 @@ private:
 	// engine states
 	bool nAutoMode;
 	bool nWait;
+	bool nAnimationWait;
 
-	// TODO
-	int nFade;
-	bool nHideText;
-	bool nFadeOn;
+	float nFadeTime;		// fade whole screen
+	bool nInFade;
+	bool nHideDialogueBox;
 };
 
 #endif

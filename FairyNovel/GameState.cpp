@@ -16,10 +16,8 @@ GameState::GameState(StateStack& stack, Context context) :
 
 void GameState::draw()
 {
-	// draw the engine
 	sf::RenderWindow& window = *getContext().window;
 	window.draw(nEngine);
-//	window.draw(nBackgroundSprite);
 }
 
 bool GameState::update(sf::Time dt)
@@ -38,14 +36,13 @@ bool GameState::update(sf::Time dt)
 
 	// push to title state if instructions are over
 
+
 	return false;
 }
 
 bool GameState::handleEvent(const sf::Event& event)
 {
-	// let engine handle events
 	nEngine.handleEvent(event);
-//	std::cout << "handling\n";
 
 	return false;
 }
