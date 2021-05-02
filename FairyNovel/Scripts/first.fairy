@@ -7,7 +7,7 @@
 <DisplaySprite> (suoh1) "100;40"
 
 <Label> (start)
-<Jump> (end)
+#<Jump> (end)
 <DisplayText> (Mayuri) "Suoh?"
 <DisplayText> (Suoh) "I love you Mayuri, please do not leave me"
 <DisplayText> (Mayuri) "I am sorry Suoh, I will never leave you again"
@@ -17,9 +17,10 @@
 <DisplayText> () "(maybe i like it dark....)"
 <PlayMusic> (title)
 <PlaySound> (ButtonClick)
-<Jump> (post)
-#<FadeEntity> (mayuri1) "Time: 0.5; Target: 255; Start: 0; Wait: True"
-#<FadeEntity> (mayuri1) "Time: 0.5; Target: 1"
+#<Jump> (post)
+<FadeEntity> (suoh1) "Time: 1.532; Target: 255; Start: 0; Wait: True"
+<DisplayText> () "Feels good around here...."
+<FadeEntity> (Mayuri2) "Time: 3.5; Target: 1"
 
 #<StopMusic> () {eg. fade parameters, etc.}
 # <moveSprite>

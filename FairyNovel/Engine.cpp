@@ -69,10 +69,10 @@ Engine::Engine(State::Context context) :
 	
 	// myr2->blur(2.f, 0.f, 100.f);
 	addEntity(std::move(myr2));
-	fadeEntity("Mayuri1", 3.f, 0, 255);
-	fadeEntity("Mayuri2", 3.f, 255, 1);
+	//fadeEntity("Mayuri1", 1.f, 0, 255);
+	//fadeEntity("Mayuri2", 1.f, 255, 1);
 
-	setWaitAnimation(true);
+	// setWaitAnimation(true);
 
 	// moveEntity("Mayuri1", 1.f, sf::Vector2f(700.f, 40.f), sf::Vector2f(900.f, 40.f));
 	// moveEntity("Mayuri2", 1.f, sf::Vector2f(700.f, 40.f), sf::Vector2f(900.f, 40.f));
@@ -279,36 +279,6 @@ void Engine::removeEntity(const std::string& id)
 	}
 }
 
-void Engine::fadeEntity(const std::string& id, float time, int targetAlpha, int startingAlpha)
-{
-	// only finds first id found
-	auto ent = std::find_if(nEntities.begin(), nEntities.end(), [&id](const EntityPtr& ent) {
-		return (ent->getIdentifier() == id);
-		});
-
-	if(ent != nEntities.end())
-		(*ent)->fade(time, targetAlpha, startingAlpha);
-	else
-	{
-		std::string msg = "Unable to find entity ID " + id + " in Entity Map for Fade Command\n";
-		LOGGER->Log("Engine Command Fail", msg);
-	}
-}
-
-void Engine::moveEntity(const std::string& id, float time, const sf::Vector2f& dest, const sf::Vector2f& source)
-{
-	auto ent = std::find_if(nEntities.begin(), nEntities.end(), [&id](const EntityPtr& ent) {
-		return (ent->getIdentifier() == id);
-		});
-
-	if (ent != nEntities.end())
-		(*ent)->move(time, dest, source);
-	else
-	{
-		std::string msg = "Unable to find entity ID " + id + " in Entity Map for Move Command\n";
-		LOGGER->Log("Engine Command Fail", msg);
-	}
-}
 
 void Engine::fadeScreen(float time, int targetAlpha, int startAlpha)
 {
@@ -341,6 +311,7 @@ Entity* Engine::getEntity(const std::string& id)
 		if (ent->getIdentifier() == id)
 			return ent.get();
 	}
+
 	return nullptr;
 }
 
@@ -355,7 +326,6 @@ void Engine::setDialogueBoxOpacity(float amount)
 	// set opacity, 100% = 225
 	nDialogueBoxOpacity = amount;
 	float alpha = (amount / (float)100) * (float)255;
-//	nDialogueBox.setColor(sf::Color(255, 255, 255, (int)alpha));
 	nDialogueBox.setOpacityAlpha((int)alpha);
 }
 
@@ -370,3 +340,33 @@ void Engine::setWaitAnimation(bool w)
 	if (w) nWait = true;		// set wait true the first time around just in case
 }
 
+// void Engine::fadeEntity(const std::string& id, float time, int targetAlpha, int startingAlpha)
+//{
+//	// only finds first id found
+//	auto ent = std::find_if(nEntities.begin(), nEntities.end(), [&id](const EntityPtr& ent) {
+//		return (ent->getIdentifier() == id);
+//		});
+//
+//	if(ent != nEntities.end())
+//		(*ent)->fade(time, targetAlpha, startingAlpha);
+//	else
+//	{
+//		std::string msg = "Unable to find entity ID " + id + " in Entity Map for Fade Command\n";
+//		LOGGER->Log("Engine Command Fail", msg);
+//	}
+//}
+//
+//void Engine::moveEntity(const std::string& id, float time, const sf::Vector2f& dest, const sf::Vector2f& source)
+//{
+//	auto ent = std::find_if(nEntities.begin(), nEntities.end(), [&id](const EntityPtr& ent) {
+//		return (ent->getIdentifier() == id);
+//		});
+//
+//	if (ent != nEntities.end())
+//		(*ent)->move(time, dest, source);
+//	else
+//	{
+//		std::string msg = "Unable to find entity ID " + id + " in Entity Map for Move Command\n";
+//		LOGGER->Log("Engine Command Fail", msg);
+//	}
+//}

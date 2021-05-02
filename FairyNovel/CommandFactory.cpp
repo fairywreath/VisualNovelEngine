@@ -7,6 +7,8 @@
 #include "PlaySoundCommand.hpp"
 #include "JumpCommand.hpp"
 #include "LabelCommand.hpp"
+#include"FadeEntityCommand.hpp"
+#include "BlurEntityCommand.hpp"
 
 #include "Logger.hpp"
 
@@ -27,23 +29,27 @@ CommandFactory::CommandPtr CommandFactory::generateCommand(const std::string& kw
     }
     else if (kw == "RemoveSprite")
     {
-        return std::make_unique <RemoveSpriteCommand>(Command::Type::RemoveSprite, id, args);
+        return std::make_unique<RemoveSpriteCommand>(Command::Type::RemoveSprite, id, args);
     }
     else if (kw == "PlayMusic")
     {
-        return std::make_unique <PlayMusicCommand>(Command::Type::PlayMusic, id, args);
+        return std::make_unique<PlayMusicCommand>(Command::Type::PlayMusic, id, args);
     }
     else if (kw == "PlaySound")
     {
-        return std::make_unique <PlaySoundCommand>(Command::Type::PlaySound, id, args);
+        return std::make_unique<PlaySoundCommand>(Command::Type::PlaySound, id, args);
     }
     else if (kw == "Label")
     {
-        return std::make_unique <LabelCommand>(id, args);
+        return std::make_unique<LabelCommand>(id, args);
     }
     else if (kw == "Jump")
     {
-        return std::make_unique <JumpCommand>(id, args);
+        return std::make_unique<JumpCommand>(id, args);
+    }
+    else if (kw == "FadeEntity")
+    {
+        return std::make_unique<FadeEntityCommand>(id, args);
     }
     else
     {

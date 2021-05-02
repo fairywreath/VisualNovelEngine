@@ -4,6 +4,8 @@
 
 #include <algorithm>
 
+#include <string>
+
 using namespace std;
 
 int main()
@@ -24,4 +26,6 @@ int main()
     cout << *itr2 << endl;
     cout << vect[10] << endl;
     cout << vect.size();
+
+    cout << stof("HITAGI") <<endl;
 }

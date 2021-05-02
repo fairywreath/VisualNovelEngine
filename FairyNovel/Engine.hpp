@@ -47,8 +47,10 @@ public:
 	void removeEntity(const std::string& id);
 
 	// can remove all of these later and just use getEntity())
-	void fadeEntity(const std::string& id, float time, int targetAlpha, int startingAlpha = 0);
-	void moveEntity(const std::string& id, float time, const sf::Vector2f& dest, const sf::Vector2f& source = sf::Vector2f(FLT_MAX, FLT_MAX));
+	// run this from commands if possible use getEntity
+	// void fadeEntity(const std::string& id, float time, int targetAlpha, int startingAlpha = 0);
+	// void moveEntity(const std::string& id, float time, const sf::Vector2f& dest, const sf::Vector2f& source = sf::Vector2f(FLT_MAX, FLT_MAX));
+	
 	void fadeScreen(float time, int targetAlpha, int startAlpha = INT_MAX);
 	
 	void setDialogueBoxOpacity(float amount);
