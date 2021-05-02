@@ -60,15 +60,15 @@ Engine::Engine(State::Context context) :
 	// nBackground.fade(3.f, 255, 1);
 	// nDialogueBox.fade(3.f, 255, 1);
 
-	auto myr1 = std::make_unique<Entity>("Mayuri1", nTextures.get("mayuri1"));
-	auto myr2 = std::make_unique<Entity>("Mayuri2", nTextures.get("mayuri2"));
-	myr1->setPosition(700.f, 40.f);
-	myr2->setPosition(700.f, 40.f);
-	addEntity(std::move(myr1));
+	//auto myr1 = std::make_unique<Entity>("Mayuri1", nTextures.get("mayuri1"));
+	//auto myr2 = std::make_unique<Entity>("Mayuri2", nTextures.get("mayuri2"));
+	//myr1->setPosition(700.f, 40.f);
+	//myr2->setPosition(700.f, 40.f);
+	//addEntity(std::move(myr1));
 	
 	
 	// myr2->blur(2.f, 0.f, 100.f);
-	addEntity(std::move(myr2));
+	// addEntity(std::move(myr2));
 	//fadeEntity("Mayuri1", 1.f, 0, 255);
 	//fadeEntity("Mayuri2", 1.f, 255, 1);
 
