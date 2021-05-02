@@ -16,7 +16,8 @@ Application::Application(std::string configPath) :
 	nSoundPlayer(),
 	nMusicPlayer(),
 	nCommands(),
-	nStateStack(State::Context(nWindow, nTextures, nFonts, nMusicPlayer, nSoundPlayer, nCommands)),		// create new state context here and pass it in
+	nCommandLabels(),
+	nStateStack(State::Context(nWindow, nTextures, nFonts, nMusicPlayer, nSoundPlayer, nCommands, nCommandLabels)),		// create new state context here and pass it in
 	nStatisticsText(),
 	nStatisticsUpdateTime(),
 	nTimePerFrame(),
@@ -30,7 +31,7 @@ Application::Application(std::string configPath) :
 	Logger::SetLogger(logPath);
 
 	nScanner = std::make_unique<Scanner>((std::string)nConfig.getOption("SCRIPT_PATH"), 
-		(std::string)nConfig.getOption("REG_PATH") ,nCommandFactory, nCommands);
+		(std::string)nConfig.getOption("REG_PATH") ,nCommandFactory, nCommands, nCommandLabels);
 
 	// nScanner->scanAll();
 	readCommands();
@@ -78,6 +79,7 @@ void Application::run()
 
 void Application::readCommands()
 {
+	nScanner->countCommandLines(false);
 	nScanner->scan(false);
 	std::cout << "Register Commands Size: " << nCommands.size() << std::endl;
 	for (const auto& ptr : nCommands) 
@@ -85,6 +87,7 @@ void Application::readCommands()
 		nRegEngine.runCommand(ptr.get());
 	}
 	nCommands.clear();
+	nScanner->countCommandLines();			// open srcipt file and reserve commands vector
 	nScanner->scan(true);
 	std::cout << "Script Commands Size: " << nCommands.size() << std::endl;
 }

@@ -5,6 +5,8 @@
 #include "RemoveSpriteCommand.hpp"
 #include "PlayMusicCommand.hpp"
 #include "PlaySoundCommand.hpp"
+#include "JumpCommand.hpp"
+#include "LabelCommand.hpp"
 
 #include "Logger.hpp"
 
@@ -16,6 +18,7 @@ CommandFactory::CommandPtr CommandFactory::generateCommand(const std::string& kw
 {
     if (kw == "DisplayText")
     {
+        // redundant type change later :pp
         return std::make_unique <DisplayTextCommand>(Command::Type::DisplayText, id, args);
     }
     else if (kw == "DisplaySprite")
@@ -33,6 +36,14 @@ CommandFactory::CommandPtr CommandFactory::generateCommand(const std::string& kw
     else if (kw == "PlaySound")
     {
         return std::make_unique <PlaySoundCommand>(Command::Type::PlaySound, id, args);
+    }
+    else if (kw == "Label")
+    {
+        return std::make_unique <LabelCommand>(id, args);
+    }
+    else if (kw == "Jump")
+    {
+        return std::make_unique <JumpCommand>(id, args);
     }
     else
     {

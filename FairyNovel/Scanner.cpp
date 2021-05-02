@@ -10,11 +10,13 @@
 #include <iostream>
 
 Scanner::Scanner(const std::string& scriptPath, const std::string& regPath, 
-		CommandFactory& commandFactory, std::vector<CommandPtr>& commands) :
+		CommandFactory& commandFactory, std::vector<CommandPtr>& commands,
+	std::map<std::string, std::vector<CommandPtr>::const_iterator>& commandLabels) :
 	nScriptPath(scriptPath),
 	nRegPath(regPath),
 	nCommandFactory(commandFactory),
 	nCommands(commands),
+	nCommandLabels(commandLabels),
 	nFile()
 {
 }
@@ -32,20 +34,19 @@ bool Scanner::isComplete()
 void Scanner::scanAll()
 {
 	scan(false);
+	countCommandLines();
 	scan(true);
 }
 
 void Scanner::scan(bool script)
 {
-	sf::Clock clock;
-
 	std::string str = "";
 	std::string kw = "";
 	std::string id = "";
 	std::string args = "";
 
 	if (script)
-	{
+	{	
 		nFile.open(nScriptPath);
 		if (!nFile.good())
 		{
@@ -54,7 +55,7 @@ void Scanner::scan(bool script)
 		}
 		std::cout << "<<< SCRIPT SCAN START >>>\n";
 	}
-	else
+	else 
 	{
 		nFile.open(nRegPath);
 		if (!nFile.good())
@@ -69,8 +70,6 @@ void Scanner::scan(bool script)
 	{
 		str = trim(str);
 		if (str.size() == 0 || str[0] == '#') continue;		// commented line
-		
-		// std::cout << "Line: "  << str << std::endl;
 		
 		std::vector<size_t> spaces;
 
@@ -103,12 +102,18 @@ void Scanner::scan(bool script)
 			if (!checkEnds(args, '"', '"'))
 				throw std::runtime_error("Arguments must have closing quotation marks ");
 
+			std::cout << "KW: " << kw << " ID: " << id << " Args: " << args << std::endl;
+
 			if (script)
 				nCommands.push_back(std::move(nCommandFactory.generateCommand(kw, id, args)));
 			else
 				nCommands.push_back(std::move(nCommandFactory.generateRegCommand(kw, id, args)));
 
-			std::cout << "KW: " << kw << " ID: " << id << " Args: " << args << std::endl;
+			// add jump labels  here
+			if (kw == "Label" && script)
+			{
+				nCommandLabels.insert(std::make_pair(id, std::prev(nCommands.end())));
+			}
 		}
 		else
 		{
@@ -117,6 +122,44 @@ void Scanner::scan(bool script)
 		}
 	}
 
+	nFile.close();
+	nFile.clear();
+}
+
+void Scanner::countCommandLines(bool script)
+{
+	if (script)
+	{
+		nFile.open(nScriptPath);
+		if (!nFile.good())
+		{
+			nFile.clear();
+			throw std::runtime_error("Could not open script file");
+		}
+	}
+	else
+	{
+		nFile.open(nRegPath);
+		if (!nFile.good())
+		{
+			nFile.clear();
+			throw std::runtime_error("Could not open reg file");
+		}
+	}
+	
+	std::string str;
+	int count = 0;
+
+	while (std::getline(nFile, str))
+	{
+		str = trim(str);
+		if (str.size() == 0 || str[0] == '#') continue;		
+
+		count++;
+	}
+
+	nCommands.reserve(count);
+	
 	nFile.close();
 	nFile.clear();
 }

@@ -26,7 +26,8 @@ public:
 	struct Context
 	{
 		Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts,
-			MusicPlayer& music, SoundPlayer& sound, std::vector<std::unique_ptr<Command>>& commands);
+			MusicPlayer& music, SoundPlayer& sound, std::vector<std::unique_ptr<Command>>& commands,
+			std::map<std::string, std::vector<std::unique_ptr<Command>>::const_iterator>& commandLabels);
 
 		sf::RenderWindow* window;
 		TextureManager* textures;
@@ -34,6 +35,7 @@ public:
 		MusicPlayer* musicPlayer;
 		SoundPlayer* soundPlayer;
 		std::vector<std::unique_ptr<Command>>* commands;
+		std::map<std::string, std::vector<std::unique_ptr<Command>>::const_iterator>* commandLabels;
 	};
 
 public:

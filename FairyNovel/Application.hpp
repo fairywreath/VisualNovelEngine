@@ -15,10 +15,12 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Font.hpp>
-//#include <SFML/Graphics/Shader.hpp>
 
 class Application
 {
+public:
+	typedef std::unique_ptr<Command> CommandPtr;
+
 public:
 	Application(std::string configPath);
 	void run();
@@ -35,17 +37,19 @@ private:
 
 
 private:
+	// all can be made local
 	Config nConfig; 
-	sf::Time nTimePerFrame;		// 1/FPS
-	sf::RenderWindow nWindow;
-
-	std::vector<std::unique_ptr<Command>> nCommands;
-	CommandFactory nCommandFactory;
-
 	std::vector<std::unique_ptr<Command>> nRegCommands;
-
 	std::unique_ptr<Scanner> nScanner;
 	RegisterEngine nRegEngine;
+	CommandFactory nCommandFactory;
+	// end of locals
+
+	std::vector<CommandPtr> nCommands;
+	std::map<std::string, std::vector<CommandPtr>::const_iterator> nCommandLabels;
+
+	sf::Time nTimePerFrame;		// 1/FPS
+	sf::RenderWindow nWindow;
 
 	TextureManager nTextures;
 	FontManager nFonts;

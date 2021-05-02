@@ -43,12 +43,6 @@
     <Filter Include="Source Files\Scanner">
       <UniqueIdentifier>{3a76ecb8-9c68-4957-998b-7e666d62d30e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Commands">
-      <UniqueIdentifier>{b4cd52c1-afc5-40d6-a90a-d95191a224b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Command">
-      <UniqueIdentifier>{e8138517-4b70-41b2-9b6b-7431c2207ee5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine">
       <UniqueIdentifier>{d7953497-770a-4a28-b2c7-2fcfdfd09fbf}</UniqueIdentifier>
     </Filter>
@@ -63,6 +57,12 @@
     </Filter>
     <Filter Include="Header Files\ShaderFIles">
       <UniqueIdentifier>{2166e50d-27a9-4f4f-9b4b-86c124f3c54e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Commands">
+      <UniqueIdentifier>{b4cd52c1-afc5-40d6-a90a-d95191a224b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CommandFactory">
+      <UniqueIdentifier>{e8138517-4b70-41b2-9b6b-7431c2207ee5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +84,7 @@
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
@@ -102,18 +102,6 @@
     <ClCompile Include="GameState.cpp">
       <Filter>Source Files\State</Filter>
     </ClCompile>
-    <ClCompile Include="Scanner.cpp">
-      <Filter>Source Files\Scanner</Filter>
-    </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>Source Files\Command</Filter>
-    </ClCompile>
-    <ClCompile Include="CommandFactory.cpp">
-      <Filter>Source Files\Command</Filter>
-    </ClCompile>
-    <ClCompile Include="RegisterCommand.cpp">
-      <Filter>Source Files\Command</Filter>
-    </ClCompile>
     <ClCompile Include="RegisterEngine.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
@@ -123,23 +111,47 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="DisplaySpriteCommand.cpp">
-      <Filter>Source Files\Command</Filter>
-    </ClCompile>
-    <ClCompile Include="RemoveSpriteCommand.cpp">
-      <Filter>Source Files\Command</Filter>
-    </ClCompile>
-    <ClCompile Include="DisplayTextCommand.cpp">
-      <Filter>Source Files\Command</Filter>
-    </ClCompile>
-    <ClCompile Include="PlaySoundCommand.cpp">
-      <Filter>Source Files\Command</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayMusicCommand.cpp">
-      <Filter>Source Files\Command</Filter>
-    </ClCompile>
     <ClCompile Include="Character.cpp">
       <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanner.cpp">
+      <Filter>Header Files\Scanner</Filter>
+    </ClCompile>
+    <ClCompile Include="LabelCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayTextCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplaySpriteCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayMusicCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaySoundCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="RemoveSpriteCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="RegisterCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandFactory.cpp">
+      <Filter>Header Files\CommandFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeEntityCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurEntityCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,9 +203,6 @@
     <ClInclude Include="Command.hpp">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="CommandFactory.hpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
     <ClInclude Include="RegisterCommand.hpp">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
@@ -223,6 +232,21 @@
     </ClInclude>
     <ClInclude Include="Character.hpp">
       <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="LabelCommand.hpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpCommand.hpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandFactory.hpp">
+      <Filter>Header Files\CommandFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeEntityCommand.hpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurEntityCommand.hpp">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

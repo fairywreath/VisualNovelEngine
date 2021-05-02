@@ -5,22 +5,39 @@
 
 
 <DisplaySprite> (suoh1) "100;40"
+
+<Label> (start)
+<Jump> (end)
 <DisplayText> (Mayuri) "Suoh?"
 <DisplayText> (Suoh) "I love you Mayuri, please do not leave me"
 <DisplayText> (Mayuri) "I am sorry Suoh, I will never leave you again"
-# <RemoveSprite> (mayuri1)
-# <DisplaySprite> (mayuri2) "700;40"
 <DisplayText> (Mayuri) "You are very very very very very very pretty today"
+<Label> (mid)
 <DisplayText> (Suoh) "You too Mayuri, you are always pretty"
 <DisplayText> () "(maybe i like it dark....)"
 <PlayMusic> (title)
 <PlaySound> (ButtonClick)
+<Jump> (post)
+#<FadeEntity> (mayuri1) "Time: 0.5; Target: 255; Start: 0; Wait: True"
+#<FadeEntity> (mayuri1) "Time: 0.5; Target: 1"
+
 #<StopMusic> () {eg. fade parameters, etc.}
 # <moveSprite>
 # <fadeSprite>
 
 
+<DisplayText> () "(hmm, it does not matter anyways)"
 
-#
-<DisplayText> () "(hmm, it does not matter anyways"
+
+<Label> (end)
+<DisplayText> (Mayuri) "The weather is great today."
+<DisplayText> (Suoh) "Yes it is Mayuri."
+<Jump> (mid)
+
+<Label> (post)
+<RemoveSprite> (suoh1)
+<DisplaySprite> (suoh2) "150;40"
+<DisplayText> (Mayuri) "Suoh can I fix your tie?"
+<DisplayText> (Suoh) "Ma Mayuri....."
+<Jump> (start)
 

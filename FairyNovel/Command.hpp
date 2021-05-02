@@ -25,10 +25,17 @@ public:
 		RemoveSprite,
 		Blur,
 		Animation,
-		Fade,
+		
+		FadeEntity,
+		BlurEntity,
+		MoveEntity,
 		Zoom,
+
 		PlayMusic,
-		PlaySound
+		PlaySound,
+
+		Label,
+		Jump		// jump between labels, for decision making
 	};
 
 public:

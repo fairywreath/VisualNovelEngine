@@ -64,15 +64,15 @@ Engine::Engine(State::Context context) :
 	auto myr2 = std::make_unique<Entity>("Mayuri2", nTextures.get("mayuri2"));
 	myr1->setPosition(700.f, 40.f);
 	myr2->setPosition(700.f, 40.f);
-	// addEntity(std::move(myr1));
+	addEntity(std::move(myr1));
 	
 	
-	myr2->blur(2.f, 0.f, 100.f);
+	// myr2->blur(2.f, 0.f, 100.f);
 	addEntity(std::move(myr2));
-	// fadeEntity("Mayuri1", 0.4f, 0, 255);
-	// fadeEntity("Mayuri2", 0.4f, 255, 1);
+	fadeEntity("Mayuri1", 3.f, 0, 255);
+	fadeEntity("Mayuri2", 3.f, 255, 1);
 
-	// setWaitAnimation(true);
+	setWaitAnimation(true);
 
 	// moveEntity("Mayuri1", 1.f, sf::Vector2f(700.f, 40.f), sf::Vector2f(900.f, 40.f));
 	// moveEntity("Mayuri2", 1.f, sf::Vector2f(700.f, 40.f), sf::Vector2f(900.f, 40.f));
@@ -154,7 +154,8 @@ bool Engine::handleEvent(const sf::Event& event)
 		{
 			skipDialogueLine();
 		}
-		
+	//	if (isInAnimation()) skipAnimations();
+
 		nWait = false;
 	}
 	else if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left)
@@ -164,7 +165,7 @@ bool Engine::handleEvent(const sf::Event& event)
 		{
 			skipDialogueLine();
 		}
-		
+	//	if (isInAnimation()) skipAnimations();
 
 		nWait = false;
 	}
@@ -266,14 +267,15 @@ void Engine::removeEntity(const std::string& id)
 	std::cout << "sprite to remove: " << id << std::endl;
 	auto test = nEntities.begin();
 
-	for (auto itr = nEntities.begin(); itr != nEntities.end(); itr++)
+	for (auto itr = nEntities.begin(); itr != nEntities.end();)
 	{
 		if ((*itr)->getIdentifier() == id)
 		{
 			std::cout << "sprite found\n";
-			nEntities.erase(itr);
-	//		return;		// remove all instances of the same identifier
+			itr = nEntities.erase(itr);
+			//	return;		// remove all instances of the same identifier
 		}
+		else itr++;
 	}
 }
 

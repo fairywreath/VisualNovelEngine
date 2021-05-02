@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="BlurEntityCommand.hpp" />
     <ClInclude Include="Character.hpp" />
     <ClInclude Include="Command.hpp" />
     <ClInclude Include="CommandFactory.hpp" />
@@ -151,7 +152,10 @@
     <ClInclude Include="DisplayTextCommand.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Entity.hpp" />
+    <ClInclude Include="FadeEntityCommand.hpp" />
     <ClInclude Include="GameState.hpp" />
+    <ClInclude Include="JumpCommand.hpp" />
+    <ClInclude Include="LabelCommand.hpp" />
     <ClInclude Include="Logger.hpp" />
     <ClInclude Include="MusicPlayer.hpp" />
     <ClInclude Include="Option.hpp" />
@@ -172,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BlurEntityCommand.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandFactory.cpp" />
@@ -180,9 +185,12 @@
     <ClCompile Include="DisplayTextCommand.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="FadeEntityCommand.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="JumpCommand.cpp" />
+    <ClCompile Include="LabelCommand.cpp" />
     <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="MusicPlayer.cpp" />
     <ClCompile Include="Option.cpp" />
     <ClCompile Include="PlayMusicCommand.cpp" />

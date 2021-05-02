@@ -7,6 +7,7 @@
 
 #include <fstream>
 #include <vector>
+#include <map>
 
 /* Description:
 the scanner parses the script and returns the command
@@ -19,13 +20,15 @@ public:
 
 public:
 	Scanner(const std::string& scriptPath, const std::string& regPath, 
-		CommandFactory& commandFactory, std::vector<CommandPtr>& commands);
+		CommandFactory& commandFactory, std::vector<CommandPtr>& commands,
+		std::map<std::string, std::vector<CommandPtr>::const_iterator>& commandLabels);
 	~Scanner();
 
 	bool isComplete();
 	void scanAll();
 	
 	void scan(bool script);
+	void countCommandLines(bool script = true);
 
 private:
 	CommandFactory& nCommandFactory;
@@ -34,8 +37,7 @@ private:
 	std::string nScriptPath;
 	std::string nRegPath;
 	std::vector<CommandPtr>& nCommands;
-
-
+	std::map<std::string, std::vector<CommandPtr>::const_iterator>& nCommandLabels;
 };
 
 #endif
