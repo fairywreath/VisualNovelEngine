@@ -9,6 +9,7 @@
 #include "LabelCommand.hpp"
 #include"FadeEntityCommand.hpp"
 #include "BlurEntityCommand.hpp"
+#include "MoveEntityCommand.hpp"
 
 #include "Logger.hpp"
 
@@ -50,6 +51,10 @@ CommandFactory::CommandPtr CommandFactory::generateCommand(const std::string& kw
     else if (kw == "FadeEntity")
     {
         return std::make_unique<FadeEntityCommand>(id, args);
+    }
+    else if (kw == "MoveEntity")
+    {
+        return std::make_unique<MoveEntityCommand>(id, args);
     }
     else
     {

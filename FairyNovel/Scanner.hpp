@@ -16,7 +16,8 @@ the scanner parses the script and returns the command
 class Scanner : private sf::NonCopyable
 {
 public:
-	typedef std::unique_ptr<Command> CommandPtr;
+	using CommandPtr = std::unique_ptr<Command>;
+	using CommandLbl = std::vector<CommandPtr>::const_iterator;
 
 public:
 	Scanner(const std::string& scriptPath, const std::string& regPath, 
@@ -37,7 +38,7 @@ private:
 	std::string nScriptPath;
 	std::string nRegPath;
 	std::vector<CommandPtr>& nCommands;
-	std::map<std::string, std::vector<CommandPtr>::const_iterator>& nCommandLabels;
+	std::map<std::string, CommandLbl>& nCommandLabels;
 };
 
 #endif

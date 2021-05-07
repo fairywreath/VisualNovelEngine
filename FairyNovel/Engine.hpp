@@ -17,7 +17,7 @@
 class Engine : public sf::Drawable, private sf::NonCopyable
 {
 public:
-	typedef std::unique_ptr<Entity> EntityPtr;
+	using EntityPtr = std::unique_ptr<Entity>;
 
 public:
 	Engine(State::Context context);
@@ -73,7 +73,7 @@ private:
 	Entity nDialogueBox;
 	Entity nBackground;		// derive entity class later for zoom effects
 
-	std::list<EntityPtr> nEntities;
+	std::vector<EntityPtr> nEntities;
 
 	sf::Text nText;
 	sf::Text nCharName;
@@ -81,6 +81,8 @@ private:
 	// change to time
 	sf::Clock nTextClock;
 	sf::Clock nDelayClock;
+	sf::Time nTextTime;
+	sf::Time nDelayTime;
 
 	float nDialogueBoxOpacity;		// percentage later?
 

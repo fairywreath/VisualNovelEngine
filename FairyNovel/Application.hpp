@@ -19,7 +19,8 @@
 class Application
 {
 public:
-	typedef std::unique_ptr<Command> CommandPtr;
+	using CommandPtr = std::unique_ptr<Command>;
+	using CommandLbl = std::vector<CommandPtr>::const_iterator;
 
 public:
 	Application(std::string configPath);
@@ -35,18 +36,11 @@ private:
 	void updateStatistics(sf::Time elapsedTime);
 	void registerStates();
 
+	void initialize(const std::string& configPath);
 
 private:
-	// all can be made local
-	Config nConfig; 
-	std::vector<std::unique_ptr<Command>> nRegCommands;
-	std::unique_ptr<Scanner> nScanner;
-	RegisterEngine nRegEngine;
-	CommandFactory nCommandFactory;
-	// end of locals
-
 	std::vector<CommandPtr> nCommands;
-	std::map<std::string, std::vector<CommandPtr>::const_iterator> nCommandLabels;
+	std::map<std::string, CommandLbl> nCommandLabels;
 
 	sf::Time nTimePerFrame;		// 1/FPS
 	sf::RenderWindow nWindow;

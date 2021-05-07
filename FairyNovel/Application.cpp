@@ -21,29 +21,45 @@ Application::Application(std::string configPath) :
 	nStatisticsText(),
 	nStatisticsUpdateTime(),
 	nTimePerFrame(),
-	nStatisticsNumFrames(),
-	nRegEngine(nTextures, nFonts, nSoundPlayer, nMusicPlayer)
+	nStatisticsNumFrames()
 {
 
-	nConfig.setPath(configPath);
-	nConfig.parse();
-	std::string logPath = nConfig.getOption("LOG_PATH");
+	initialize(configPath);
+}
+
+void Application::initialize(const std::string& configPath)
+{
+	// set up config
+	Config config;
+	config.setPath(configPath);
+	config.parse();
+	std::string logPath = config.getOption("LOG_PATH");
 	Logger::SetLogger(logPath);
 
-	nScanner = std::make_unique<Scanner>((std::string)nConfig.getOption("SCRIPT_PATH"), 
-		(std::string)nConfig.getOption("REG_PATH") ,nCommandFactory, nCommands, nCommandLabels);
+	// read commands from file
+	RegisterEngine regEngine(nTextures, nFonts, nSoundPlayer, nMusicPlayer);
+	CommandFactory commandFactory;
 
-	// nScanner->scanAll();
-	readCommands();
+	auto scanner = std::make_unique<Scanner>((std::string)config.getOption("SCRIPT_PATH"),
+		(std::string)config.getOption("REG_PATH"), commandFactory, nCommands, nCommandLabels);
+	
+	scanner->countCommandLines(false);		// reserve register vector
+	scanner->scan(false);
+	for (const auto& ptr : nCommands)	regEngine.runCommand(ptr.get());
+	
+	nCommands.clear();						// reuse the vector
+	scanner->countCommandLines();			// open srcipt file and reserve commands vector
+	scanner->scan(true);
 
-	nTimePerFrame = sf::seconds(1.f / (float)nConfig.getOption("FPS"));
-	nWindow.create(sf::VideoMode((int)nConfig.getOption("WINDOW_WIDTH"), 
-		(int)nConfig.getOption("WINDOW_HEIGHT")), 
-		sf::String((std::string)nConfig.getOption("WINDOW_NAME")),
+	// set up window
+	nTimePerFrame = sf::seconds(1.f / (float)config.getOption("FPS"));
+	nWindow.create(sf::VideoMode((int)config.getOption("WINDOW_WIDTH"),
+		(int)config.getOption("WINDOW_HEIGHT")),
+		sf::String((std::string)config.getOption("WINDOW_NAME")),
 		sf::Style::Close);
 
+	// set up misc text
 	nFonts.load("overlock", "Media/Fonts/Overlock-Mod.ttf");
-
 	nStatisticsText.setFont(nFonts.get("overlock"));
 	nStatisticsText.setCharacterSize(25);
 	nStatisticsText.setFillColor(sf::Color::White);
@@ -75,21 +91,6 @@ void Application::run()
 		render();
 		updateStatistics(elapsedTime);
 	}
-}
-
-void Application::readCommands()
-{
-	nScanner->countCommandLines(false);
-	nScanner->scan(false);
-	std::cout << "Register Commands Size: " << nCommands.size() << std::endl;
-	for (const auto& ptr : nCommands) 
-	{
-		nRegEngine.runCommand(ptr.get());
-	}
-	nCommands.clear();
-	nScanner->countCommandLines();			// open srcipt file and reserve commands vector
-	nScanner->scan(true);
-	std::cout << "Script Commands Size: " << nCommands.size() << std::endl;
 }
 
 void Application::processInput()
@@ -129,7 +130,6 @@ void Application::updateStatistics(sf::Time elapsedTime)
 			"Frames / Second = " + toString(nStatisticsNumFrames) + "\n" +
 			"Time / Update = " + toString(nStatisticsUpdateTime.asMicroseconds() / nStatisticsNumFrames) + "us");
 
-		// reset statistics
 		nStatisticsUpdateTime -= sf::seconds(1.0f);
 		nStatisticsNumFrames = 0;
 	}
@@ -140,4 +140,5 @@ void Application::registerStates()
 	nStateStack.registerState<TitleState>(States::Title);
 	nStateStack.registerState<GameState>(States::Game);
 }
+
 

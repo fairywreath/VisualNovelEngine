@@ -7,7 +7,7 @@
 GameState::GameState(StateStack& stack, Context context) :
 	State(stack, context),
 	nCommands(*context.commands),
-	nIP(context.commands->begin()),
+	nIP(context.commands->cbegin()),
 	nCommandLabels(*context.commandLabels),
 	nEngine(context)
 {
@@ -29,7 +29,7 @@ bool GameState::update(sf::Time dt)
 	// if engine not int wait state
 	nEngine.update(dt);
 
-	if (!nEngine.shouldWait() && nIP != nCommands.end())
+	if (!nEngine.shouldWait() && nIP != nCommands.cend())
 	{
 		if ((*nIP)->getType() == Command::Type::Label)
 		{
@@ -37,7 +37,7 @@ bool GameState::update(sf::Time dt)
 		}
 		else if ((*nIP)->getType() == Command::Type::Jump)
 		{
-			if (nCommandLabels.find((*nIP)->getIdentifier()) == nCommandLabels.end())
+			if (nCommandLabels.find((*nIP)->getIdentifier()) == nCommandLabels.cend())
 			{
 				std::string msg = "Could not find script label " + (*nIP)->getIdentifier();
 				LOGGER->Log("Command Jump error", msg);

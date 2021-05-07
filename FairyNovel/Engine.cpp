@@ -23,6 +23,8 @@ Engine::Engine(State::Context context) :
 	nInFade(false),
 	nAutoMode(false),
 	nDialogueSpeed(5),
+	nTextTime(sf::Time::Zero),
+	nDelayTime(sf::Time::Zero),
 	nTextInterval(BaseInterval),
 	nDelaySpeed(1),
 	nDelay(BaseDelay),
@@ -55,6 +57,8 @@ Engine::Engine(State::Context context) :
 	setDialogueBoxOpacity(nDialogueBoxOpacity);
 
 	nTextClock.restart();
+
+	nEntities.reserve(10);			// RESERVE WITH THE SIZE OF THE SPRITES???
 
 	nBackground.setPosition(0.f, 0.f);
 	// nBackground.fade(3.f, 255, 1);
@@ -122,6 +126,7 @@ void Engine::update(sf::Time dt)
 			nText.setString(wrapped);
 		}
 		nTextClock.restart();
+		nDelayClock.restart();
 	}
 	else if (nAutoMode && nLinePrinted && nDelayClock.getElapsedTime().asMilliseconds() > nDelay) {
 		nWait = false;
@@ -265,9 +270,9 @@ void Engine::addEntity(const std::string& id, const std::string& texture, const 
 void Engine::removeEntity(const std::string& id)
 {
 	std::cout << "sprite to remove: " << id << std::endl;
-	auto test = nEntities.begin();
+	auto test = nEntities.cbegin();
 
-	for (auto itr = nEntities.begin(); itr != nEntities.end();)
+	for (auto itr = nEntities.cbegin(); itr != nEntities.cend();)
 	{
 		if ((*itr)->getIdentifier() == id)
 		{
@@ -343,7 +348,7 @@ void Engine::setWaitAnimation(bool w)
 // void Engine::fadeEntity(const std::string& id, float time, int targetAlpha, int startingAlpha)
 //{
 //	// only finds first id found
-//	auto ent = std::find_if(nEntities.begin(), nEntities.end(), [&id](const EntityPtr& ent) {
+//	auto ent = std::find_if(nEntities.cbegin(), nEntities.cend(), [&id](const EntityPtr& ent) {
 //		return (ent->getIdentifier() == id);
 //		});
 //
@@ -358,7 +363,7 @@ void Engine::setWaitAnimation(bool w)
 //
 //void Engine::moveEntity(const std::string& id, float time, const sf::Vector2f& dest, const sf::Vector2f& source)
 //{
-//	auto ent = std::find_if(nEntities.begin(), nEntities.end(), [&id](const EntityPtr& ent) {
+//	auto ent = std::find_if(nEntities.cbegin(), nEntities.cend(), [&id](const EntityPtr& ent) {
 //		return (ent->getIdentifier() == id);
 //		});
 //

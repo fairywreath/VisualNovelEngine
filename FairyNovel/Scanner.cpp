@@ -9,9 +9,9 @@
 #include <stdexcept>
 #include <iostream>
 
-Scanner::Scanner(const std::string& scriptPath, const std::string& regPath, 
-		CommandFactory& commandFactory, std::vector<CommandPtr>& commands,
-	std::map<std::string, std::vector<CommandPtr>::const_iterator>& commandLabels) :
+Scanner::Scanner(const std::string& scriptPath, const std::string& regPath,
+	CommandFactory& commandFactory, std::vector<CommandPtr>& commands,
+	std::map <std::string, CommandLbl> & commandLabels) :
 	nScriptPath(scriptPath),
 	nRegPath(regPath),
 	nCommandFactory(commandFactory),
@@ -112,7 +112,7 @@ void Scanner::scan(bool script)
 			// add jump labels  here
 			if (kw == "Label" && script)
 			{
-				nCommandLabels.insert(std::make_pair(id, std::prev(nCommands.end())));
+				nCommandLabels.insert(std::make_pair(id, std::prev(nCommands.cend())));
 			}
 		}
 		else

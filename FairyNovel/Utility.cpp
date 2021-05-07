@@ -93,9 +93,19 @@ sf::String wrapText(sf::String string, unsigned width, const sf::Font& font, uns
 	return string;
 }
 
-sf::Color parseColor(std::string str)
+bool Util::isNumber(const std::string& str)
 {
-	return sf::Color();
+	bool pointFound = false;		// allow one decimal point
+	return !str.empty() && std::find_if(str.begin(),
+		str.end(), [&pointFound](unsigned char c) {
+			if (c == '.')
+			{
+				if (pointFound) return true;
+				pointFound = true;
+				return false;
+			}
+			return !std::isdigit(c);
+		}) == str.end();
 }
 
 

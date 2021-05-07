@@ -17,18 +17,26 @@ FadeEntityCommand::~FadeEntityCommand()
 
 void FadeEntityCommand::execute(Engine& engine)
 {
+	Entity* ent = engine.getEntity(getIdentifier());
+	if (ent == nullptr)
+	{
+		std::string msg = "Entity ID not found: " + getIdentifier();
+		LOGGER->Log("Fade Entity Command", msg);
+		return;
+	}
+
 	std::vector<std::string> args = getArguments();
 
-	float time = 0;				// time is automatically instant
-	int start = INT_MAX;		// flag for entity fade cmd
-	int target = 0;
-	bool wait = false;			// wait is automatically false
+	float time{ 0 };				// time is automatically instant
+	int start{ INT_MAX };		// flag for entity fade cmd
+	int target{ 0 };
+	bool wait{ false };			// wait is automatically false
 
 	if (args[0] != "")
 	{
-		if (!isNumber(args[0]))
+		if (!isNumber(args[0]) || stof(args[0]) < 0)
 		{
-			std::string message = "Fade Time does not have positve numeric target alpha value: " + args[0];
+			std::string message = "Fade Time must be a non negative number: " + args[0];
 			LOGGER->Log("Fade Entity Command", message);
 			return;
 		}
@@ -37,7 +45,7 @@ void FadeEntityCommand::execute(Engine& engine)
 
 	if (args[1] == "" || !isNumber(args[1]))
 	{
-		std::string message = "Fade target does not have positve numeric target alpha value: " + args[1];
+		std::string message = "Fade target alpha is not numeric: " + args[1];
 		LOGGER->Log("Fade Entity Command", message);
 		return;
 	}
@@ -66,35 +74,27 @@ void FadeEntityCommand::execute(Engine& engine)
 		}
 		else
 		{
-			std::string message = "Fade Command must have target alpha value";
+			std::string message = "Invalid wait argument";
 			LOGGER->Log("Fade Entity Command", message);
 			return;
 		}
 	}
 
-	std::cout << "Fade args all valid\n";
+	// std::cout << "Fade args all valid\n";
 
-	Entity* ent = engine.getEntity(getIdentifier());
-	if (ent)
-	{
-		ent->fade(time, target, start);
-		if (wait)
-			engine.setWaitAnimation(true);
-	}
-	else
-	{
-		std::string msg = "Entity ID not found: " + getIdentifier();
-		LOGGER->Log("Fade Entity Command", msg);
-	}
+	
+	ent->fade(time, target, start);
+	if (wait)
+		engine.setWaitAnimation(true);
 }
 
 std::vector<std::string> FadeEntityCommand::getArguments() const
 {
 	// maximum 4 args
 	// index 0  for time
-	// index 2 for target alpha
-	// index 3 for starting alpha
-	// index 4 for animation wait(in engine)
+	// index 1 for target alpha
+	// index 2 for starting alpha
+	// index 3 for animation wait(in engine)
 	std::vector<std::string> args(4, "");
 
 	std::vector<std::string> splt = split(getArgumentString(), ';');
@@ -136,10 +136,8 @@ std::vector<std::string> FadeEntityCommand::getArguments() const
 			LOGGER->Log("Fade Entity Command", message);
 			continue;
 		}
-		else
-		{
-			args[index] = currSplt[1];
-		}
+		
+		args[index] = currSplt[1];
 	}
 
 	return args;
