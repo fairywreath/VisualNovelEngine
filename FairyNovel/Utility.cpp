@@ -1,6 +1,7 @@
 #include "Utility.hpp"
 
 #include <cassert>
+#include <SFML/Graphics/Text.hpp>
 
 #define PI 3.141592653589793238462643383f
 
@@ -107,7 +108,6 @@ bool Util::isNumber(const std::string& str)
 			return !std::isdigit(c);
 		}) == str.end();
 }
-
 
 std::string toString(sf::Keyboard::Key key)
 {

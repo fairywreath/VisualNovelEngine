@@ -31,13 +31,6 @@ bool Scanner::isComplete()
 	return nFile.eof();
 }
 
-void Scanner::scanAll()
-{
-	scan(false);
-	countCommandLines();
-	scan(true);
-}
-
 void Scanner::scan(bool script)
 {
 	std::string str = "";
@@ -45,26 +38,7 @@ void Scanner::scan(bool script)
 	std::string id = "";
 	std::string args = "";
 
-	if (script)
-	{	
-		nFile.open(nScriptPath);
-		if (!nFile.good())
-		{
-			nFile.clear();
-			throw std::runtime_error("Could not open script file");
-		}
-		std::cout << "<<< SCRIPT SCAN START >>>\n";
-	}
-	else 
-	{
-		nFile.open(nRegPath);
-		if (!nFile.good())
-		{
-			nFile.clear();
-			throw std::runtime_error("Could not open reg file");
-		}
-		std::cout << "<<< REG SCAN START >>>\n";
-	}
+	assert(nFile.good() && nFile.is_open());
 
 	while (std::getline(nFile, str))
 	{
@@ -120,14 +94,13 @@ void Scanner::scan(bool script)
 			nFile.clear();
 			throw std::runtime_error("Script Commands must contain valid spaces");
 		}
-	}
-
-	nFile.close();
-	nFile.clear();
+	}	// file closed and cleared in parent func
 }
 
-void Scanner::countCommandLines(bool script)
+void Scanner::scanCommands(bool script)
 {
+	assert(nCommands.empty());
+
 	if (script)
 	{
 		nFile.open(nScriptPath);
@@ -159,7 +132,11 @@ void Scanner::countCommandLines(bool script)
 	}
 
 	nCommands.reserve(count);
-	
+	nFile.clear();
+	nFile.seekg(0, nFile.beg);
+
+	scan(script);
+
 	nFile.close();
 	nFile.clear();
 }

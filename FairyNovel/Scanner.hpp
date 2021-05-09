@@ -26,10 +26,11 @@ public:
 	~Scanner();
 
 	bool isComplete();
-	void scanAll();
-	
+	void scanCommands(bool script = true);
+
+private:
 	void scan(bool script);
-	void countCommandLines(bool script = true);
+	
 
 private:
 	CommandFactory& nCommandFactory;

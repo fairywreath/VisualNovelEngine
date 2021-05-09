@@ -6,6 +6,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include "SpriteButton.hpp"
 
 class TitleState : public State
 {
@@ -22,6 +23,9 @@ private:
 	sf::Text nText;
 	bool nShowText;					
 	sf::Time nTextEffectTime;
+
+	GUI::SpriteButton button1;
+	GUI::SpriteButton button2;
 };
 
 #endif

@@ -5,6 +5,10 @@
 <Music> (mainmenu) "Media/Music/MainTheme.ogg"
 <Texture> (dialoguebox) "Media/GUI/blooming_tb.png"
 
+<Texture> (ButtonNormal) "Media/Textures/bar_empty.png"
+<Texture> (ButtonHover) "Media/Textures/bar_full.png"
+<Texture> (ButtonClick) "Media/Textures/bar_full.png"
+
 <Texture> (mayuri1) "Media/Characters/kmayuri_1.png"
 <Texture> (mayuri2) "Media/Characters/kmayuri_2.png"
 <Texture> (suoh1) "Media/Characters/suoh_1.png"

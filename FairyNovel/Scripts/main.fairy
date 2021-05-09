@@ -1,0 +1,33 @@
+<Label> (start)
+<DisplaySprite> (suoh1) "100;40"
+<FadeEntity> (suoh1) "Time: 1.5; Target: 255; Start: 0"
+<DisplayText> (Suoh) "Hello Mayuri, are you there?"
+<DisplaySprite> (mayuri1) "700;40"
+
+# move full form, total 4 args , use comma for position vector
+#<MoveEntity> (mayuri1) "Time: 1.5; Target: 400,40; Start: 700,40; Wait: True"
+<MoveEntity> (mayuri1) "Time: 1.5; Target: 400,40; Wait: True"
+# can remove start for move, wait is automatically false, time is always required
+
+# fade full form, total 4 args
+<FadeEntity> (mayuri1) "Time: 1.5; Target: 255; Start: 0; Wait: False"
+
+
+<DisplayText> (Mayuri) "Yes Suoh, I am here."
+<DisplaySprite> (suoh2) "100;40;"
+<FadeEntity> (suoh2) "Time: 0.25;  Start:0;  Target: 255"
+<FadeEntity> (suoh1) "Time: 1.5; Target: 0; Wait: True"
+
+
+<DisplayText> (Suoh) "Don't ever leave me again okay?"
+<DisplayText> (Mayuri) "Yes, I am very sorry Suoh"
+<DisplaySprite> (mayuri2) "700;40"          
+# need to be able to set startin alpha for display sprite as 0
+<FadeEntity> (mayuri2) "Time: 0.5; Target: 255; Start:0"
+<FadeEntity> (mayuri1) "Time: 0.5; Target: 0; Wait: True"
+<RemoveSprite> (mayuri1)
+<RemoveSprite> (mayuri2)
+<RemoveSprite> (suoh1)
+<RemoveSprite> (suoh2)
+<Jump> (start)
+

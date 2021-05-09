@@ -32,6 +32,10 @@ sf::Vector2f unitVector(sf::Vector2f vector);
 namespace Util
 {
 	bool isNumber(const std::string& str);
+
+	template <typename T>
+	void centerOrigin(T& object);
+
 }
 
 

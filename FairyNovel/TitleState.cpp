@@ -10,7 +10,9 @@ TitleState::TitleState(StateStack& stack, Context context) :
 	nText(),
 	nBackgroundSprite(),
 	nShowText(true),
-	nTextEffectTime(sf::Time::Zero)	
+	nTextEffectTime(sf::Time::Zero)	,
+	button1(context),
+	button2(context)
 {
 	if(context.musicPlayer->find("title")) context.musicPlayer->play("title");
 	
@@ -19,16 +21,30 @@ TitleState::TitleState(StateStack& stack, Context context) :
 	nText.setPosition(context.window->getView().getSize().x / 2.f, context.window->getView().getSize().y / 2.f);
 	nText.setCharacterSize(30);
 
-
 	nBackgroundSprite.setTexture(context.textures->get("BG1"));
+
+	button1.setText("Hitagi best girl");
+	button2.setText("Hitagi is life");
+
+	button1.setPosition(100.f, 200.f);
+	button2.setPosition(100.f, 300.f);
+	button1.setCallback([this]()
+		{
+			requestStackPop();;
+			requestStackPush(States::Game);
+		});
 }
 
 void TitleState::draw()
 {
 	sf::RenderWindow& window = *getContext().window;			
-	window.draw(nBackgroundSprite);
+	// window.draw(nBackgroundSprite);
 
 	if (nShowText) window.draw(nText);
+
+	window.draw(button1);
+	window.draw(button2);
+
 }
 
 bool TitleState::update(sf::Time dt)
@@ -48,9 +64,13 @@ bool TitleState::handleEvent(const sf::Event& event)
 {
 	if (event.type == sf::Event::KeyPressed || event.type == sf::Event::MouseButtonPressed)
 	{
-		requestStackPop();	
-		requestStackPush(States::Game);
+		//requestStackPop();	
+	//	requestStackPush(States::Game);
 	}
+
+	button1.handleEvent(event);
+	button2.handleEvent(event);
+
 
 	return true;
 }

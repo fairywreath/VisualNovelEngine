@@ -31,12 +31,6 @@
     <Filter Include="Source Files\System">
       <UniqueIdentifier>{d9516afb-f221-42d1-9fb2-5bdf0ef884b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\State">
-      <UniqueIdentifier>{21bcc21b-ed26-47b7-beb3-6d3e919820ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\State">
-      <UniqueIdentifier>{8441828e-aa39-4e83-9fb9-06dfc463610c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Scanner">
       <UniqueIdentifier>{28e824d4-244b-462c-887e-45b33dab3157}</UniqueIdentifier>
     </Filter>
@@ -64,6 +58,15 @@
     <Filter Include="Header Files\CommandFactory">
       <UniqueIdentifier>{e8138517-4b70-41b2-9b6b-7431c2207ee5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{73ae518c-35c4-4653-a70e-1ef6bad679dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\State">
+      <UniqueIdentifier>{8441828e-aa39-4e83-9fb9-06dfc463610c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\State\State">
+      <UniqueIdentifier>{21bcc21b-ed26-47b7-beb3-6d3e919820ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MusicPlayer.cpp">
@@ -71,9 +74,6 @@
     </ClCompile>
     <ClCompile Include="SoundPlayer.cpp">
       <Filter>Source Files\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="Config.cpp">
       <Filter>Source Files\System</Filter>
@@ -85,19 +85,19 @@
       <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
-      <Filter>Source Files\State</Filter>
+      <Filter>Header Files\State\State</Filter>
     </ClCompile>
     <ClCompile Include="StateStack.cpp">
-      <Filter>Source Files\State</Filter>
+      <Filter>Header Files\State\State</Filter>
     </ClCompile>
     <ClCompile Include="TitleState.cpp">
-      <Filter>Source Files\State</Filter>
+      <Filter>Header Files\State\State</Filter>
     </ClCompile>
     <ClCompile Include="Option.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="GameState.cpp">
-      <Filter>Source Files\State</Filter>
+      <Filter>Header Files\State\State</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Entities</Filter>
@@ -155,6 +155,21 @@
     </ClCompile>
     <ClCompile Include="Utility.cpp">
       <Filter>Header Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Header Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Container.cpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteButton.cpp">
+      <Filter>Header Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +268,18 @@
     </ClInclude>
     <ClInclude Include="MoveEntityCommand.hpp">
       <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Container.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteButton.hpp">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

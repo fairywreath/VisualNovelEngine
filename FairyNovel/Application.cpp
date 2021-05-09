@@ -43,13 +43,12 @@ void Application::initialize(const std::string& configPath)
 	auto scanner = std::make_unique<Scanner>((std::string)config.getOption("SCRIPT_PATH"),
 		(std::string)config.getOption("REG_PATH"), commandFactory, nCommands, nCommandLabels);
 	
-	scanner->countCommandLines(false);		// reserve register vector
-	scanner->scan(false);
+	scanner->scanCommands(false);		// reserve register vector
 	for (const auto& ptr : nCommands)	regEngine.runCommand(ptr.get());
 	
 	nCommands.clear();						// reuse the vector
-	scanner->countCommandLines();			// open srcipt file and reserve commands vector
-	scanner->scan(true);
+	scanner->scanCommands();			// open srcipt file and reserve commands vector
+
 
 	// set up window
 	nTimePerFrame = sf::seconds(1.f / (float)config.getOption("FPS"));

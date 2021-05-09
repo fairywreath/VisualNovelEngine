@@ -144,10 +144,13 @@
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="BlurEntityCommand.hpp" />
+    <ClInclude Include="Button.hpp" />
     <ClInclude Include="Character.hpp" />
     <ClInclude Include="Command.hpp" />
     <ClInclude Include="CommandFactory.hpp" />
+    <ClInclude Include="Component.hpp" />
     <ClInclude Include="Config.hpp" />
+    <ClInclude Include="Container.hpp" />
     <ClInclude Include="DisplaySpriteCommand.hpp" />
     <ClInclude Include="DisplayTextCommand.hpp" />
     <ClInclude Include="Engine.hpp" />
@@ -169,6 +172,7 @@
     <ClInclude Include="ResourceManager.hpp" />
     <ClInclude Include="Scanner.hpp" />
     <ClInclude Include="SoundPlayer.hpp" />
+    <ClInclude Include="SpriteButton.hpp" />
     <ClInclude Include="State.hpp" />
     <ClInclude Include="StateIdentifiers.hpp" />
     <ClInclude Include="StateStack.hpp" />
@@ -178,10 +182,13 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BlurEntityCommand.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandFactory.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="Container.cpp" />
     <ClCompile Include="DisplaySpriteCommand.cpp" />
     <ClCompile Include="DisplayTextCommand.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -202,6 +209,7 @@
     <ClCompile Include="RemoveSpriteCommand.cpp" />
     <ClCompile Include="Scanner.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
+    <ClCompile Include="SpriteButton.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="TitleState.cpp" />
