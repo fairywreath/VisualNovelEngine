@@ -1,12 +1,8 @@
 #include "PlayMusicCommand.hpp"
 #include "Engine.hpp"
 
-PlayMusicCommand::PlayMusicCommand(Type type, const std::string& identifier, const std::string& arguments)
-	: Command(type, identifier, arguments)
-{
-}
-
-PlayMusicCommand::~PlayMusicCommand()
+PlayMusicCommand::PlayMusicCommand(const std::string& identifier, const std::string& arguments)
+	: Command(Type::PlayMusic, identifier, arguments)
 {
 }
 

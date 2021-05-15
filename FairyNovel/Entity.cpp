@@ -181,7 +181,6 @@ float Entity::getBlurPercentage() const
 
 void Entity::setShaderUniform(const std::string& uniform, float args)
 {
-	if (args == FLT_MAX) return;
 	nBlurShader.setUniform(uniform, args);
 }
 

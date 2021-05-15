@@ -40,20 +40,19 @@ public:
 
 public:
 	Command(Type type, const std::string& identifier, const std::string& arguments = "");
-	virtual ~Command();
+	virtual ~Command() = default;
 
 	virtual void execute(Engine& engine) = 0;
+	virtual std::vector<std::string> getArguments() const = 0;
 
 	Type getType() const;
-	const std::string& getIdentifier() const;
+	std::string getIdentifier() const;
 	std::string getArgumentString() const;
-	virtual std::vector<std::string> getArguments() const = 0;
 
 private:
 	Type nType;
 	std::string nIdentifier;
 	std::string nArguments;
-
 
 };
 

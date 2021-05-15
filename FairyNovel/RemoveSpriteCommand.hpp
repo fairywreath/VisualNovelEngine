@@ -8,11 +8,11 @@
 class RemoveSpriteCommand : public Command
 {
 public:
-	RemoveSpriteCommand(Type type, const std::string& identifier, const std::string& arguments);
-	virtual ~RemoveSpriteCommand();
+	RemoveSpriteCommand(const std::string& identifier, const std::string& arguments);
+	~RemoveSpriteCommand() override = default;
 
-	virtual void execute(Engine& engine) override;
-	virtual std::vector<std::string> getArguments() const override;
+	void execute(Engine& engine) override;
+	std::vector<std::string> getArguments() const override;
 
 private:
 	float fadeTime;		// later add implementations

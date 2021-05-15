@@ -5,10 +5,6 @@ LabelCommand::LabelCommand(const std::string& identifier, const std::string& arg
 {
 }
 
-LabelCommand::~LabelCommand()
-{
-}
-
 void LabelCommand::execute(Engine& engine)
 {
 	// do nothing for a command, simply go to next command??

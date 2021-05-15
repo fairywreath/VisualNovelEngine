@@ -7,10 +7,10 @@ class FadeEntityCommand : public Command
 {
 public:
 	FadeEntityCommand(const std::string& id, const std::string& args);
-	virtual ~FadeEntityCommand();
+	~FadeEntityCommand() override = default;
 
-	virtual void execute(Engine& engine) override;
-	virtual std::vector<std::string> getArguments() const override;
+	void execute(Engine& engine) override;
+	std::vector<std::string> getArguments() const override;
 
 private:
 	bool isNumber(const std::string& str);

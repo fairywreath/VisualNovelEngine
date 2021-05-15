@@ -21,24 +21,23 @@ CommandFactory::CommandPtr CommandFactory::generateCommand(const std::string& kw
 {
     if (kw == "DisplayText")
     {
-        // redundant type change later :pp
-        return std::make_unique <DisplayTextCommand>(Command::Type::DisplayText, id, args);
+        return std::make_unique <DisplayTextCommand>(id, args);
     }
     else if (kw == "DisplaySprite")
     {
-        return std::make_unique<DisplaySpriteCommand>(Command::Type::DisplaySprite, id, args);
+        return std::make_unique<DisplaySpriteCommand>(id, args);
     }
     else if (kw == "RemoveSprite")
     {
-        return std::make_unique<RemoveSpriteCommand>(Command::Type::RemoveSprite, id, args);
+        return std::make_unique<RemoveSpriteCommand>(id, args);
     }
     else if (kw == "PlayMusic")
     {
-        return std::make_unique<PlayMusicCommand>(Command::Type::PlayMusic, id, args);
+        return std::make_unique<PlayMusicCommand>(id, args);
     }
     else if (kw == "PlaySound")
     {
-        return std::make_unique<PlaySoundCommand>(Command::Type::PlaySound, id, args);
+        return std::make_unique<PlaySoundCommand>(id, args);
     }
     else if (kw == "Label")
     {
@@ -58,8 +57,8 @@ CommandFactory::CommandPtr CommandFactory::generateCommand(const std::string& kw
     }
     else
     {
-    throwError("Command Read", "Unrecognized script Keyword");
-    return CommandPtr();
+        throwError("Command Read", "Unrecognized script Keyword");
+        return CommandPtr();
     }
 }
 

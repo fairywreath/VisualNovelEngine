@@ -15,13 +15,17 @@ class RegisterEngine
 public:
 	RegisterEngine(TextureManager& textures, FontManager& fonts, SoundPlayer& sounds, MusicPlayer& music);
 
+	~RegisterEngine() = default;
+	RegisterEngine(const RegisterEngine&) = delete;
+	RegisterEngine& operator=(const RegisterEngine&) = delete;
+
 	void runCommand(Command* command);
 
 private:
-	TextureManager* nTextures;
-	FontManager* nFonts;
-	SoundPlayer* nSoundPlayer;
-	MusicPlayer* nMusicPlayer;
+	TextureManager& nTextures;
+	FontManager& nFonts;
+	SoundPlayer& nSoundPlayer;
+	MusicPlayer& nMusicPlayer;
 
 };
 

@@ -22,8 +22,11 @@ public:
 public:
 	Scanner(const std::string& scriptPath, const std::string& regPath, 
 		CommandFactory& commandFactory, std::vector<CommandPtr>& commands,
-		std::map<std::string, std::vector<CommandPtr>::const_iterator>& commandLabels);
+		std::map<std::string, CommandLbl>& commandLabels);
+	
 	~Scanner();
+	Scanner(const Scanner&) = delete;
+	Scanner& operator=(const Scanner&) = delete;
 
 	bool isComplete();
 	void scanCommands(bool script = true);

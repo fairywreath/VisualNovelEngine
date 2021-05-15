@@ -4,8 +4,8 @@
 
 #include <cassert>
 
-DisplaySpriteCommand::DisplaySpriteCommand(Type type, const std::string& identifier, const std::string& arguments) :
-	Command(type, identifier, arguments),
+DisplaySpriteCommand::DisplaySpriteCommand(const std::string& identifier, const std::string& arguments) :
+	Command(Type::DisplaySprite, identifier, arguments),
 	nPosition()
 {
 	std::vector<std::string> args = getArguments();
@@ -17,10 +17,6 @@ DisplaySpriteCommand::DisplaySpriteCommand(Type type, const std::string& identif
 
 	nPosition.x = x;
 	nPosition.y = y;
-}
-
-DisplaySpriteCommand::~DisplaySpriteCommand()
-{
 }
 
 void DisplaySpriteCommand::execute(Engine& engine)

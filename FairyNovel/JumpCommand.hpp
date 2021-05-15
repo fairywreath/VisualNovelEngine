@@ -7,10 +7,10 @@ class JumpCommand : public Command
 {
 public:
 	JumpCommand(const std::string& identifier, const std::string& args);
-	virtual ~JumpCommand();
+	~JumpCommand() override = default;
 
-	virtual void execute(Engine& engine);
-	virtual std::vector<std::string> getArguments() const;
+	void execute(Engine& engine) override;
+	std::vector<std::string> getArguments() const override;
 };
 
 

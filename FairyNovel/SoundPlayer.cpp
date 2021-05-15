@@ -6,7 +6,6 @@
 
 namespace
 {
-	// coordinate system of the sound, point of view of player in front of the screen
 	const float ListenerZ = 300.f;
 	const float Attenuation = 8.f;
 	const float MinDistance2D = 200.f;

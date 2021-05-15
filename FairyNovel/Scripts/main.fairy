@@ -2,6 +2,7 @@
 <DisplaySprite> (suoh1) "100;40"
 <FadeEntity> (suoh1) "Time: 1.5; Target: 255; Start: 0"
 <DisplayText> (Suoh) "Hello Mayuri, are you there?"
+<DisplayText> (Darren) "HELLO TEST TEST"
 <DisplaySprite> (mayuri1) "700;40"
 
 # move full form, total 4 args , use comma for position vector
@@ -30,4 +31,3 @@
 <RemoveSprite> (suoh1)
 <RemoveSprite> (suoh2)
 <Jump> (start)
-

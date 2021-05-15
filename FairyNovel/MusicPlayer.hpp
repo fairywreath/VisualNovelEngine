@@ -15,6 +15,10 @@ class MusicPlayer : private sf::NonCopyable
 public:
 	MusicPlayer();
 
+	~MusicPlayer() = default;
+	MusicPlayer(const MusicPlayer&) = delete;
+	MusicPlayer& operator=(const MusicPlayer&) = delete;
+
 	void play(const std::string& id);
 	void stop();
 

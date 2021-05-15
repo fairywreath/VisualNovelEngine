@@ -16,6 +16,10 @@ class SoundPlayer : private sf::NonCopyable
 public:
 	SoundPlayer();
 
+	~SoundPlayer() = default;
+	SoundPlayer(const SoundPlayer&) = delete;
+	SoundPlayer& operator=(const SoundPlayer&) = delete;
+
 	void play(const std::string& id);
 	void play(const std::string& id, sf::Vector2f position);
 	

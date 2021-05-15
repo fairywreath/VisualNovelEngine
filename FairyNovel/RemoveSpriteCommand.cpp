@@ -1,16 +1,13 @@
 #include "RemoveSpriteCommand.hpp"
 #include "Engine.hpp"
 
-RemoveSpriteCommand::RemoveSpriteCommand(Type type, const std::string& identifier,
+RemoveSpriteCommand::RemoveSpriteCommand(const std::string& identifier,
 	const std::string& arguments) :
-	Command(type, identifier, arguments),
+	Command(Type::RemoveSprite, identifier, arguments),
 	fadeTime(0)
 {
 }
 
-RemoveSpriteCommand::~RemoveSpriteCommand()
-{
-}
 
 void RemoveSpriteCommand::execute(Engine& engine)
 {

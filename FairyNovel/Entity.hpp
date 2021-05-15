@@ -17,7 +17,8 @@ class Entity : public sf::Drawable, public sf::Transformable
 {
 public:
 	Entity(const std::string& identifier, const sf::Texture& texture);
-	
+	virtual ~Entity() = default;
+
 	virtual void update(sf::Time dt);
 	virtual sf::FloatRect getBoundingRect() const;
 
@@ -30,17 +31,26 @@ public:
 	virtual bool inAnimation() const;
 	virtual void skipAnimation();		// skip to final position/opacity
 
-	virtual void fade(float time, int targetAlpha, int startAlpha = INT_MAX);
-	virtual void move(float time, const sf::Vector2f& dest, const sf::Vector2f& source = sf::Vector2f(FLT_MAX, FLT_MAX));
+	void fade(float time, int targetAlpha, int startAlpha = INT_MAX);
+	void move(float time, const sf::Vector2f& dest, const sf::Vector2f& source = sf::Vector2f(FLT_MAX, FLT_MAX));
 
 	void blur(float time, float endPerc, float startPerc = FLT_MAX);
 	float getBlurPercentage() const;
+	void setShaderUniform(const std::string& uniform, float args);
 
-	void setShaderUniform(const std::string& uniform, float args = FLT_MAX);
+	// void setTexture(const sf::Texture& texture);
 
 private:	
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void initializeBlurShader();
+
+	// set for linear interplation later
+	class LinearInterpolation
+	{
+	private:
+		bool& nFlag;
+
+	};
 
 private:
 	std::string nIdentifier;		

@@ -8,7 +8,7 @@
 class CommandFactory
 {
 public:
-	typedef std::unique_ptr<Command> CommandPtr;
+	using CommandPtr =  std::unique_ptr<Command>;
 
 public:
 	CommandPtr generateCommand(const std::string& kw, const std::string& id, const std::string& args);

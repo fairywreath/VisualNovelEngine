@@ -22,7 +22,7 @@ class StateStack;
 class State
 {
 public:
-	typedef std::unique_ptr<State> Ptr;		
+	using Ptr = std::unique_ptr<State>;		
 	struct Context
 	{
 		Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts,
@@ -41,6 +41,9 @@ public:
 public:
 	State(StateStack& stack, Context context);
 	virtual ~State();
+
+	State(const State&) = delete;
+	State& operator=(const State&) = delete;
 
 	virtual void draw() = 0;		
 	virtual bool update(sf::Time dt) = 0;

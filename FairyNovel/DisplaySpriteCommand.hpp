@@ -8,11 +8,12 @@
 class DisplaySpriteCommand : public Command
 {
 public:
-	DisplaySpriteCommand(Type type, const std::string& identifier, const std::string& arguments);
-	virtual ~DisplaySpriteCommand();
+	DisplaySpriteCommand(const std::string& identifier, const std::string& arguments);
+	
+	~DisplaySpriteCommand() override = default;
 
-	virtual void execute(Engine& engine) override;
-	virtual std::vector<std::string> getArguments() const override;
+	void execute(Engine& engine) override;
+	std::vector<std::string> getArguments() const override;
 
 private:
 	sf::Vector2f nPosition;

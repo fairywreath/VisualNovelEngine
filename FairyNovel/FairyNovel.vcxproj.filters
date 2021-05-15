@@ -69,21 +69,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MusicPlayer.cpp">
-      <Filter>Source Files\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundPlayer.cpp">
-      <Filter>Source Files\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="Config.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="Logger.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>Header Files\State\State</Filter>
     </ClCompile>
@@ -93,17 +78,8 @@
     <ClCompile Include="TitleState.cpp">
       <Filter>Header Files\State\State</Filter>
     </ClCompile>
-    <ClCompile Include="Option.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
     <ClCompile Include="GameState.cpp">
       <Filter>Header Files\State\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Scanner.cpp">
       <Filter>Header Files\Scanner</Filter>
@@ -170,6 +146,33 @@
     </ClCompile>
     <ClCompile Include="SpriteButton.cpp">
       <Filter>Header Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Decision.cpp">
+      <Filter>Header Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicPlayer.cpp">
+      <Filter>Header Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundPlayer.cpp">
+      <Filter>Header Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Header Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Header Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Header Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Option.cpp">
+      <Filter>Header Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Header Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Header Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -248,9 +251,6 @@
     <ClInclude Include="PlayMusicCommand.hpp">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="Character.hpp">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="LabelCommand.hpp">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
@@ -280,6 +280,12 @@
     </ClInclude>
     <ClInclude Include="SpriteButton.hpp">
       <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Decision.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.hpp">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

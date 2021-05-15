@@ -11,10 +11,6 @@ FadeEntityCommand::FadeEntityCommand(const std::string& id, const std::string& a
 {
 }
 
-FadeEntityCommand::~FadeEntityCommand()
-{
-}
-
 void FadeEntityCommand::execute(Engine& engine)
 {
 	Entity* ent = engine.getEntity(getIdentifier());

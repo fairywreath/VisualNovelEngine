@@ -9,11 +9,7 @@ Command::Command(Type type, const std::string& identifier, const std::string& ar
 	nIdentifier(identifier),
 	nArguments(arguments)
 {
-	// std::cout << "created command of type: " <<  (int)nType << std::endl;
-}
 
-Command::~Command()
-{
 }
 
 Command::Type Command::getType() const
@@ -21,7 +17,7 @@ Command::Type Command::getType() const
 	return nType;
 }
 
-const std::string& Command::getIdentifier() const
+std::string Command::getIdentifier() const
 {
 	return nIdentifier;
 }

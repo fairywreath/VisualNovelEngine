@@ -5,10 +5,6 @@ JumpCommand::JumpCommand(const std::string& identifier, const std::string& args)
 {
 }
 
-JumpCommand::~JumpCommand()
-{
-}
-
 void JumpCommand::execute(Engine& engine)
 {
 	// do nothing

@@ -1,12 +1,8 @@
 #include "PlaySoundCommand.hpp"
 #include "Engine.hpp"
 
-PlaySoundCommand::PlaySoundCommand(Type type, const std::string& identifier, const std::string& arguments)
-	:Command(type, identifier, arguments)
-{
-}
-
-PlaySoundCommand::~PlaySoundCommand()
+PlaySoundCommand::PlaySoundCommand(const std::string& identifier, const std::string& arguments)
+	:Command(Type::PlaySound, identifier, arguments)
 {
 }
 

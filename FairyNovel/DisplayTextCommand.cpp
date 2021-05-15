@@ -1,13 +1,9 @@
 #include "DisplayTextCommand.hpp"
 #include "Engine.hpp"
 
-DisplayTextCommand::DisplayTextCommand(Type type, const std::string& identifier, 
+DisplayTextCommand::DisplayTextCommand(const std::string& identifier, 
 	const std::string& arguments) :
-	Command(type, identifier, arguments)
-{
-}
-
-DisplayTextCommand::~DisplayTextCommand()
+	Command(Type::DisplayText, identifier, arguments)
 {
 }
 

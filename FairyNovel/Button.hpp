@@ -23,8 +23,8 @@ namespace GUI
 	class Button : public Component
 	{
 	public:
-		typedef std::shared_ptr<Button> Ptr;
-		typedef std::function<void()> Callback;				// button functions are all void()
+		using Ptr = std::shared_ptr<Button>;
+		using Callback = std::function<void()>;				// button functions are all void()
 
 		enum class ButtonState
 		{
@@ -35,21 +35,20 @@ namespace GUI
 
 	public:
 		explicit Button(State::Context context);
+		~Button() override = default;
 
 		void setCallback(Callback callback);
 		void setToggle(bool flag);
 
-		virtual bool isSelectable() const;
+		bool isSelectable() const override;
 
-		virtual void select() override;
-		virtual void deselect() override ;
-		virtual void activate() override;
-		virtual void deactivate() override;
-
-		virtual void handleEvent(const sf::Event& event) = 0;
+		void select() override;
+		void deselect() override ;
+		void activate() override;
+		void deactivate() override;
 
 	private:
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
 		virtual void updateApperance(ButtonState state) = 0;
 
 	private:

@@ -12,10 +12,6 @@ MoveEntityCommand::MoveEntityCommand(const std::string& id, const std::string& a
 {
 }
 
-MoveEntityCommand::~MoveEntityCommand()
-{
-}
-
 void MoveEntityCommand::execute(Engine& engine)
 {
 	Entity* ent = engine.getEntity(getIdentifier());

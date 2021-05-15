@@ -4,7 +4,6 @@
 
 int main()
 {
-
 	try
 	{
 		Application app("config.cfg");

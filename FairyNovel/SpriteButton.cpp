@@ -13,11 +13,8 @@ GUI::SpriteButton::SpriteButton(State::Context context) :
 	nSprite(),
 	nText()
 {
-
-	
 	nSprite.setTexture(nNormalTexture);
 
-	
 	nText.setFont(context.fonts->get("overlock"));
 	nText.setCharacterSize(30);
 	sf::FloatRect bounds = nSprite.getLocalBounds();	

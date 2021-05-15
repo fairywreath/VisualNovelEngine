@@ -8,11 +8,11 @@
 class DisplayTextCommand : public Command
 {
 public:
-	DisplayTextCommand(Type type, const std::string& identifier, const std::string& arguments);
-	virtual ~DisplayTextCommand();
+	DisplayTextCommand(const std::string& identifier, const std::string& arguments);
+	~DisplayTextCommand() override = default;
 
-	virtual void execute(Engine& engine) override;
-	virtual std::vector<std::string> getArguments() const override;
+	void execute(Engine& engine) override;
+	std::vector<std::string> getArguments() const override;
 
 };
 

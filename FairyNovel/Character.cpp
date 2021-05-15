@@ -15,10 +15,6 @@ void Character::update(sf::Time dt)
 {
 }
 
-void Character::fade(float time, int targetAlpha,  int startAlpha)
-{
-}
-
 //void Character::move(float time, sf::Vector2f dest, sf::Vector2f source)
 //{
 //
@@ -27,7 +23,7 @@ void Character::fade(float time, int targetAlpha,  int startAlpha)
 
 void Character::insertState(const std::string& id, const sf::Texture& texture)
 {
-	nTextureMap.insert(std::make_pair(id, &texture));
+	nTextureMap.insert(std::make_pair(id, texture));
 }
 
 void Character::setState(const std::string& id, float fadeTime)
@@ -41,10 +37,10 @@ void Character::setState(const std::string& id, float fadeTime)
 
 	if (nTextureMap.find(id) == nTextureMap.end())
 		throw std::runtime_error("Character State Texture ID is not in map");
-	setTexture(*nTextureMap.at(id));		// change sprite texture
+	setTexture(nTextureMap.at(id));		// change sprite texture
 }
 
-bool Character::inAnimation()
+bool Character::inAnimation() const
 {
 	return false;
 }

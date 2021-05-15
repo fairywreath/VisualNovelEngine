@@ -13,13 +13,15 @@ namespace GUI
 	{
 	public:
 		explicit SpriteButton(State::Context context);
-		virtual void handleEvent(const sf::Event& event);
+		~SpriteButton() override = default;
+
+		void handleEvent(const sf::Event& event) override;
 
 		void setText(const std::string& text);
 
 	private:
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-		virtual void updateApperance(ButtonState state);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		void updateApperance(ButtonState state) override;
 
 		bool checkMouseLocation() const;		// realtime
 

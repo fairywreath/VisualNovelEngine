@@ -7,11 +7,6 @@
 #include <algorithm>
 #include <iostream>
 
-
-// in milliseconds
-const int Engine::BaseInterval = 70;
-const int Engine::BaseDelay = 1700;
-
 Engine::Engine(State::Context context) :
 	nMusicPlayer(*context.musicPlayer),
 	nTextures(*context.textures),
@@ -21,7 +16,7 @@ Engine::Engine(State::Context context) :
 	nTextPos(-1),
 	nFadeTime(0),
 	nInFade(false),
-	nAutoMode(false),
+	nAutoMode(true),
 	nDialogueSpeed(5),
 	nTextTime(sf::Time::Zero),
 	nDelayTime(sf::Time::Zero),
@@ -55,8 +50,6 @@ Engine::Engine(State::Context context) :
 	nDialogueBox.setPosition(dbx, dby);
 
 	setDialogueBoxOpacity(nDialogueBoxOpacity);
-
-	nTextClock.restart();
 
 	nEntities.reserve(10);			// RESERVE WITH THE SIZE OF THE SPRITES???
 
@@ -110,11 +103,15 @@ void Engine::draw(sf::RenderTarget& target, sf::RenderStates states)  const
 
 void Engine::update(sf::Time dt)
 {
-	if (!nLinePrinted && nTextClock.getElapsedTime().asMilliseconds() > nTextInterval) {
+	if (!nLinePrinted) nTextTime += dt;
+
+	if (!nLinePrinted && nTextTime.asMilliseconds() > nTextInterval) {
+		nTextTime += dt;
 		nTextPos++;
 		if (nTextPos >= nTextString.size()) {
 			nLinePrinted = true;
-			nDelayClock.restart();
+			nDelayTime = sf::Time::Zero;
+			nTextTime = sf::Time::Zero;
 		}
 		else {
 			std::string str = nText.getString();
@@ -125,11 +122,18 @@ void Engine::update(sf::Time dt)
 			sf::String wrapped = wrapText(sf::String(str), 800, nFont, 35, (int)(pos - nTextPos));
 			nText.setString(wrapped);
 		}
-		nTextClock.restart();
-		nDelayClock.restart();
+		nTextTime = sf::Time::Zero;
 	}
-	else if (nAutoMode && nLinePrinted && nDelayClock.getElapsedTime().asMilliseconds() > nDelay) {
-		nWait = false;
+	else if (nAutoMode && nLinePrinted) {
+		if (nDelayTime.asMilliseconds() > nDelay) {
+			nWait = false;
+		}
+		else {
+			nDelayTime += dt;
+		}
+	}
+	else {
+		// empty
 	}
 
 	nBackground.update(dt);
@@ -209,7 +213,7 @@ void Engine::skipDialogueLine()
 	sf::String wrapped = wrapText(sf::String(nTextString), 800, nFont, 35, 0);
 	nText.setString(wrapped);
 	nLinePrinted = true;
-	nDelayClock.restart();
+	nDelayTime = sf::Time::Zero;
 }
 
 void Engine::skipAnimations()
@@ -344,34 +348,3 @@ void Engine::setWaitAnimation(bool w)
 	nAnimationWait = w;
 	if (w) nWait = true;		// set wait true the first time around just in case
 }
-
-// void Engine::fadeEntity(const std::string& id, float time, int targetAlpha, int startingAlpha)
-//{
-//	// only finds first id found
-//	auto ent = std::find_if(nEntities.cbegin(), nEntities.cend(), [&id](const EntityPtr& ent) {
-//		return (ent->getIdentifier() == id);
-//		});
-//
-//	if(ent != nEntities.end())
-//		(*ent)->fade(time, targetAlpha, startingAlpha);
-//	else
-//	{
-//		std::string msg = "Unable to find entity ID " + id + " in Entity Map for Fade Command\n";
-//		LOGGER->Log("Engine Command Fail", msg);
-//	}
-//}
-//
-//void Engine::moveEntity(const std::string& id, float time, const sf::Vector2f& dest, const sf::Vector2f& source)
-//{
-//	auto ent = std::find_if(nEntities.cbegin(), nEntities.cend(), [&id](const EntityPtr& ent) {
-//		return (ent->getIdentifier() == id);
-//		});
-//
-//	if (ent != nEntities.end())
-//		(*ent)->move(time, dest, source);
-//	else
-//	{
-//		std::string msg = "Unable to find entity ID " + id + " in Entity Map for Move Command\n";
-//		LOGGER->Log("Engine Command Fail", msg);
-//	}
-//}

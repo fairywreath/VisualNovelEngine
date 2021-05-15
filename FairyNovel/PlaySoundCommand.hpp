@@ -6,11 +6,11 @@
 class PlaySoundCommand : public Command
 {
 public:
-	PlaySoundCommand(Type type, const std::string& identifier, const std::string& arguments);
-	virtual ~PlaySoundCommand();
+	PlaySoundCommand(const std::string& identifier, const std::string& arguments);
+	~PlaySoundCommand() override = default;
 
-	virtual void execute(Engine& engine) override;
-	virtual std::vector<std::string> getArguments() const override;
+	void execute(Engine& engine) override;
+	std::vector<std::string> getArguments() const override;
 
 };
 

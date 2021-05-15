@@ -12,18 +12,19 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/System/Clock.hpp>
 
-#include <list>
-
 class Engine : public sf::Drawable, private sf::NonCopyable
 {
 public:
 	using EntityPtr = std::unique_ptr<Entity>;
 
 public:
-	Engine(State::Context context);
+	explicit Engine(State::Context context);
+
+	Engine(const Engine&) = delete;
+	Engine& operator=(const Engine&) = delete;
+	~Engine() = default;
 
 	void update(sf::Time dt);
-
 	bool handleEvent(const sf::Event& event);
 
 	void playMusic(const std::string& id);
@@ -45,11 +46,6 @@ public:
 	void addEntity(EntityPtr entity);
 	void addEntity(const std::string& id, const std::string& texture, const sf::Vector2f& pos);
 	void removeEntity(const std::string& id);
-
-	// can remove all of these later and just use getEntity())
-	// run this from commands if possible use getEntity
-	// void fadeEntity(const std::string& id, float time, int targetAlpha, int startingAlpha = 0);
-	// void moveEntity(const std::string& id, float time, const sf::Vector2f& dest, const sf::Vector2f& source = sf::Vector2f(FLT_MAX, FLT_MAX));
 	
 	void fadeScreen(float time, int targetAlpha, int startAlpha = INT_MAX);
 	
@@ -62,7 +58,7 @@ public:
 	Entity* getEntity(const std::string& id);
 	
 private:
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
 	MusicPlayer& nMusicPlayer;
@@ -78,21 +74,20 @@ private:
 	sf::Text nText;
 	sf::Text nCharName;
 
-	// change to time
-	sf::Clock nTextClock;
-	sf::Clock nDelayClock;
 	sf::Time nTextTime;
 	sf::Time nDelayTime;
 
 	float nDialogueBoxOpacity;		// percentage later?
+	
+	// in milliseconds
+	static constexpr int BaseInterval = 70;
+	static constexpr int BaseDelay = 1700;
 
 	int nDialogueSpeed;
 	int nTextInterval;			
-	static const int BaseInterval;
 
 	int nDelay;	
 	int nDelaySpeed;
-	static const int BaseDelay;
 
 	std::string nTextString;
 	bool nLinePrinted;

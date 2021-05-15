@@ -3,12 +3,17 @@
 # format, args must be separated in 1 space:
 # <DisplayCharacter> (character id) "coords state fadetime shouldwait=false"
 
-
 <DisplaySprite> (suoh1) "100;40"
 
 <Label> (start)
 #<Jump> (end)
+
+
+
 <DisplayText> (Mayuri) "Suoh?"
+
+
+
 <DisplayText> (Suoh) "I love you Mayuri, please do not leave me"
 <DisplayText> (Mayuri) "I am sorry Suoh, I will never leave you again"
 <DisplayText> (Mayuri) "You are very very very very very very pretty today"
