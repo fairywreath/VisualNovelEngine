@@ -12,6 +12,8 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/View.hpp>
 
+#include <unordered_map>
+
 namespace sf
 {
 	class RenderWindow;
@@ -23,19 +25,22 @@ class State
 {
 public:
 	using Ptr = std::unique_ptr<State>;		
+	using CommandPtr = std::unique_ptr<Command>;
+	using CommandLbl = std::vector<CommandPtr>::const_iterator;
+
 	struct Context
 	{
 		Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts,
-			MusicPlayer& music, SoundPlayer& sound, std::vector<std::unique_ptr<Command>>& commands,
-			std::map<std::string, std::vector<std::unique_ptr<Command>>::const_iterator>& commandLabels);
+			MusicPlayer& music, SoundPlayer& sound, std::vector<CommandPtr>& commands, 
+			std::unordered_map<std::string, CommandLbl>& commandLabels);
 
 		sf::RenderWindow* window;
 		TextureManager* textures;
 		FontManager* fonts;
 		MusicPlayer* musicPlayer;
 		SoundPlayer* soundPlayer;
-		std::vector<std::unique_ptr<Command>>* commands;
-		std::map<std::string, std::vector<std::unique_ptr<Command>>::const_iterator>* commandLabels;
+		std::vector<CommandPtr>* commands;
+		std::unordered_map<std::string, CommandLbl>* commandLabels;
 	};
 
 public:

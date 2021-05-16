@@ -1,9 +1,9 @@
 #include "State.hpp"
 #include "StateStack.hpp"
 
-State::Context::Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts, 
-	MusicPlayer& music, SoundPlayer& sound, std::vector<std::unique_ptr<Command>>& commands,
-	std::map<std::string, std::vector<std::unique_ptr<Command>>::const_iterator>& commandLabels):
+State::Context::Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts,
+	MusicPlayer& music, SoundPlayer& sound, std::vector<CommandPtr>& commands,
+	std::unordered_map<std::string, CommandLbl>& commandLabels):
 	window(&window),		
 	textures(&textures),
 	fonts(&fonts),

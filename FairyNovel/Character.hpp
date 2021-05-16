@@ -2,30 +2,47 @@
 #define CHARACTER_HPP
 
 #include "Entity.hpp"
-#include <map>
+#include "CharacterBlueprint.hpp"
+
+#include <unordered_map>
 
 #include <SFML/System/Clock.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
-class Character : public Entity
+class Character : public sf::Drawable, public sf::Transformable
 {
 public:
-	Character(const std::string& identifier, const sf::Texture& texture, const std::string& defState);
-	~Character() override = default;
+	explicit Character(CharacterBlueprint& blueprint);
+	~Character() = default;
 
-	void insertState(const std::string& id, const sf::Texture& texture);
-	void setState(const std::string& id, float fadeTime = 0);
+	void update(sf::Time dt);
 
-	bool inAnimation() const override;
-	void skipAnimation() override;		// skip to final position/opacity
+	std::string getIdentifier() const;
 
-	virtual void update(sf::Time dt);
+	bool inAnimation() const;
+	void skipAnimation();		
+
+	// maybe change later for better implementation
+	Entity* getEntity();
+
+	bool setState(const std::string& id);
+	bool setState(const std::string& id, float transitionTime);
 
 private:
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-	// string is for states
-	std::map<std::string, const sf::Texture&> nTextureMap;
+	// change to reference later
+	CharacterBlueprint nBlueprint;
+
+
+	Entity nEntity;
+	Entity nSecondaryEntity;
+
+	std::string nCurrentState;
+	sf::Time nTransitionElapsed;
+	float nTransitionTime;
+	bool nInTransition;
 };
 
 #endif

@@ -6,12 +6,10 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/Shader.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 
 #include <string>
 #include <limits>
-
-// entity class, identifier is their sprite name
-// possibly create a character class with possible state changes in the future 
 
 class Entity : public sf::Drawable, public sf::Transformable
 {

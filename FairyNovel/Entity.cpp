@@ -1,8 +1,6 @@
 #include "Entity.hpp"
 #include "Logger.hpp"
 
-#include <sfml/Graphics/RenderTarget.hpp>
-
 #include <stdexcept>
 #include <cassert>
 #include <iostream>
@@ -105,7 +103,6 @@ void Entity::update(sf::Time dt)
 
 void Entity::fade(float time, int targetAlpha, int startAlpha)
 {
-	// std::cout << "fade\n";
 	if (time < 0)
 	{
 		std::string msg = "Time is negative";
@@ -268,3 +265,4 @@ void Entity::initializeBlurShader()
 	nBlurShader.setUniform("texture", sf::Shader::CurrentTexture);
 	nBlurShader.setUniform("blur_radius", 0.0f);
 }
+

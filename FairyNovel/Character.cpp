@@ -3,54 +3,124 @@
 #include <stdexcept>
 #include <iostream>
 
-Character::Character(const std::string& identifier, const sf::Texture& texture,
-	const std::string& defState) :
-	Entity(identifier, texture),
-	nTextureMap()
+Character::Character(CharacterBlueprint& blueprint) :
+	nEntity(blueprint.getIdentifier(), blueprint.getTexture(blueprint.getDefaultState())),
+	nSecondaryEntity(blueprint.getIdentifier(), blueprint.getTexture(blueprint.getDefaultState())),
+	nBlueprint(blueprint),
+	nTransitionTime(0.0),
+	nTransitionElapsed(sf::Time::Zero),
+	nInTransition(false),
+	nCurrentState(blueprint.getDefaultState())
 {
-	insertState(defState, texture);
 }
 
 void Character::update(sf::Time dt)
 {
-}
-
-//void Character::move(float time, sf::Vector2f dest, sf::Vector2f source)
-//{
-//
-//}
-
-
-void Character::insertState(const std::string& id, const sf::Texture& texture)
-{
-	nTextureMap.insert(std::make_pair(id, texture));
-}
-
-void Character::setState(const std::string& id, float fadeTime)
-{
-	if (fadeTime < 0)
-		throw std::runtime_error("Time value for fade cannot be negative\n");
-	else if (fadeTime > 0)
+	if (nInTransition)
 	{
-		fade(fadeTime, 255, 0);
+		nTransitionElapsed += dt;
+
+		if (nTransitionElapsed.asSeconds() > nTransitionTime)
+		{
+			nInTransition = false;
+			// guards
+			nEntity.skipAnimation();
+			nSecondaryEntity.skipAnimation();
+			nTransitionElapsed = sf::Time::Zero;
+		}
 	}
 
-	if (nTextureMap.find(id) == nTextureMap.end())
-		throw std::runtime_error("Character State Texture ID is not in map");
-	setTexture(nTextureMap.at(id));		// change sprite texture
+	if (nInTransition)
+	{
+		nSecondaryEntity.update(dt);
+	}
+	nEntity.update(dt);
+}
+
+std::string Character::getIdentifier() const
+{
+	// get from blueprint
+	return nBlueprint.getIdentifier();
+}
+
+// instant set no fade
+bool Character::setState(const std::string& id)
+{
+	if (!nBlueprint.stateExists(id))
+	{
+		return false;		// also log later
+	}
+
+	nEntity.setTexture(nBlueprint.getTexture(id));
+	return true;
+}
+
+bool Character::setState(const std::string& id, float transitionTime)
+{
+	if (!nBlueprint.stateExists(id))
+	{
+		return false;		// also log later
+	}
+
+
+	if (transitionTime < 0)
+	{
+	//	throw std::runtime_error("Time value for fade cannot be negative\n");
+		return false;
+	}
+
+	if (transitionTime > 0)
+	{
+		nInTransition = true;
+		nTransitionTime = transitionTime;
+
+		nSecondaryEntity.setTexture(nBlueprint.getTexture(nCurrentState));
+		nSecondaryEntity.setOpacityAlpha(255);		// max, just in case 
+		
+		nEntity.setOpacityAlpha(0);
+		nEntity.setTexture(nBlueprint.getTexture(id));
+		
+		nSecondaryEntity.fade(transitionTime, 0);
+		nEntity.fade(transitionTime, 255);
+
+		nCurrentState = id;			// future current state
+		return true;
+	}
+	
+	return setState(id);		// instant
 }
 
 bool Character::inAnimation() const
 {
-	return false;
+	// use all 3 just to be safe
+	return (nEntity.inAnimation() || nSecondaryEntity.inAnimation() || nInTransition);
 }
 
 void Character::skipAnimation()
 {
-
+	// skip transition
+	if (nInTransition)
+	{
+		nInTransition = false;
+		nEntity.skipAnimation();
+		nSecondaryEntity.skipAnimation();
+		nTransitionElapsed = sf::Time::Zero;
+	}
 }
 
+Entity* Character::getEntity() 
+{
+	return &nEntity;
+}
 
-//void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
-//{
-//}
+void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	states.transform *= getTransform();   
+
+	if (nInTransition)
+	{
+		target.draw(nSecondaryEntity, states);
+	}
+	target.draw(nEntity, states);
+}
+

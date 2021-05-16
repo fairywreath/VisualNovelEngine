@@ -9,12 +9,15 @@
 #include "StateStack.hpp"
 #include "Scanner.hpp"
 #include "RegisterEngine.hpp"
+#include "CharacterBlueprint.hpp"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Font.hpp>
+
+#include <unordered_map>
 
 class Application
 {
@@ -38,7 +41,8 @@ private:
 
 private:
 	std::vector<CommandPtr> nCommands;
-	std::map<std::string, CommandLbl> nCommandLabels;
+	std::unordered_map<std::string, CommandLbl> nCommandLabels;
+	std::unordered_map<std::string, CharacterBlueprint> nCharacters;
 
 	sf::Time nTimePerFrame;		// 1/FPS
 	sf::RenderWindow nWindow;

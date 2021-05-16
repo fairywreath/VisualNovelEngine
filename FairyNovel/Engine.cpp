@@ -27,6 +27,7 @@ Engine::Engine(State::Context context) :
 	nWait(false),
 	nHideDialogueBox(false),
 	nEntities(),
+	nCharacters(),
 	nDialogueBox("DialogueBox", context.textures->get("dialoguebox")),
 	nBackground("Background", context.textures->get("MMBG"))
 {
@@ -87,14 +88,22 @@ Engine::Engine(State::Context context) :
 
 	// fadeScreen(3.f, 0);
 
+	/* character test  */
+	CharacterBlueprint bp("mayuri", "state1", "mayuri1", nTextures);
+	bp.insertState("state2", "mayuri2");
+	CharacterPtr mayuri1 = std::make_unique<Character>(bp);
 
+	nCharacters.push_back(std::move(mayuri1));
+
+	testClock.restart();
 }
 
 void Engine::draw(sf::RenderTarget& target, sf::RenderStates states)  const
 {
 	target.draw(nBackground, states);
 
-	for (const auto& ent : nEntities) target.draw(*ent, states);
+	for (const auto& ch : nCharacters) target.draw(*ch, states);
+	//for (const auto& ent : nEntities) target.draw(*ent, states);
 	
 	target.draw(nDialogueBox, states);
 	target.draw(nCharName, states);
@@ -103,6 +112,20 @@ void Engine::draw(sf::RenderTarget& target, sf::RenderStates states)  const
 
 void Engine::update(sf::Time dt)
 {
+	if (testClock.getElapsedTime().asSeconds() > 3 && test1)
+	{
+		Character* mayuri = getCharacter("mayuri");
+		mayuri->setState("state2", 2.0f);
+		test1 = false;
+	}
+	
+	if (testClock.getElapsedTime().asSeconds() > 8 && test2)
+	{
+		Character* mayuri = getCharacter("mayuri");
+		mayuri->setState("state1", 2.0f);
+		test2 = false;
+	}
+
 	if (!nLinePrinted) nTextTime += dt;
 
 	if (!nLinePrinted && nTextTime.asMilliseconds() > nTextInterval) {
@@ -139,6 +162,7 @@ void Engine::update(sf::Time dt)
 	nBackground.update(dt);
 	nDialogueBox.update(dt);
 
+	for (const auto& ent : nCharacters) ent->update(dt);
 	for (const auto& ent : nEntities) ent->update(dt);
 
 	// clearTransparentEntities();
@@ -311,6 +335,19 @@ void Engine::clearTransparentEntities()
 	}
 
 //	std::cout << "size after entity clerance: " << nEntities.size() << std::endl;
+}
+
+Character* Engine::getCharacter(const std::string& id)
+{
+	const auto ch = std::find_if(nCharacters.begin(), nCharacters.end(), [&id](const CharacterPtr& ptr)
+		{
+			return (ptr->getIdentifier() == id);
+		});
+
+	if (ch != nCharacters.end()) return (*ch).get();
+	
+	// add log errorhere
+	return nullptr;
 }
 
 Entity* Engine::getEntity(const std::string& id)

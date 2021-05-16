@@ -20,7 +20,7 @@ namespace sf
 class StateStack : private sf::NonCopyable
 {
 public:
-	enum Action		// stack actions in enums
+	enum Action	
 	{
 		Push,
 		Pop,
@@ -66,7 +66,6 @@ private:
 
 };
 
-// typename T for derived state type
 template <typename T>
 void StateStack::registerState(States::ID stateID)
 {

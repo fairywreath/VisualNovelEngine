@@ -146,6 +146,7 @@
     <ClInclude Include="BlurEntityCommand.hpp" />
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="Character.hpp" />
+    <ClInclude Include="CharacterBlueprint.hpp" />
     <ClInclude Include="Command.hpp" />
     <ClInclude Include="CommandFactory.hpp" />
     <ClInclude Include="Component.hpp" />
@@ -185,6 +186,7 @@
     <ClCompile Include="BlurEntityCommand.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="CharacterBlueprint.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandFactory.cpp" />
     <ClCompile Include="Component.cpp" />

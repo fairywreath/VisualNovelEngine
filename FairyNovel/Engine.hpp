@@ -16,6 +16,7 @@ class Engine : public sf::Drawable, private sf::NonCopyable
 {
 public:
 	using EntityPtr = std::unique_ptr<Entity>;
+	using CharacterPtr = std::unique_ptr<Character>;
 
 public:
 	explicit Engine(State::Context context);
@@ -55,12 +56,18 @@ public:
 
 	void clearTransparentEntities();
 
+	// maybe change later for better implementation
+	Character* getCharacter(const std::string& id);
 	Entity* getEntity(const std::string& id);
-	
+
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
+	sf::Clock testClock;
+	bool test1 = true;
+	bool test2 = true;
+
 	MusicPlayer& nMusicPlayer;
 	SoundPlayer& nSoundPlayer;
 	TextureManager& nTextures;
@@ -69,6 +76,8 @@ private:
 	Entity nDialogueBox;
 	Entity nBackground;		// derive entity class later for zoom effects
 
+	std::vector<CharacterPtr> nCharacters; // will change to reference
+	
 	std::vector<EntityPtr> nEntities;
 
 	sf::Text nText;
