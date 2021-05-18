@@ -10,13 +10,15 @@
 #include"FadeEntityCommand.hpp"
 #include "BlurEntityCommand.hpp"
 #include "MoveEntityCommand.hpp"
+#include "DisplayCharacterCommand.hpp"
+#include "CharacterStateCommand.hpp"
 
 #include "Logger.hpp"
 
 #include <stdexcept>
 #include <iostream>
 
-CommandFactory::CommandPtr CommandFactory::generateCommand(const std::string& kw, const std::string& id, 
+CommandFactory::CommandPtr CommandFactory::generateCommand(const std::string& kw, const std::string& id,
     const std::string& args)
 {
     if (kw == "DisplayText")
@@ -55,6 +57,14 @@ CommandFactory::CommandPtr CommandFactory::generateCommand(const std::string& kw
     {
         return std::make_unique<MoveEntityCommand>(id, args);
     }
+    else if (kw == "DisplayCharacter")
+    {
+        return std::make_unique<DisplayCharacterCommand>(id, args);
+    }
+    else if (kw == "CharacterState")
+    {
+        return std::make_unique<CharacterStateCommand>(id, args);
+    }
     else
     {
         throwError("Command Read", "Unrecognized script Keyword");
@@ -75,6 +85,10 @@ CommandFactory::CommandPtr CommandFactory::generateRegCommand(const std::string&
     else if (kw == "SoundEffect")
     {
        return std::make_unique<RegisterCommand>(Command::Type::RegisterSE, id, args);
+    }
+    else if (kw == "Character")
+    {
+        return std::make_unique<RegisterCommand>(Command::Type::RegisterCharacter, id, args);
     }
     else
     {

@@ -1,4 +1,5 @@
 #include "RegisterEngine.hpp"
+#include "Utility.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -7,11 +8,12 @@
 #include <iostream>
 
 RegisterEngine::RegisterEngine(TextureManager& textures, FontManager& fonts, 
-	SoundPlayer& sounds, MusicPlayer& music) :
+	SoundPlayer& sounds, MusicPlayer& music, std::unordered_map<std::string, CharacterBlueprint>& characters) :
 	nTextures(textures),
 	nFonts(fonts),
 	nSoundPlayer(sounds),
-	nMusicPlayer(music)
+	nMusicPlayer(music),
+	nCharacters(characters)
 {
 }
 
@@ -41,7 +43,37 @@ void RegisterEngine::runCommand(Command* command)
 		nSoundPlayer.addSound(command->getIdentifier(), command->getArgumentString());
 		break;
 	}
+	case Command::Type::RegisterCharacter:
+	{
+		registerCharacter(command->getIdentifier(), command->getArgumentString());
+		break;
+	}
 	default:
 		break;
+	}
+}
+
+void RegisterEngine::registerCharacter(const std::string& id, const std::string& args)
+{
+	std::vector<std::string> arg = split(args, ';');
+	assert(arg.size() == 2);
+	for (auto& ar : arg)
+	{
+		ar = trim(ar);
+	}
+	
+	if (!nTextures.contains(arg[1]))
+	{
+		// log error here
+		return;
+	}
+	
+	if (nCharacters.find(id) == nCharacters.end())
+	{
+		nCharacters.insert(std::make_pair(id, CharacterBlueprint(id, arg[0], arg[1], nTextures)));
+	}
+	else
+	{
+		nCharacters.at(id).insertState(arg[0], arg[1]);
 	}
 }

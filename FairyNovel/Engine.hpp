@@ -60,6 +60,11 @@ public:
 	Character* getCharacter(const std::string& id);
 	Entity* getEntity(const std::string& id);
 
+	/*
+		@add character to display, return true if id exists
+	*/
+	bool addCharacter(const std::string& id);
+
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -72,6 +77,7 @@ private:
 	SoundPlayer& nSoundPlayer;
 	TextureManager& nTextures;
 	sf::Font& nFont;		// most likely can be removed later
+	std::unordered_map<std::string, CharacterBlueprint>& nCharacterBPs;
 
 	Entity nDialogueBox;
 	Entity nBackground;		// derive entity class later for zoom effects

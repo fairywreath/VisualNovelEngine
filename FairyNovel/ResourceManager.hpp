@@ -19,6 +19,8 @@ public:
 	Resource& get(Identifier id);
 	const Resource& get(Identifier id) const;		// from const pointer
 
+	bool contains(Identifier id) const;
+
 private:
 	std::map<Identifier, std::unique_ptr<Resource>> nResourceMap;
 

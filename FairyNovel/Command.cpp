@@ -27,4 +27,8 @@ std::string Command::getArgumentString() const
 	return nArguments;
 }
 
+void Command::LoggerLog(const std::string& msg) const
+{
+}
+
 

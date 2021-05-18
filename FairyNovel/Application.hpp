@@ -26,7 +26,7 @@ public:
 	using CommandLbl = std::vector<CommandPtr>::const_iterator;
 
 public:
-	Application(std::string configPath);
+	Application(const std::string& configPath);
 	void run();
 
 private:

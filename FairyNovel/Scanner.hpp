@@ -7,7 +7,7 @@
 
 #include <fstream>
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 /* Description:
 the scanner parses the script and returns the command
@@ -22,7 +22,7 @@ public:
 public:
 	Scanner(const std::string& scriptPath, const std::string& regPath, 
 		CommandFactory& commandFactory, std::vector<CommandPtr>& commands,
-		std::map<std::string, CommandLbl>& commandLabels);
+		std::unordered_map<std::string, CommandLbl>& commandLabels);
 	
 	~Scanner();
 	Scanner(const Scanner&) = delete;
@@ -42,7 +42,7 @@ private:
 	std::string nScriptPath;
 	std::string nRegPath;
 	std::vector<CommandPtr>& nCommands;
-	std::map<std::string, CommandLbl>& nCommandLabels;
+	std::unordered_map<std::string, CommandLbl>& nCommandLabels;
 };
 
 #endif

@@ -24,7 +24,7 @@ private:
 
 	std::vector<CommandPtr>& nCommands;
 	std::vector<CommandPtr>::const_iterator nIP;		// instruction pointer
-	std::map<std::string, std::vector<CommandPtr>::const_iterator>& nCommandLabels;
+	std::unordered_map<std::string, std::vector<CommandPtr>::const_iterator>& nCommandLabels;
 
 	// engine
 	Engine nEngine;

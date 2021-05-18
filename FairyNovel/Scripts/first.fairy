@@ -2,6 +2,8 @@
 # <DisplaySprite> (mayuri1) "700;40"
 # format, args must be separated in 1 space:
 # <DisplayCharacter> (character id) "coords state fadetime shouldwait=false"
+<DisplayCharacter> (mayuri) "Pos: 700,40;State: state1;Fade: 0.5; Wait: False:
+
 
 <DisplaySprite> (suoh1) "100;40"
 

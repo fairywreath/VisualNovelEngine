@@ -1,4 +1,14 @@
 <Label> (start)
+
+# display character like this
+<DisplayText> () "Start start start"
+<DisplayCharacter> (mayuri) "Pos: 100,40;State: state1;   Fade: 1.5; Wait: True"
+
+# change character state like this
+# <DisplayText> () "Start start start2"
+
+<CharacterState> (mayuri) "State: state2; Fade: 1.5; Wait: True"
+
 <DisplaySprite> (suoh1) "100;40"
 <FadeEntity> (suoh1) "Time: 1.5; Target: 255; Start: 0"
 <DisplayText> (Suoh) "Hello Mayuri, are you there?"

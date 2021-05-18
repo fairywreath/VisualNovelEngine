@@ -15,10 +15,14 @@ public:
 		RegisterSE,
 		RegisterMusic, 
 		RegisterFont,
+		RegisterCharacter,
 	//	RegisterTextBox,			// special case of texture
 	//	RegisterButtonClick,
 	//	RegisterButtonHover,
 	//	RegisterTitleMusic,		// main menu music
+
+		SetBackground,
+		ClearTextbox,
 
 		DisplayText,
 		DisplaySprite,
@@ -26,6 +30,9 @@ public:
 		Blur,
 		Animation,
 		
+		DisplayCharacter,
+		ChangeCharacterState,
+
 		FadeEntity,
 		BlurEntity,
 		MoveEntity,
@@ -48,6 +55,10 @@ public:
 	Type getType() const;
 	std::string getIdentifier() const;
 	std::string getArgumentString() const;
+
+protected:
+	// TODO for misc/logging, using logger singleton
+	virtual void LoggerLog(const std::string& msg) const;
 
 private:
 	Type nType;

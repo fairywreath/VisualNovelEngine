@@ -1,3 +1,4 @@
+#include "ResourceManager.hpp"
 template <typename Resource, typename Identifier>
 void ResourceManager<Resource, Identifier>::load(const Identifier& id, const std::string& filename)
 {
@@ -29,6 +30,14 @@ const Resource& ResourceManager<Resource, Identifier>::get(Identifier id) const
 	assert(found != nResourceMap.end());		
 
 	return *found->second;						
+}
+
+template<typename Resource, typename Identifier>
+bool ResourceManager<Resource, Identifier>::contains(Identifier id) const
+{
+	if (nResourceMap.find(id) == nResourceMap.end()) return false;
+
+	return true;
 }
 
 

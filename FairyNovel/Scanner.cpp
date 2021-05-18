@@ -11,7 +11,7 @@
 
 Scanner::Scanner(const std::string& scriptPath, const std::string& regPath,
 	CommandFactory& commandFactory, std::vector<CommandPtr>& commands,
-	std::map <std::string, CommandLbl> & commandLabels) :
+	std::unordered_map <std::string, CommandLbl> & commandLabels) :
 	nScriptPath(scriptPath),
 	nRegPath(regPath),
 	nCommandFactory(commandFactory),

@@ -25,8 +25,8 @@ public:
 	// maybe change later for better implementation
 	Entity* getEntity();
 
-	bool setState(const std::string& id);
-	bool setState(const std::string& id, float transitionTime);
+	bool setState(const std::string& id) noexcept;
+	bool setState(const std::string& id, float transitionTime) noexcept;
 
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -34,7 +34,6 @@ private:
 private:
 	// change to reference later
 	CharacterBlueprint nBlueprint;
-
 
 	Entity nEntity;
 	Entity nSecondaryEntity;

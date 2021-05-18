@@ -7,9 +7,8 @@
 
 #include <SFML/Window/Event.hpp>
 #include <iostream>
-#include <chrono>
 
-Application::Application(std::string configPath) :
+Application::Application(const std::string& configPath) :
 	nWindow(),
 	nTextures(),
 	nFonts(),
@@ -17,13 +16,14 @@ Application::Application(std::string configPath) :
 	nMusicPlayer(),
 	nCommands(),
 	nCommandLabels(),
-	nStateStack(State::Context(nWindow, nTextures, nFonts, nMusicPlayer, nSoundPlayer, nCommands, nCommandLabels)),		// create new state context here and pass it in
+	nCharacters(),
+	nStateStack(State::Context(nWindow, nTextures, nFonts, nMusicPlayer, nSoundPlayer, 
+		nCommands, nCommandLabels, nCharacters)),		// create new state context here and pass it in
 	nStatisticsText(),
 	nStatisticsUpdateTime(),
 	nTimePerFrame(),
 	nStatisticsNumFrames()
 {
-
 	initialize(configPath);
 }
 
@@ -37,15 +37,19 @@ void Application::initialize(const std::string& configPath)
 	Logger::SetLogger(logPath);
 
 	// read commands from file
-	RegisterEngine regEngine(nTextures, nFonts, nSoundPlayer, nMusicPlayer);
 	CommandFactory commandFactory;
 
 	auto scanner = std::make_unique<Scanner>((std::string)config.getOption("SCRIPT_PATH"),
 		(std::string)config.getOption("REG_PATH"), commandFactory, nCommands, nCommandLabels);
 	
+	RegisterEngine regEngine(nTextures, nFonts, nSoundPlayer, nMusicPlayer, nCharacters);
+
 	scanner->scanCommands(false);		// reserve register vector
-	for (const auto& ptr : nCommands)	regEngine.runCommand(ptr.get());
-	
+	for (const auto& ptr : nCommands)
+	{
+		regEngine.runCommand(ptr.get());
+	}
+
 	nCommands.clear();						// reuse the vector
 	scanner->scanCommands();			// open srcipt file and reserve commands vector
 

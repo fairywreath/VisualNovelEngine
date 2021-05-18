@@ -35,7 +35,6 @@ namespace Util
 
 	template <typename T>
 	void centerOrigin(T& object);
-
 }
 
 

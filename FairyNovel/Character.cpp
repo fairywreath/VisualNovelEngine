@@ -44,7 +44,7 @@ std::string Character::getIdentifier() const
 }
 
 // instant set no fade
-bool Character::setState(const std::string& id)
+bool Character::setState(const std::string& id) noexcept
 {
 	if (!nBlueprint.stateExists(id))
 	{
@@ -55,17 +55,16 @@ bool Character::setState(const std::string& id)
 	return true;
 }
 
-bool Character::setState(const std::string& id, float transitionTime)
+bool Character::setState(const std::string& id, float transitionTime) noexcept
 {
 	if (!nBlueprint.stateExists(id))
 	{
-		return false;		// also log later
+		return false;		
 	}
 
 
 	if (transitionTime < 0)
 	{
-	//	throw std::runtime_error("Time value for fade cannot be negative\n");
 		return false;
 	}
 

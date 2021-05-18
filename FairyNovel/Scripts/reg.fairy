@@ -17,5 +17,5 @@
 # test for character 'objects'
 # register textures first then register character
 # args: state name, filename
-# <Character> (mayuri) "state1; mayuri1"
-# <Character> (mayuri) "state2; mayuri2"
+<Character> (mayuri) "state1; mayuri1"
+<Character> (mayuri) "state2; mayuri2"

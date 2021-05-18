@@ -3,14 +3,16 @@
 
 State::Context::Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts,
 	MusicPlayer& music, SoundPlayer& sound, std::vector<CommandPtr>& commands,
-	std::unordered_map<std::string, CommandLbl>& commandLabels):
+	std::unordered_map<std::string, CommandLbl>& commandLabels,
+	std::unordered_map<std::string, CharacterBlueprint>& characters):
 	window(&window),		
 	textures(&textures),
 	fonts(&fonts),
 	musicPlayer(&music),
 	soundPlayer(&sound),
 	commands(&commands),
-	commandLabels(&commandLabels)
+	commandLabels(&commandLabels),
+	characters(&characters)
 {
 }
 

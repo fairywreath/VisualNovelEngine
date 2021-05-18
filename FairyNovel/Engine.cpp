@@ -12,6 +12,7 @@ Engine::Engine(State::Context context) :
 	nTextures(*context.textures),
 	nFont(context.fonts->get("overlock")),
 	nSoundPlayer(*context.soundPlayer),
+	nCharacterBPs(*context.characters),
 	nLinePrinted(true),
 	nTextPos(-1),
 	nFadeTime(0),
@@ -89,13 +90,24 @@ Engine::Engine(State::Context context) :
 	// fadeScreen(3.f, 0);
 
 	/* character test  */
-	CharacterBlueprint bp("mayuri", "state1", "mayuri1", nTextures);
-	bp.insertState("state2", "mayuri2");
-	CharacterPtr mayuri1 = std::make_unique<Character>(bp);
+	//CharacterBlueprint bp("mayuri", "state1", "mayuri1", nTextures);
+	//bp.insertState("state2", "mayuri2");
+	//CharacterPtr mayuri1 = std::make_unique<Character>(bp);
 
-	nCharacters.push_back(std::move(mayuri1));
+	//nCharacters.push_back(std::move(mayuri1));
 
-	testClock.restart();
+	//testClock.restart();
+}
+
+bool Engine::addCharacter(const std::string& id)
+{
+	if (nCharacterBPs.find(id) == nCharacterBPs.end())
+	{
+		// log error
+		return false;
+	}
+	nCharacters.push_back(std::make_unique<Character>(nCharacterBPs.at(id)));
+	return true;
 }
 
 void Engine::draw(sf::RenderTarget& target, sf::RenderStates states)  const
@@ -112,19 +124,19 @@ void Engine::draw(sf::RenderTarget& target, sf::RenderStates states)  const
 
 void Engine::update(sf::Time dt)
 {
-	if (testClock.getElapsedTime().asSeconds() > 3 && test1)
-	{
-		Character* mayuri = getCharacter("mayuri");
-		mayuri->setState("state2", 2.0f);
-		test1 = false;
-	}
-	
-	if (testClock.getElapsedTime().asSeconds() > 8 && test2)
-	{
-		Character* mayuri = getCharacter("mayuri");
-		mayuri->setState("state1", 2.0f);
-		test2 = false;
-	}
+	//if (testClock.getElapsedTime().asSeconds() > 3 && test1)
+	//{
+	//	Character* mayuri = getCharacter("mayuri");
+	//	mayuri->setState("state2", 2.0f);
+	//	test1 = false;
+	//}
+	//
+	//if (testClock.getElapsedTime().asSeconds() > 8 && test2)
+	//{
+	//	Character* mayuri = getCharacter("mayuri");
+	//	mayuri->setState("state1", 2.0f);
+	//	test2 = false;
+	//}
 
 	if (!nLinePrinted) nTextTime += dt;
 

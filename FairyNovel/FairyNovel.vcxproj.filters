@@ -177,6 +177,12 @@
     <ClCompile Include="CharacterBlueprint.cpp">
       <Filter>Header Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterStateCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayCharacterCommand.cpp">
+      <Filter>Header Files\CommandFactory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceIdentifiers.hpp">
@@ -223,9 +229,6 @@
     </ClInclude>
     <ClInclude Include="Scanner.hpp">
       <Filter>Header Files\Scanner</Filter>
-    </ClInclude>
-    <ClInclude Include="Command.hpp">
-      <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="RegisterCommand.hpp">
       <Filter>Header Files\Commands</Filter>
@@ -292,6 +295,15 @@
     </ClInclude>
     <ClInclude Include="CharacterBlueprint.hpp">
       <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayCharacterCommand.hpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterStateCommand.hpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.hpp">
+      <Filter>Header Files\CommandFactory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
