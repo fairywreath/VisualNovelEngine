@@ -22,7 +22,7 @@ public:
 	//	RegisterTitleMusic,		// main menu music
 
 		SetBackground,
-		ClearTextbox,
+		ClearDialogueBox,
 
 		DisplayText,
 		DisplaySprite,

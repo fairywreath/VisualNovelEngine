@@ -26,5 +26,5 @@ void DisplaySpriteCommand::execute(Engine& engine)
 
 std::vector<std::string> DisplaySpriteCommand::getArguments() const
 {
-	return split(getArgumentString(), ';');
+	return Util::split(getArgumentString(), ';');
 }

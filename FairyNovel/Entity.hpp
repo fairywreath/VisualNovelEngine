@@ -18,8 +18,7 @@ public:
 	virtual ~Entity() = default;
 
 	virtual void update(sf::Time dt);
-	virtual sf::FloatRect getBoundingRect() const;
-
+	
 	std::string getIdentifier() const;
 
 	void setTexture(const sf::Texture& texture);
@@ -29,46 +28,51 @@ public:
 	virtual bool inAnimation() const;
 	virtual void skipAnimation();		// skip to final position/opacity
 
-	void fade(float time, int targetAlpha, int startAlpha = INT_MAX);
-	void move(float time, const sf::Vector2f& dest, const sf::Vector2f& source = sf::Vector2f(FLT_MAX, FLT_MAX));
+	void fade(float time, int targetAlpha);
+	virtual void fade(float time, int targetAlpha, int startAlpha);
+	
+	void move(float time, const sf::Vector2f& dest);
+	virtual void move(float time, const sf::Vector2f& dest, const sf::Vector2f& source);
 
-	void blur(float time, float endPerc, float startPerc = FLT_MAX);
+	void blur(float time, float endPerc);
+	virtual void blur(float time, float endPerc, float startPerc);
+
 	float getBlurPercentage() const;
 	void setShaderUniform(const std::string& uniform, float args);
 
-	// void setTexture(const sf::Texture& texture);
+	virtual sf::FloatRect getBoundingRect() const;
 
 private:	
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void initializeBlurShader();
 
-	// set for linear interplation later
-	class LinearInterpolation
-	{
-	private:
-		bool& nFlag;
-
-	};
-
 private:
 	std::string nIdentifier;		
 	sf::Sprite nSprite;
 
-	// fades
+	/*
+		@fading
+	*/
 	int nOpacity;	
 	int nTargetOpacity;
 	float nFadeTime;	
 	bool nInFade;
 
-	// movement
+	/*
+		@movement
+	*/
 	sf::Vector2f nStartingPosition;
 	sf::Vector2f nTargetPosition;
 	float nMoveTime;
 	bool nInMovement;
 
-	// blurring 
+	/*
+		@blurring
+	*/
 	sf::Shader nBlurShader;
-	const float MaxBlurRadius;
+	
+	static constexpr float MaxBlurRadius = 0.25;
+
 	bool nUseShader;
 	bool nInBlurAnimation;
 	float nBlurTime;

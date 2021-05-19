@@ -42,8 +42,8 @@ void MoveEntityCommand::execute(Engine& engine)
 
 	if (args[1] == "")
 	{
-		std::vector<std::string> pos = split(args[1], ',');
-		for (auto& str : pos) trim(str);
+		std::vector<std::string> pos = Util::split(args[1], ',');
+		for (auto& str : pos) Util::trim(str);
 		
 		if(!Util::isNumber(pos[0]) || !Util::isNumber(pos[1]))
 		{
@@ -58,8 +58,8 @@ void MoveEntityCommand::execute(Engine& engine)
 
 	if (args[2] != "")
 	{
-		std::vector<std::string> pos = split(args[2], ',');
-		for (auto& str : pos) trim(str);
+		std::vector<std::string> pos = Util::split(args[2], ',');
+		for (auto& str : pos) Util::trim(str);
 
 		if (!Util::isNumber(pos[0]) || !Util::isNumber(pos[1]))
 		{
@@ -107,12 +107,12 @@ std::vector<std::string> MoveEntityCommand::getArguments() const
 	// index 4 for animation wait(in engine)
 	std::vector<std::string> args(4, "");
 	
-	std::vector<std::string> splt = split(getArgumentString(), ';');
+	std::vector<std::string> splt = Util::split(getArgumentString(), ';');
 	std::cout << "Split size: " << splt.size() << std::endl;
 
 	for (auto& arg : splt)
 	{
-		std::vector<std::string> currSplt = split(arg, ':');
+		std::vector<std::string> currSplt = Util::split(arg, ':');
 
 		if (currSplt.size() != 2)
 		{
@@ -121,8 +121,8 @@ std::vector<std::string> MoveEntityCommand::getArguments() const
 			continue;
 		}
 
-		currSplt[0] = trim(currSplt[0]);
-		currSplt[1] = trim(currSplt[1]);
+		currSplt[0] = Util::trim(currSplt[0]);
+		currSplt[1] = Util::trim(currSplt[1]);
 
 		int index = -1;
 		if (currSplt[0] == "Time")

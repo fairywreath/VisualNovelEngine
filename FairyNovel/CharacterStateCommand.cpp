@@ -87,12 +87,12 @@ std::vector<std::string> CharacterStateCommand::getArguments() const
 	index 2: wait status
 	*/
 	std::vector<std::string> args(3, "");
-	std::vector<std::string> splt = split(getArgumentString(), ';');
+	std::vector<std::string> splt = Util::split(getArgumentString(), ';');
 
 	// TODO: will change these log errors to proper functions
 	for (const auto& arg : splt)
 	{
-		std::vector<std::string> currSplt = split(arg, ':');
+		std::vector<std::string> currSplt = Util::split(arg, ':');
 
 		if (currSplt.size() != 2)		// at least pos 
 		{
@@ -101,11 +101,11 @@ std::vector<std::string> CharacterStateCommand::getArguments() const
 			continue;
 		}
 
-		currSplt[0] = trim(currSplt[0]);
-		currSplt[1] = trim(currSplt[1]);
+		currSplt[0] = Util::trim(currSplt[0]);
+		currSplt[1] = Util::trim(currSplt[1]);
 
-		currSplt[0] = trim(currSplt[0]);
-		currSplt[1] = trim(currSplt[1]);
+		currSplt[0] = Util::trim(currSplt[0]);
+		currSplt[1] = Util::trim(currSplt[1]);
 
 		int index = -1;
 		if (currSplt[0] == "State")

@@ -12,6 +12,8 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/System/Clock.hpp>
 
+#include <queue>
+
 class Engine : public sf::Drawable, private sf::NonCopyable
 {
 public:
@@ -41,22 +43,32 @@ public:
 	bool isInAnimation() const;
 	bool shouldWait() const;
 
-	void setBackground(const std::string& id);
+	void setBackground(const std::string& id) noexcept;
+	// TODO, set a change in state
+	bool setBackground(const std::string& id, float time) noexcept;
+	void clearBackground(float time) noexcept;
+
+	void clearDialogueBox();
 	void displayText(const std::string& text, const std::string& name);
 
 	void addEntity(EntityPtr entity);
-	void addEntity(const std::string& id, const std::string& texture, const sf::Vector2f& pos);
-	void removeEntity(const std::string& id);
+	bool addEntity(const std::string& id, const std::string& texture, const sf::Vector2f& pos, int opacity = 255) noexcept;
 	
+	void removeEntity(const std::string& id);
 	void fadeScreen(float time, int targetAlpha, int startAlpha = INT_MAX);
 	
 	void setDialogueBoxOpacity(float amount);
 	void setWait(bool w);
 	void setWaitAnimation(bool w);
 
+	/*
+		@clean screen
+	*/
 	void clearTransparentEntities();
 
-	// maybe change later for better implementation
+	/*
+		@return entities
+	*/
 	Character* getCharacter(const std::string& id);
 	Entity* getEntity(const std::string& id);
 

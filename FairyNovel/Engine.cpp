@@ -17,7 +17,7 @@ Engine::Engine(State::Context context) :
 	nTextPos(-1),
 	nFadeTime(0),
 	nInFade(false),
-	nAutoMode(true),
+	nAutoMode(false),
 	nDialogueSpeed(5),
 	nTextTime(sf::Time::Zero),
 	nDelayTime(sf::Time::Zero),
@@ -56,47 +56,6 @@ Engine::Engine(State::Context context) :
 	nEntities.reserve(10);			// RESERVE WITH THE SIZE OF THE SPRITES???
 
 	nBackground.setPosition(0.f, 0.f);
-	// nBackground.fade(3.f, 255, 1);
-	// nDialogueBox.fade(3.f, 255, 1);
-
-	//auto myr1 = std::make_unique<Entity>("Mayuri1", nTextures.get("mayuri1"));
-	//auto myr2 = std::make_unique<Entity>("Mayuri2", nTextures.get("mayuri2"));
-	//myr1->setPosition(700.f, 40.f);
-	//myr2->setPosition(700.f, 40.f);
-	//addEntity(std::move(myr1));
-	
-	
-	// myr2->blur(2.f, 0.f, 100.f);
-	// addEntity(std::move(myr2));
-	//fadeEntity("Mayuri1", 1.f, 0, 255);
-	//fadeEntity("Mayuri2", 1.f, 255, 1);
-
-	// setWaitAnimation(true);
-
-	// moveEntity("Mayuri1", 1.f, sf::Vector2f(700.f, 40.f), sf::Vector2f(900.f, 40.f));
-	// moveEntity("Mayuri2", 1.f, sf::Vector2f(700.f, 40.f), sf::Vector2f(900.f, 40.f));
-
-	//auto ctr = std::make_unique<Character>("Mayuri", nTextures.get("mayuri1"), "default");
-	// ctr->setPosition(sf::Vector2f(700, 40));
-	// Character* ptr = ctr.get();
-	// nEntities.push_back(std::move(ctr));
-	// ptr->setOpacityAlpha(255);
-	// ptr->fade(2, 255, 0);
-	// ptr->insertState("second", nTextures.get("mayuri2"));
-	// ptr->setState("second", 0.3);
-	// ptr->setState("default");
-	// ptr->move(0.75, sf::Vector2f(700, 40));
-
-	// fadeScreen(3.f, 0);
-
-	/* character test  */
-	//CharacterBlueprint bp("mayuri", "state1", "mayuri1", nTextures);
-	//bp.insertState("state2", "mayuri2");
-	//CharacterPtr mayuri1 = std::make_unique<Character>(bp);
-
-	//nCharacters.push_back(std::move(mayuri1));
-
-	//testClock.restart();
 }
 
 bool Engine::addCharacter(const std::string& id)
@@ -115,7 +74,7 @@ void Engine::draw(sf::RenderTarget& target, sf::RenderStates states)  const
 	target.draw(nBackground, states);
 
 	for (const auto& ch : nCharacters) target.draw(*ch, states);
-	//for (const auto& ent : nEntities) target.draw(*ent, states);
+	for (const auto& ent : nEntities) target.draw(*ent, states);
 	
 	target.draw(nDialogueBox, states);
 	target.draw(nCharName, states);
@@ -124,20 +83,6 @@ void Engine::draw(sf::RenderTarget& target, sf::RenderStates states)  const
 
 void Engine::update(sf::Time dt)
 {
-	//if (testClock.getElapsedTime().asSeconds() > 3 && test1)
-	//{
-	//	Character* mayuri = getCharacter("mayuri");
-	//	mayuri->setState("state2", 2.0f);
-	//	test1 = false;
-	//}
-	//
-	//if (testClock.getElapsedTime().asSeconds() > 8 && test2)
-	//{
-	//	Character* mayuri = getCharacter("mayuri");
-	//	mayuri->setState("state1", 2.0f);
-	//	test2 = false;
-	//}
-
 	if (!nLinePrinted) nTextTime += dt;
 
 	if (!nLinePrinted && nTextTime.asMilliseconds() > nTextInterval) {
@@ -154,7 +99,7 @@ void Engine::update(sf::Time dt)
 			size_t pos = nTextPos;
 			while (nTextString[pos] != ' ' && pos < nTextString.size()) pos++;
 
-			sf::String wrapped = wrapText(sf::String(str), 800, nFont, 35, (int)(pos - nTextPos));
+			sf::String wrapped = Util::wrapText(sf::String(str), 800, nFont, 35, (int)(pos - nTextPos));
 			nText.setString(wrapped);
 		}
 		nTextTime = sf::Time::Zero;
@@ -246,7 +191,7 @@ void Engine::setAuto(bool autoState)
 
 void Engine::skipDialogueLine()
 {
-	sf::String wrapped = wrapText(sf::String(nTextString), 800, nFont, 35, 0);
+	sf::String wrapped = Util::wrapText(sf::String(nTextString), 800, nFont, 35, 0);
 	nText.setString(wrapped);
 	nLinePrinted = true;
 	nDelayTime = sf::Time::Zero;
@@ -284,9 +229,43 @@ bool Engine::shouldWait() const
 	return nWait;
 }
 
-void Engine::setBackground(const std::string& id)
+void Engine::setBackground(const std::string& id) noexcept
 {
 	nBackground.setTexture(nTextures.get(id));
+}
+
+bool Engine::setBackground(const std::string& id, float time) noexcept
+{
+	if (!nTextures.contains(id))
+	{
+		return false;
+	}
+
+	if (time <= 0)
+	{
+		setBackground(id);
+		nBackground.setOpacityAlpha(255);			// just to be safe
+		return true;
+	}
+
+	//nBackground.setOpacityAlpha(0);
+	nBackground.setTexture(nTextures.get(id));
+	nBackground.fade(time, 255, 0);
+
+	return true;
+}
+
+void Engine::clearBackground(float time) noexcept
+{
+	nBackground.fade(time, 0);
+}
+
+void Engine::clearDialogueBox()
+{
+	nLinePrinted = false;
+	nWait = false;
+	nText.setString("");
+	nCharName.setString("");
 }
 
 void Engine::displayText(const std::string& text, const std::string& name)
@@ -299,12 +278,19 @@ void Engine::displayText(const std::string& text, const std::string& name)
 	nCharName.setString(name);
 }
 
-void Engine::addEntity(const std::string& id, const std::string& texture, const sf::Vector2f& pos)
+bool Engine::addEntity(const std::string& id, const std::string& texture, const sf::Vector2f& pos, int opacity) noexcept
 {
-	// for now assume all to be added entities are new
+	if (!nTextures.contains(id))
+	{
+		return false;
+	}
+
 	EntityPtr ent = std::make_unique<Entity>(id, nTextures.get(texture));
+	ent->setOpacityAlpha(opacity);
 	ent->setPosition(pos);
 	nEntities.push_back(std::move(ent));
+
+	return true;
 }
 
 void Engine::removeEntity(const std::string& id)

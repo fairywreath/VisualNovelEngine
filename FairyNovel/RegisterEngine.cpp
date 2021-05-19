@@ -55,11 +55,11 @@ void RegisterEngine::runCommand(Command* command)
 
 void RegisterEngine::registerCharacter(const std::string& id, const std::string& args)
 {
-	std::vector<std::string> arg = split(args, ';');
+	std::vector<std::string> arg = Util::split(args, ';');
 	assert(arg.size() == 2);
 	for (auto& ar : arg)
 	{
-		ar = trim(ar);
+		ar = Util::trim(ar);
 	}
 	
 	if (!nTextures.contains(arg[1]))

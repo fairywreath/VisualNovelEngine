@@ -2,12 +2,16 @@
 
 # display character like this
 <DisplayText> () "Start start start"
-<DisplayCharacter> (mayuri) "Pos: 100,40;State: state1;   Fade: 1.5; Wait: True"
+<DisplayCharacter> (mayuri) "Pos: 700,40;State: state1;   Fade: 1.5; Wait: True"
 
 # change character state like this
 # <DisplayText> () "Start start start2"
 
 <CharacterState> (mayuri) "State: state2; Fade: 1.5; Wait: True"
+
+# <ClearText> () ""
+# <ClearBackground> () "0.5"
+# <SetBackground> (bg2) "1.5"
 
 <DisplaySprite> (suoh1) "100;40"
 <FadeEntity> (suoh1) "Time: 1.5; Target: 255; Start: 0"

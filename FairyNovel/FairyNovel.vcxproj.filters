@@ -181,7 +181,7 @@
       <Filter>Header Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="DisplayCharacterCommand.cpp">
-      <Filter>Header Files\CommandFactory</Filter>
+      <Filter>Header Files\Commands</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

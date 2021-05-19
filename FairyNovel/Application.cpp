@@ -130,8 +130,8 @@ void Application::updateStatistics(sf::Time elapsedTime)
 	if (nStatisticsUpdateTime >= sf::seconds(1.0f))
 	{
 		nStatisticsText.setString(
-			"Frames / Second = " + toString(nStatisticsNumFrames) + "\n" +
-			"Time / Update = " + toString(nStatisticsUpdateTime.asMicroseconds() / nStatisticsNumFrames) + "us");
+			"Frames / Second = " + Util::toString(nStatisticsNumFrames) + "\n" +
+			"Time / Update = " + Util::toString(nStatisticsUpdateTime.asMicroseconds() / nStatisticsNumFrames) + "us");
 
 		nStatisticsUpdateTime -= sf::seconds(1.0f);
 		nStatisticsNumFrames = 0;

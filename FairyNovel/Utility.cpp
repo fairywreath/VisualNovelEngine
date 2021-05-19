@@ -5,7 +5,7 @@
 
 #define PI 3.141592653589793238462643383f
 
-std::vector<std::string> split(const std::string& s, char delimiter)
+std::vector<std::string> Util::split(const std::string& s, char delimiter)
 {
 	std::vector<std::string> tokens;
 	std::string token;
@@ -17,7 +17,7 @@ std::vector<std::string> split(const std::string& s, char delimiter)
 	return tokens;
 }
 
-std::string trim(const std::string& str)
+std::string Util::trim(const std::string& str)
 {
 	if (str.empty())
 		return "";
@@ -34,7 +34,7 @@ std::string trim(const std::string& str)
 	return str.substr(i, (size_t)j - i + 1);
 }
 
-bool checkEnds(std::string& str, char lhs, char rhs)
+bool Util::checkEnds(std::string& str, char lhs, char rhs)
 {
 	if (str.empty()) return true;
 
@@ -46,13 +46,13 @@ bool checkEnds(std::string& str, char lhs, char rhs)
 	return false;
 }
 
-std::string trimEnds(const std::string& str)
+std::string Util::trimEnds(const std::string& str)
 {
 	if (str.size() <= 3) return "";
 	return str.substr(1, str.size() - 2);
 }
 
-sf::String wrapText(sf::String string, unsigned width, const sf::Font& font, unsigned characterSize, unsigned extraLen, bool bold)
+sf::String Util::wrapText(sf::String string, unsigned width, const sf::Font& font, unsigned characterSize, unsigned extraLen, bool bold)
 {
 	unsigned currentOffset = 0;
 	bool firstWord = true;
@@ -109,7 +109,7 @@ bool Util::isNumber(const std::string& str)
 		}) == str.end();
 }
 
-std::string toString(sf::Keyboard::Key key)
+std::string Util::toString(sf::Keyboard::Key key)
 {
 #define KEYTOSTRING_CASE(KEY) case sf::Keyboard::KEY: return #KEY;
 
@@ -222,12 +222,12 @@ std::string toString(sf::Keyboard::Key key)
 	return "";
 }
 
-float length(sf::Vector2f vector)
+float Util::length(sf::Vector2f vector)
 {
 	return std::sqrt(vector.x * vector.x + vector.y * vector.y);
 }
 
-sf::Vector2f unitVector(sf::Vector2f vector)
+sf::Vector2f Util::unitVector(sf::Vector2f vector)
 {
 	assert(vector != sf::Vector2f(0.f, 0.f));
 	return vector / length(vector);

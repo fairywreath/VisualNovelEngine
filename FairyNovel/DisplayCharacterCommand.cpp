@@ -31,7 +31,7 @@ void DisplayCharacterCommand::execute(Engine& engine)
 		return;
 	}
 	
-	auto posArr = split(args[0], ',');
+	auto posArr = Util::split(args[0], ',');
 	if (posArr.size() != 2)
 	{
 		std::string msg = "Invalid position coordinates: " + args[0];
@@ -45,7 +45,7 @@ void DisplayCharacterCommand::execute(Engine& engine)
 		return;
 	}
 
-	for (auto& pos : posArr) pos = trim(pos);
+	for (auto& pos : posArr) pos = Util::trim(pos);
 	chr->setPosition(sf::Vector2f(std::stof(posArr[0]), std::stof(posArr[1])));
 
 	// state, if given not default
@@ -57,7 +57,7 @@ void DisplayCharacterCommand::execute(Engine& engine)
 	// fade
 	if (args[2] != "")
 	{
-		args[2] = trim(args[2]);
+		args[2] = Util::trim(args[2]);
 		if (!Util::isNumber(args[2]))
 		{
 			std::string msg = "Fade time must be a number: " + args[0];
@@ -101,12 +101,12 @@ std::vector<std::string> DisplayCharacterCommand::getArguments() const
 	// index 3 for animation wait(in engine)
 	std::vector<std::string> args(4, "");
 
-	std::vector<std::string> splt = split(getArgumentString(), ';');
+	std::vector<std::string> splt = Util::split(getArgumentString(), ';');
 	std::cout << "Split size: " << splt.size() << std::endl;
 
 	for (const auto& arg : splt)
 	{
-		std::vector<std::string> currSplt = split(arg, ':');
+		std::vector<std::string> currSplt = Util::split(arg, ':');
 
 		if (currSplt.size() != 2)		// at least pos 
 		{
@@ -115,8 +115,8 @@ std::vector<std::string> DisplayCharacterCommand::getArguments() const
 			continue;
 		}
 
-		currSplt[0] = trim(currSplt[0]);
-		currSplt[1] = trim(currSplt[1]);
+		currSplt[0] = Util::trim(currSplt[0]);
+		currSplt[1] = Util::trim(currSplt[1]);
 
 		int index = -1;
 		if (currSplt[0] == "Pos")

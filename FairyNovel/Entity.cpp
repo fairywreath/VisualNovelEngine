@@ -21,7 +21,6 @@ Entity::Entity(const std::string& identifier, const sf::Texture& texture) :
 	nBlurElapsed(sf::Time::Zero),
 	nBlurRadius(0),
 	nTargetBlurRadius(0),
-	MaxBlurRadius(0.025f),
 	nBlurTime(0)
 {
     nSprite.setTexture(texture);
@@ -101,6 +100,10 @@ void Entity::update(sf::Time dt)
 	}
 }
 
+void Entity::fade(float time, int targetAlpha)
+{
+}
+
 void Entity::fade(float time, int targetAlpha, int startAlpha)
 {
 	if (time < 0)
@@ -129,18 +132,24 @@ void Entity::fade(float time, int targetAlpha, int startAlpha)
 	nInFade = true;
 }
 
+void Entity::move(float time, const sf::Vector2f& dest)
+{
+	move(time, dest, getPosition());
+}
+
 void Entity::move(float time, const sf::Vector2f& dest, const sf::Vector2f& source)
 {
-	sf::Vector2f start = source;
-	if (start.x == FLT_MAX)		// flag to use current position
-		start = getPosition();		// from current position
-	else
-		setPosition(source);
+	if(getPosition() != source) setPosition(source);
 
-	nStartingPosition = start;
+	nStartingPosition = source;
 	nTargetPosition = dest;
 	nMoveTime = time;
 	nInMovement = true;
+}
+
+void Entity::blur(float time, float endPerc)
+{
+	blur(time, endPerc, getBlurPercentage());
 }
 
 void Entity::blur(float time, float endPerc, float startPerc)

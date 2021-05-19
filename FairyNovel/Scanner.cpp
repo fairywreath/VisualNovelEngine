@@ -42,7 +42,7 @@ void Scanner::scan(bool script)
 
 	while (std::getline(nFile, str))
 	{
-		str = trim(str);
+		str = Util::trim(str);
 		if (str.size() == 0 || str[0] == '#') continue;		// commented line
 		
 		std::vector<size_t> spaces;
@@ -69,11 +69,11 @@ void Scanner::scan(bool script)
 				args = str.substr(spaces[1] + 1, str.size() - spaces[1] - 1);
 			}
 			
-			if (!checkEnds(kw, '<', '>'))
+			if (!Util::checkEnds(kw, '<', '>'))
 				throw std::runtime_error("Keywords must have closing <> brackets");
-			if (!checkEnds(id, '(', ')'))
+			if (!Util::checkEnds(id, '(', ')'))
 				throw std::runtime_error("Identifiers must have closing () brakets");
-			if (!checkEnds(args, '"', '"'))
+			if (!Util::checkEnds(args, '"', '"'))
 				throw std::runtime_error("Arguments must have closing quotation marks ");
 
 			std::cout << "KW: " << kw << " ID: " << id << " Args: " << args << std::endl;
@@ -125,7 +125,7 @@ void Scanner::scanCommands(bool script)
 
 	while (std::getline(nFile, str))
 	{
-		str = trim(str);
+		str = Util::trim(str);
 		if (str.size() == 0 || str[0] == '#') continue;		
 
 		count++;
