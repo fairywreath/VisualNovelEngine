@@ -1,8 +1,8 @@
 #include "CommandFactory.hpp"
 #include "RegisterCommand.hpp"
-#include "DisplaySpriteCommand.hpp"
+#include "DisplayEntityCommand.hpp"
 #include "DisplayTextCommand.hpp"
-#include "RemoveSpriteCommand.hpp"
+#include "RemoveEntityCommand.hpp"
 #include "PlayMusicCommand.hpp"
 #include "PlaySoundCommand.hpp"
 #include "JumpCommand.hpp"
@@ -10,8 +10,9 @@
 #include"FadeEntityCommand.hpp"
 #include "BlurEntityCommand.hpp"
 #include "MoveEntityCommand.hpp"
-#include "DisplayCharacterCommand.hpp"
+#include "DisplayEntityCommand.hpp"
 #include "CharacterStateCommand.hpp"
+#include "DisplayCharacterCommand.hpp"
 
 #include "Logger.hpp"
 
@@ -25,13 +26,13 @@ CommandFactory::CommandPtr CommandFactory::generateCommand(const std::string& kw
     {
         return std::make_unique <DisplayTextCommand>(id, args);
     }
-    else if (kw == "DisplaySprite")
+    else if (kw == "DisplaySprite" || kw == "DisplayEntity")
     {
-        return std::make_unique<DisplaySpriteCommand>(id, args);
+        return std::make_unique<DisplayEntityCommand>(id, args);
     }
-    else if (kw == "RemoveSprite")
+    else if (kw == "RemoveEntity" || kw == "RemoveSprite")
     {
-        return std::make_unique<RemoveSpriteCommand>(id, args);
+        return std::make_unique<RemoveEntityCommand>(id, args);
     }
     else if (kw == "PlayMusic")
     {

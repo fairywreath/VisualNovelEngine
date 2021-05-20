@@ -102,6 +102,7 @@ void Entity::update(sf::Time dt)
 
 void Entity::fade(float time, int targetAlpha)
 {
+	fade(time, targetAlpha, nOpacity);
 }
 
 void Entity::fade(float time, int targetAlpha, int startAlpha)
@@ -113,18 +114,14 @@ void Entity::fade(float time, int targetAlpha, int startAlpha)
 		return;
 	}
 
-	if (targetAlpha < 0 || targetAlpha > 255 || startAlpha < 0 || (startAlpha > 255 && startAlpha != INT_MAX))
+	if (targetAlpha < 0 || targetAlpha > 255 || startAlpha < 0 || startAlpha > 255)
 	{
-		std::string msg = "Invalid arguments for fade alpha value";
+		std::string msg = "Invalid arguments for fade alpha value: Target=" + std::to_string(targetAlpha)
+			+ " Start= " + std::to_string(startAlpha);
 		LOGGER->Log("Error at fade entity", msg);
 		return;
 	}
 
-	if (startAlpha != INT_MAX)		// given starting alpha, do not use current
-		nOpacity = startAlpha;
-	else
-		startAlpha = nOpacity;
-	
 	nTargetOpacity = targetAlpha;
 	nFadeTime = time;
 	setOpacityAlpha(startAlpha);
@@ -161,7 +158,7 @@ void Entity::blur(float time, float endPerc, float startPerc)
 		return;
 	}
 
-	if ((startPerc > 100 && startPerc != FLT_MAX) || startPerc < 0 || endPerc > 100 || endPerc < 0)
+	if (startPerc > 100  || startPerc < 0 || endPerc > 100 || endPerc < 0)
 	{
 		std::string msg = "Invalid arguments for blur percentage";
 		LOGGER->Log("Error at blur entity", msg);
@@ -169,7 +166,7 @@ void Entity::blur(float time, float endPerc, float startPerc)
 	}
 
 	float startRadius = nBlurRadius;
-	if (startPerc != FLT_MAX) startRadius = (startPerc / 100.f) * MaxBlurRadius;
+	if (startPerc != getBlurPercentage()) startRadius = (startPerc / 100.f) * MaxBlurRadius;
 
 	nBlurRadius = startRadius;
 	nTargetBlurRadius = (endPerc / 100.f) * MaxBlurRadius;

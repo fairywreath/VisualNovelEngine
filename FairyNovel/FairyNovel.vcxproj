@@ -155,7 +155,7 @@
     <ClInclude Include="Container.hpp" />
     <ClInclude Include="Decision.hpp" />
     <ClInclude Include="DisplayCharacterCommand.hpp" />
-    <ClInclude Include="DisplaySpriteCommand.hpp" />
+    <ClInclude Include="DisplayEntityCommand.hpp" />
     <ClInclude Include="DisplayTextCommand.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Entity.hpp" />
@@ -171,7 +171,7 @@
     <ClInclude Include="PlaySoundCommand.hpp" />
     <ClInclude Include="RegisterCommand.hpp" />
     <ClInclude Include="RegisterEngine.hpp" />
-    <ClInclude Include="RemoveSpriteCommand.hpp" />
+    <ClInclude Include="RemoveEntityCommand.hpp" />
     <ClInclude Include="ResourceIdentifiers.hpp" />
     <ClInclude Include="ResourceManager.hpp" />
     <ClInclude Include="Scanner.hpp" />
@@ -197,7 +197,7 @@
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Decision.cpp" />
     <ClCompile Include="DisplayCharacterCommand.cpp" />
-    <ClCompile Include="DisplaySpriteCommand.cpp" />
+    <ClCompile Include="DisplayEntityCommand.cpp" />
     <ClCompile Include="DisplayTextCommand.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -214,7 +214,7 @@
     <ClCompile Include="PlaySoundCommand.cpp" />
     <ClCompile Include="RegisterCommand.cpp" />
     <ClCompile Include="RegisterEngine.cpp" />
-    <ClCompile Include="RemoveSpriteCommand.cpp" />
+    <ClCompile Include="RemoveEntityCommand.cpp" />
     <ClCompile Include="Scanner.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="SpriteButton.cpp" />

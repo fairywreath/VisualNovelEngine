@@ -1,37 +1,31 @@
 <Label> (start)
 
-# display character like this
 <DisplayText> () "Start start start"
-<DisplayCharacter> (mayuri) "Pos: 700,40;State: state1;   Fade: 1.5; Wait: True"
+<DisplayCharacter> (mayuri) "Pos: 700,50;State: state2;   Fade: 1.5; Wait: True"
+<CharacterState> (mayuri) "State: state1; Fade: 1.5; Wait: True"
 
-# change character state like this
-# <DisplayText> () "Start start start2"
+<MoveEntity> (mayuri) "Target: 200,0; Time: 2.32"
 
-<CharacterState> (mayuri) "State: state2; Fade: 1.5; Wait: True"
+# fade is optional
+<DisplaySprite> (suoh2) "Pos: 100,30; Fade:  3.5"       
 
-# <ClearText> () ""
-# <ClearBackground> () "0.5"
-# <SetBackground> (bg2) "1.5"
-
-<DisplaySprite> (suoh1) "100;40"
-<FadeEntity> (suoh1) "Time: 1.5; Target: 255; Start: 0"
 <DisplayText> (Suoh) "Hello Mayuri, are you there?"
 <DisplayText> (Darren) "HELLO TEST TEST"
-<DisplaySprite> (mayuri1) "700;40"
+<DisplaySprite> (mayuri1) "Fade: 2;Pos: 400,30; Wait: True"
 
 # move full form, total 4 args , use comma for position vector
 #<MoveEntity> (mayuri1) "Time: 1.5; Target: 400,40; Start: 700,40; Wait: True"
-<MoveEntity> (mayuri1) "Time: 1.5; Target: 400,40; Wait: True"
+<MoveEntity> (mayuri1) "Time: 1.5; Target: 800,30; Wait: True"
 # can remove start for move, wait is automatically false, time is always required
 
 # fade full form, total 4 args
-<FadeEntity> (mayuri1) "Time: 1.5; Target: 255; Start: 0; Wait: False"
+<DisplayText> (Mayuri) "suoh I am leaving"
+<FadeEntity> (mayuri1) "Time: 1.5; Target: 0;  Wait: False"
 
 
 <DisplayText> (Mayuri) "Yes Suoh, I am here."
-<DisplaySprite> (suoh2) "100;40;"
-<FadeEntity> (suoh2) "Time: 0.25;  Start:0;  Target: 255"
-<FadeEntity> (suoh1) "Time: 1.5; Target: 0; Wait: True"
+
+
 
 
 <DisplayText> (Suoh) "Don't ever leave me again okay?"
@@ -45,3 +39,8 @@
 <RemoveSprite> (suoh1)
 <RemoveSprite> (suoh2)
 <Jump> (start)
+
+
+# <ClearText> () ""
+# <ClearBackground> () "0.5"
+# <SetBackground> (bg2) "1.5"

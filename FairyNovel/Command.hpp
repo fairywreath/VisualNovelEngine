@@ -24,22 +24,33 @@ public:
 		SetBackground,
 		ClearDialogueBox,
 
+		/*
+			@game implementations
+		*/
 		DisplayText,
-		DisplaySprite,
-		RemoveSprite,
-		Blur,
-		Animation,
 		
+		Zoom,
+		PlayMusic,
+		PlaySound,
+		
+		/*
+			@character implementations
+		*/
 		DisplayCharacter,
 		ChangeCharacterState,
 
+		/*
+			@entity implementations, applies for characters except for DisplayEntity
+			@character gets higher priority if ids are the same, they are checked first
+		*/
 		FadeEntity,
 		BlurEntity,
+		RemoveEntity,
 		MoveEntity,
-		Zoom,
+		DisplayEntity,
 
-		PlayMusic,
-		PlaySound,
+		// change these to entity
+		DisplaySprite,		// need be removed?
 
 		Label,
 		Jump		// jump between labels, for decision making

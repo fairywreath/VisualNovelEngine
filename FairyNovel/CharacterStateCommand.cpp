@@ -77,6 +77,8 @@ void CharacterStateCommand::execute(Engine& engine)
 	}
 
 	if (wait) engine.setWait(true);
+
+	std::cout << "character state success\n";
 }
 
 std::vector<std::string> CharacterStateCommand::getArguments() const

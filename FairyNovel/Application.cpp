@@ -50,9 +50,13 @@ void Application::initialize(const std::string& configPath)
 		regEngine.runCommand(ptr.get());
 	}
 
+
 	nCommands.clear();						// reuse the vector
+	
+	std::cout << "started reading commands\n";
 	scanner->scanCommands();			// open srcipt file and reserve commands vector
 
+	std::cout << "finished reading commands\n";
 
 	// set up window
 	nTimePerFrame = sf::seconds(1.f / (float)config.getOption("FPS"));

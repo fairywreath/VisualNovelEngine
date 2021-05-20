@@ -90,13 +90,10 @@
     <ClCompile Include="JumpCommand.cpp">
       <Filter>Header Files\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClCompile>
     <ClCompile Include="DisplayTextCommand.cpp">
       <Filter>Header Files\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="DisplaySpriteCommand.cpp">
+    <ClCompile Include="DisplayEntityCommand.cpp">
       <Filter>Header Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="PlayMusicCommand.cpp">
@@ -105,7 +102,7 @@
     <ClCompile Include="PlaySoundCommand.cpp">
       <Filter>Header Files\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="RemoveSpriteCommand.cpp">
+    <ClCompile Include="RemoveEntityCommand.cpp">
       <Filter>Header Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="RegisterCommand.cpp">
@@ -183,6 +180,9 @@
     <ClCompile Include="DisplayCharacterCommand.cpp">
       <Filter>Header Files\Commands</Filter>
     </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Header Files\CommandFactory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceIdentifiers.hpp">
@@ -239,13 +239,13 @@
     <ClInclude Include="Engine.hpp">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="DisplaySpriteCommand.hpp">
+    <ClInclude Include="DisplayEntityCommand.hpp">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="DisplayTextCommand.hpp">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="RemoveSpriteCommand.hpp">
+    <ClInclude Include="RemoveEntityCommand.hpp">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="Entity.hpp">

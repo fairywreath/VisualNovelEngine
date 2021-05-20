@@ -51,6 +51,7 @@ bool Character::setState(const std::string& id) noexcept
 		return false;		// also log later
 	}
 
+	nCurrentState = id;
 	nEntity.setTexture(nBlueprint.getTexture(id));
 	return true;
 }
@@ -76,11 +77,10 @@ bool Character::setState(const std::string& id, float transitionTime) noexcept
 		nSecondaryEntity.setTexture(nBlueprint.getTexture(nCurrentState));
 		nSecondaryEntity.setOpacityAlpha(255);		// max, just in case 
 		
-		nEntity.setOpacityAlpha(0);
 		nEntity.setTexture(nBlueprint.getTexture(id));
 		
 		nSecondaryEntity.fade(transitionTime, 0);
-		nEntity.fade(transitionTime, 255);
+		nEntity.fade(transitionTime, 255, 0);
 
 		nCurrentState = id;			// future current state
 		return true;
@@ -114,7 +114,7 @@ Entity* Character::getEntity()
 
 void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	states.transform *= getTransform();   
+	// states.transform *= getTransform();   
 
 	if (nInTransition)
 	{

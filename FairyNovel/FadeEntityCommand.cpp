@@ -13,10 +13,19 @@ FadeEntityCommand::FadeEntityCommand(const std::string& id, const std::string& a
 
 void FadeEntityCommand::execute(Engine& engine)
 {
-	Entity* ent = engine.getEntity(getIdentifier());
+	Entity* ent = nullptr;
+	if (engine.getCharacter(getIdentifier()) != nullptr)
+	{
+		ent = engine.getCharacter(getIdentifier())->getEntity();
+	}
+	else
+	{
+		ent = engine.getEntity(getIdentifier());
+	}
+
 	if (ent == nullptr)
 	{
-		std::string msg = "Entity ID not found: " + getIdentifier();
+		std::string msg = "Character/Entity ID not found: " + getIdentifier();
 		LOGGER->Log("Fade Entity Command", msg);
 		return;
 	}
@@ -76,10 +85,11 @@ void FadeEntityCommand::execute(Engine& engine)
 		}
 	}
 
-	// std::cout << "Fade args all valid\n";
-
+	if (start != INT_MAX)
+		ent->fade(time, target, start);
+	else
+		ent->fade(time, target);
 	
-	ent->fade(time, target, start);
 	if (wait)
 		engine.setWaitAnimation(true);
 }

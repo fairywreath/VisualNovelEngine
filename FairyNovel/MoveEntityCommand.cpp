@@ -14,10 +14,19 @@ MoveEntityCommand::MoveEntityCommand(const std::string& id, const std::string& a
 
 void MoveEntityCommand::execute(Engine& engine)
 {
-	Entity* ent = engine.getEntity(getIdentifier());
+	Entity* ent = nullptr;
+	if (engine.getCharacter(getIdentifier()) != nullptr)
+	{
+		ent = engine.getCharacter(getIdentifier())->getEntity();
+	}
+	else
+	{
+		ent = engine.getEntity(getIdentifier());
+	}
+
 	if (ent == nullptr)
 	{
-		std::string msg = "Entity ID not found: " + getIdentifier();
+		std::string msg = "Character/Entity ID not found: " + getIdentifier();
 		LOGGER->Log("Fade Entity Command", msg);
 		return;
 	}
@@ -33,14 +42,14 @@ void MoveEntityCommand::execute(Engine& engine)
 	{
 		if (!Util::isNumber(args[0]))
 		{
-			std::string message = "Move Time does not have positve numeric target alpha value: " + args[0];
+			std::string message = "Move Time must be a positive number: " + args[0];
 			LOGGER->Log("Move Entity Command", message);
 			return;
 		}
 		time = stof(args[0]);
 	}
 
-	if (args[1] == "")
+	if (args[1] != "")
 	{
 		std::vector<std::string> pos = Util::split(args[1], ',');
 		for (auto& str : pos) Util::trim(str);
@@ -53,6 +62,12 @@ void MoveEntityCommand::execute(Engine& engine)
 		}
 		target.x = stof(pos[0]);
 		target.y = stof(pos[1]);
+	}
+	else
+	{
+		std::string message = "Move entity command requires target position: " + args[1];
+		LOGGER->Log("Move Entity Command", message);
+		return;
 	}
 
 
@@ -89,10 +104,11 @@ void MoveEntityCommand::execute(Engine& engine)
 		}
 	}
 
-	// std::cout << "Fade args all valid\n";
-
-
-	ent->move(time, target, start);
+	if (start.x != FLT_MAX)
+		ent->move(time, target, start);
+	else
+		ent->move(time, target);
+	
 	if (wait)
 		engine.setWaitAnimation(true);
 	
@@ -102,9 +118,9 @@ std::vector<std::string> MoveEntityCommand::getArguments() const
 {
 	// maximum 4 args
 	// index 0  for time
-	// index 2 for target position
-	// index 3 for starting position
-	// index 4 for animation wait(in engine)
+	// index 1 for target position
+	// index 2 for starting position
+	// index 3 for animation wait(in engine)
 	std::vector<std::string> args(4, "");
 	
 	std::vector<std::string> splt = Util::split(getArgumentString(), ';');

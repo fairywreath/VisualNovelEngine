@@ -12,7 +12,9 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/System/Clock.hpp>
 
-#include <queue>
+/*
+	@engine class for graphics and game logic, acts like a 'canvas'
+*/
 
 class Engine : public sf::Drawable, private sf::NonCopyable
 {
@@ -30,61 +32,83 @@ public:
 	void update(sf::Time dt);
 	bool handleEvent(const sf::Event& event);
 
+	/*
+		@system/game implementations
+	*/
 	void playMusic(const std::string& id);
  	void playSound(const std::string& id);
 	void stopMusic();
 
 	void setDialogueSpeed(int amount);
 	void setAuto(bool autoState);
-
 	void skipDialogueLine();
 	
+	/*
+		@animation state
+	*/
 	void skipAnimations();
 	bool isInAnimation() const;
-	bool shouldWait() const;
-
-	void setBackground(const std::string& id) noexcept;
-	// TODO, set a change in state
-	bool setBackground(const std::string& id, float time) noexcept;
-	void clearBackground(float time) noexcept;
-
-	void clearDialogueBox();
-	void displayText(const std::string& text, const std::string& name);
-
-	void addEntity(EntityPtr entity);
-	bool addEntity(const std::string& id, const std::string& texture, const sf::Vector2f& pos, int opacity = 255) noexcept;
-	
-	void removeEntity(const std::string& id);
-	void fadeScreen(float time, int targetAlpha, int startAlpha = INT_MAX);
-	
-	void setDialogueBoxOpacity(float amount);
-	void setWait(bool w);
-	void setWaitAnimation(bool w);
 
 	/*
-		@clean screen
+		@set/fade/clear background image
+		@setBackground without time arg is instant
+	*/
+	void setBackground(const std::string& id) noexcept;
+	void clearBackground(float time) noexcept;
+	void fadeInBackground(float time) noexcept;
+
+	/*
+		@fade/clear whole screen, including all entities except the textbox and bg
+		@no starting opacity set, all starting opacity is current opacity
+	*/
+	void clearScreen(float time) noexcept;
+	void fadeInScreen(float time) noexcept;
+
+	/*
+		@fade/hide dialouge box sprite
+	*/
+	void setDialogueBoxOpacityPercent(float amount);
+	void setDialogueBoxOpacity(int alpha);
+	void fadeDialogueBox(float time, int alpha);
+
+	/*
+		@cleanup
 	*/
 	void clearTransparentEntities();
 
 	/*
-		@return entities
+		@dialogue box functionalities
 	*/
-	Character* getCharacter(const std::string& id);
-	Entity* getEntity(const std::string& id);
+	void clearDialogueBoxText();
+	void displayText(const std::string& text, const std::string& name);
 
 	/*
-		@add character to display, return true if id exists
+		@adding/getting/removing characters
 	*/
+	Character* getCharacter(const std::string& id);
 	bool addCharacter(const std::string& id);
+	void removeCharacter(const std::string& id);
+
+	/*
+		@adding/getting/removing entities
+	*/
+	Entity* getEntity(const std::string& id);
+	bool addEntity(const std::string& id, const std::string& texture, const sf::Vector2f& pos);
+	void removeEntity(const std::string& id);
+	
+	/*
+		@wait command runs functionalties
+	*/
+	void setWait(bool w);
+	void setWaitAnimation(bool w);
+	bool shouldWait() const;
 
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-private:
-	sf::Clock testClock;
-	bool test1 = true;
-	bool test2 = true;
+	void fadeScreen(float time, int targetAlpha) noexcept;
 
+private:
 	MusicPlayer& nMusicPlayer;
 	SoundPlayer& nSoundPlayer;
 	TextureManager& nTextures;

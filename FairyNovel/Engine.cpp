@@ -51,23 +51,13 @@ Engine::Engine(State::Context context) :
 	float dby = (float)context.window->getSize().y - (float)dbT.getSize().y - 30.f;
 	nDialogueBox.setPosition(dbx, dby);
 
-	setDialogueBoxOpacity(nDialogueBoxOpacity);
+	setDialogueBoxOpacityPercent(nDialogueBoxOpacity);
 
 	nEntities.reserve(10);			// RESERVE WITH THE SIZE OF THE SPRITES???
 
 	nBackground.setPosition(0.f, 0.f);
 }
 
-bool Engine::addCharacter(const std::string& id)
-{
-	if (nCharacterBPs.find(id) == nCharacterBPs.end())
-	{
-		// log error
-		return false;
-	}
-	nCharacters.push_back(std::make_unique<Character>(nCharacterBPs.at(id)));
-	return true;
-}
 
 void Engine::draw(sf::RenderTarget& target, sf::RenderStates states)  const
 {
@@ -234,33 +224,81 @@ void Engine::setBackground(const std::string& id) noexcept
 	nBackground.setTexture(nTextures.get(id));
 }
 
-bool Engine::setBackground(const std::string& id, float time) noexcept
-{
-	if (!nTextures.contains(id))
-	{
-		return false;
-	}
-
-	if (time <= 0)
-	{
-		setBackground(id);
-		nBackground.setOpacityAlpha(255);			// just to be safe
-		return true;
-	}
-
-	//nBackground.setOpacityAlpha(0);
-	nBackground.setTexture(nTextures.get(id));
-	nBackground.fade(time, 255, 0);
-
-	return true;
-}
-
 void Engine::clearBackground(float time) noexcept
 {
 	nBackground.fade(time, 0);
 }
 
-void Engine::clearDialogueBox()
+void Engine::fadeInBackground(float time) noexcept
+{
+	nBackground.fade(time, 255);
+}
+
+
+/*
+	whole screen funtionalities
+*/
+void Engine::clearScreen(float time) noexcept
+{
+	fadeScreen(time, 0);
+}
+
+void Engine::fadeInScreen(float time) noexcept
+{
+	fadeScreen(time, 255);
+}
+
+void Engine::fadeScreen(float time, int targetAlpha) noexcept
+{
+	for (auto& ch : nCharacters) ch->getEntity()->fade(time, targetAlpha);
+	for (auto& ent : nEntities) ent->fade(time, targetAlpha);
+
+	nBackground.fade(time, targetAlpha);
+}
+
+
+/*
+	@entity cleanup
+*/
+void Engine::clearTransparentEntities()
+{
+	for (auto itr = nEntities.begin(); itr != nEntities.end(); )
+	{
+		if ((*itr)->getOpacityAlpha() <= 0)
+		{
+			itr = nEntities.erase(itr);
+		}
+		else
+			itr++;
+	}
+}
+
+/*
+	@dialogue box functionalities
+*/
+void Engine::setDialogueBoxOpacityPercent(float amount)
+{
+	// set opacity, 100% = 225
+	nDialogueBoxOpacity = amount;
+	float alpha = (amount / (float)100) * (float)255;
+	nDialogueBox.setOpacityAlpha((int)alpha);
+}
+
+void Engine::setDialogueBoxOpacity(int alpha)
+{
+	nDialogueBox.setOpacityAlpha(alpha);
+}
+
+void Engine::fadeDialogueBox(float time, int alpha)
+{
+	nDialogueBox.fade(time, alpha);
+}
+
+
+/*
+	@text functionalities
+*/
+void Engine::clearDialogueBoxText()
 {
 	nLinePrinted = false;
 	nWait = false;
@@ -278,63 +316,10 @@ void Engine::displayText(const std::string& text, const std::string& name)
 	nCharName.setString(name);
 }
 
-bool Engine::addEntity(const std::string& id, const std::string& texture, const sf::Vector2f& pos, int opacity) noexcept
-{
-	if (!nTextures.contains(id))
-	{
-		return false;
-	}
 
-	EntityPtr ent = std::make_unique<Entity>(id, nTextures.get(texture));
-	ent->setOpacityAlpha(opacity);
-	ent->setPosition(pos);
-	nEntities.push_back(std::move(ent));
-
-	return true;
-}
-
-void Engine::removeEntity(const std::string& id)
-{
-	std::cout << "sprite to remove: " << id << std::endl;
-	auto test = nEntities.cbegin();
-
-	for (auto itr = nEntities.cbegin(); itr != nEntities.cend();)
-	{
-		if ((*itr)->getIdentifier() == id)
-		{
-			std::cout << "sprite found\n";
-			itr = nEntities.erase(itr);
-			//	return;		// remove all instances of the same identifier
-		}
-		else itr++;
-	}
-}
-
-
-void Engine::fadeScreen(float time, int targetAlpha, int startAlpha)
-{
-	nBackground.fade(time, targetAlpha, startAlpha);
-	nDialogueBox.fade(time, targetAlpha, startAlpha);
-
-	for (const auto& ent : nEntities) ent->fade(time, targetAlpha, startAlpha);
-}
-
-void Engine::clearTransparentEntities()
-{
-	for (auto itr = nEntities.begin(); itr != nEntities.end(); )
-	{
-		if ((*itr)->getOpacityAlpha() <= 0)
-		{
-			itr = nEntities.erase(itr);
-			std::cout << "aplha 0 entity removed\n";
-		}
-		else
-			itr++;
-	}
-
-//	std::cout << "size after entity clerance: " << nEntities.size() << std::endl;
-}
-
+/*
+	@character implementations
+*/
 Character* Engine::getCharacter(const std::string& id)
 {
 	const auto ch = std::find_if(nCharacters.begin(), nCharacters.end(), [&id](const CharacterPtr& ptr)
@@ -343,11 +328,39 @@ Character* Engine::getCharacter(const std::string& id)
 		});
 
 	if (ch != nCharacters.end()) return (*ch).get();
-	
+
 	// add log errorhere
 	return nullptr;
 }
 
+bool Engine::addCharacter(const std::string& id)
+{
+	if (nCharacterBPs.find(id) == nCharacterBPs.end())
+	{
+		// log error
+		return false;
+	}
+	nCharacters.push_back(std::make_unique<Character>(nCharacterBPs.at(id)));
+	return true;
+}
+
+void Engine::removeCharacter(const std::string& id)
+{
+	for (auto itr = nCharacters.cbegin(); itr != nCharacters.cend();)
+	{
+		if ((*itr)->getIdentifier() == id)
+		{
+			itr = nCharacters.erase(itr);
+			//	return;		// remove all instances of the same identifier
+		}
+		else itr++;
+	}
+}
+
+
+/*
+	@entity implementations
+*/
 Entity* Engine::getEntity(const std::string& id)
 {
 	for (const auto& ent : nEntities)
@@ -359,20 +372,38 @@ Entity* Engine::getEntity(const std::string& id)
 	return nullptr;
 }
 
-void Engine::addEntity(EntityPtr entity)
+bool Engine::addEntity(const std::string& id, const std::string& texture, const sf::Vector2f& pos)
 {
-	nEntities.push_back(std::move(entity));
+	if (!nTextures.contains(id))
+	{
+		return false;
+	}
+
+	EntityPtr ent = std::make_unique<Entity>(id, nTextures.get(texture));
+	ent->setPosition(pos);
+	nEntities.push_back(std::move(ent));
+
+	return true;
+}
+
+void Engine::removeEntity(const std::string& id)
+{
+	for (auto itr = nEntities.cbegin(); itr != nEntities.cend();)
+	{
+		if ((*itr)->getIdentifier() == id)
+		{
+			itr = nEntities.erase(itr);
+			//	return;		// remove all instances of the same identifier
+		}
+		else itr++;
+	}
 }
 
 
-void Engine::setDialogueBoxOpacity(float amount)
-{
-	// set opacity, 100% = 225
-	nDialogueBoxOpacity = amount;
-	float alpha = (amount / (float)100) * (float)255;
-	nDialogueBox.setOpacityAlpha((int)alpha);
-}
 
+/*
+	@wait implementations
+*/
 void Engine::setWait(bool w)
 {
 	nWait = w;
