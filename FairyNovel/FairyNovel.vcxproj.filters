@@ -67,6 +67,9 @@
     <Filter Include="Header Files\State\State">
       <UniqueIdentifier>{21bcc21b-ed26-47b7-beb3-6d3e919820ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Commands-System/Engine">
+      <UniqueIdentifier>{3707e5f8-1fbe-4538-a1ed-e8ccb62ae901}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="State.cpp">
@@ -182,6 +185,18 @@
     </ClCompile>
     <ClCompile Include="Command.cpp">
       <Filter>Header Files\CommandFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeOutBackgroundCommand.cpp">
+      <Filter>Header Files\Commands-System/Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowDialogueBoxCommand.cpp">
+      <Filter>Header Files\Commands-System/Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="HideDialogueBoxCommand.cpp">
+      <Filter>Header Files\Commands-System/Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayBackgroundCommand.cpp">
+      <Filter>Header Files\Commands-System/Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +319,18 @@
     </ClInclude>
     <ClInclude Include="Command.hpp">
       <Filter>Header Files\CommandFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeOutBackgroundCommand.hpp">
+      <Filter>Header Files\Commands-System/Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="HideDialogueBoxCommand.hpp">
+      <Filter>Header Files\Commands-System/Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowDialogueBoxCommand.hpp">
+      <Filter>Header Files\Commands-System/Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayBackgroundCommand.hpp">
+      <Filter>Header Files\Commands-System/Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,8 @@
 #include "DisplayTextCommand.hpp"
 #include "Engine.hpp"
 
+#include <iostream>
+
 DisplayTextCommand::DisplayTextCommand(const std::string& identifier, 
 	const std::string& arguments) :
 	Command(Type::DisplayText, identifier, arguments)

@@ -6,7 +6,6 @@
 #include "MusicPlayer.hpp"
 #include "SoundPlayer.hpp"
 #include "Config.hpp"
-#include "Command.hpp"
 #include "CharacterBlueprint.hpp"
 
 #include <SFML/System/Time.hpp>
@@ -21,6 +20,7 @@ namespace sf
 }
 
 class StateStack;			
+class Command;
 
 class State
 {

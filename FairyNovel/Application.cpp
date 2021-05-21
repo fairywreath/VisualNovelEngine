@@ -72,7 +72,7 @@ void Application::initialize(const std::string& configPath)
 	nStatisticsText.setFillColor(sf::Color::White);
 
 	registerStates();
-	nStateStack.pushState(States::Title);
+	nStateStack.pushState(States::ID::Title);
 }
 
 void Application::run()
@@ -144,8 +144,8 @@ void Application::updateStatistics(sf::Time elapsedTime)
 
 void Application::registerStates()
 {
-	nStateStack.registerState<TitleState>(States::Title);
-	nStateStack.registerState<GameState>(States::Game);
+	nStateStack.registerState<TitleState>(States::ID::Title);
+	nStateStack.registerState<GameState>(States::ID::Game);
 }
 
 

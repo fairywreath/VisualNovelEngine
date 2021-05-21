@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-class Engine;
+#include "Engine.hpp"
 
 class Command
 {
@@ -28,10 +28,13 @@ public:
 			@game implementations
 		*/
 		DisplayText,
-		
 		Zoom,
 		PlayMusic,
 		PlaySound,
+		ShowDialogueBox,
+		HideDialogueBox,
+		FadeOutBackground,
+		DisplayBackground,
 		
 		/*
 			@character implementations

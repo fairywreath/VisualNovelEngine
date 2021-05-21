@@ -14,21 +14,21 @@ MoveEntityCommand::MoveEntityCommand(const std::string& id, const std::string& a
 
 void MoveEntityCommand::execute(Engine& engine)
 {
-	Entity* ent = nullptr;
-	if (engine.getCharacter(getIdentifier()) != nullptr)
-	{
-		ent = engine.getCharacter(getIdentifier())->getEntity();
-	}
-	else
-	{
-		ent = engine.getEntity(getIdentifier());
-	}
+	// character have higher priority
+	Character* chr = engine.getCharacter(getIdentifier());
+	Entity* ent = engine.getEntity(getIdentifier());
 
-	if (ent == nullptr)
+	bool isChar = true;
+
+	if (chr == nullptr)
 	{
-		std::string msg = "Character/Entity ID not found: " + getIdentifier();
-		LOGGER->Log("Fade Entity Command", msg);
-		return;
+		if (ent == nullptr)
+		{
+			std::string msg = "Character/Entity ID not found: " + getIdentifier();
+			LOGGER->Log("Fade Entity Command", msg);
+			return;
+		}
+		isChar = false;
 	}
 
 	std::vector<std::string> args = getArguments();
@@ -85,6 +85,11 @@ void MoveEntityCommand::execute(Engine& engine)
 		start.x = stof(pos[0]);
 		start.y = stof(pos[1]);
 	}
+	else
+	{
+		if (isChar) start = chr->getEntity()->getPosition();
+		else start = ent->getPosition();
+	}
 
 	if (args[3] != "")
 	{
@@ -104,11 +109,9 @@ void MoveEntityCommand::execute(Engine& engine)
 		}
 	}
 
-	if (start.x != FLT_MAX)
-		ent->move(time, target, start);
-	else
-		ent->move(time, target);
-	
+	if (isChar) chr->move(time, target, start);
+	else ent->move(time, target, start);
+
 	if (wait)
 		engine.setWaitAnimation(true);
 	

@@ -12,6 +12,7 @@ RemoveEntityCommand::RemoveEntityCommand(const std::string& identifier,
 void RemoveEntityCommand::execute(Engine& engine)
 {
 	// possibly change including extra args later
+	engine.removeCharacter(getIdentifier());
 	engine.removeEntity(getIdentifier());
 }
 

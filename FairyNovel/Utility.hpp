@@ -21,10 +21,12 @@ namespace Util
 	sf::String wrapText(sf::String string, unsigned width, const sf::Font& font, unsigned characterSize,
 		unsigned extraLen, bool bold = false);
 
-	std::vector<std::string> split(const std::string& s, char delimiter);
+	std::vector<std::string> split(const std::string& str, char delimiter);
 	std::string trim(const std::string& str);
 	bool checkEnds(std::string& str, char lhs, char rhs);
 	std::string trimEnds(const std::string& str);
+
+	std::vector<std::string> splitAndTrim(const std::string& str, char delimiter);
 
 	// vector operations
 	float length(sf::Vector2f vector);			// get modulus

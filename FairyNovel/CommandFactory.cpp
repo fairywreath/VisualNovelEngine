@@ -14,63 +14,61 @@
 #include "CharacterStateCommand.hpp"
 #include "DisplayCharacterCommand.hpp"
 
+
+#include "DisplayBackgroundCommand.hpp"
+#include "FadeOutBackgroundCommand.hpp"
+#include "ShowDialogueBoxCommand.hpp"
+#include "HideDialogueBoxCommand.hpp"
+
+
+
 #include "Logger.hpp"
 
 #include <stdexcept>
 #include <iostream>
 
+CommandFactory::CommandFactory() :
+    nFactories()
+{
+    /*
+        @game system commands
+    */
+    registerCommand<PlayMusicCommand>("PlayMusic");
+    registerCommand<PlaySoundCommand>("PlaySound");
+
+
+    /*
+        @game graphics commands
+    */
+    registerCommand<DisplayTextCommand>("DisplayText");
+    registerCommand<DisplayEntityCommand>("DisplayEntity");
+    registerCommand<RemoveEntityCommand>("RemoveEntity");
+    registerCommand<MoveEntityCommand>("MoveEntity");
+    registerCommand<FadeEntityCommand>("FadeEntity");
+    registerCommand<DisplayCharacterCommand>("DisplayCharacter");
+    registerCommand<CharacterStateCommand>("CharacterState");
+
+    /*
+        @control flow commands
+    */
+    registerCommand<LabelCommand>("Label");
+    registerCommand<JumpCommand>("Jump");
+
+
+}
+
 CommandFactory::CommandPtr CommandFactory::generateCommand(const std::string& kw, const std::string& id,
     const std::string& args)
 {
-    if (kw == "DisplayText")
+    auto found = nFactories.find(kw);
+    if (found != nFactories.end())
     {
-        return std::make_unique <DisplayTextCommand>(id, args);
+        return found->second(id, args);
     }
-    else if (kw == "DisplaySprite" || kw == "DisplayEntity")
-    {
-        return std::make_unique<DisplayEntityCommand>(id, args);
-    }
-    else if (kw == "RemoveEntity" || kw == "RemoveSprite")
-    {
-        return std::make_unique<RemoveEntityCommand>(id, args);
-    }
-    else if (kw == "PlayMusic")
-    {
-        return std::make_unique<PlayMusicCommand>(id, args);
-    }
-    else if (kw == "PlaySound")
-    {
-        return std::make_unique<PlaySoundCommand>(id, args);
-    }
-    else if (kw == "Label")
-    {
-        return std::make_unique<LabelCommand>(id, args);
-    }
-    else if (kw == "Jump")
-    {
-        return std::make_unique<JumpCommand>(id, args);
-    }
-    else if (kw == "FadeEntity")
-    {
-        return std::make_unique<FadeEntityCommand>(id, args);
-    }
-    else if (kw == "MoveEntity")
-    {
-        return std::make_unique<MoveEntityCommand>(id, args);
-    }
-    else if (kw == "DisplayCharacter")
-    {
-        return std::make_unique<DisplayCharacterCommand>(id, args);
-    }
-    else if (kw == "CharacterState")
-    {
-        return std::make_unique<CharacterStateCommand>(id, args);
-    }
-    else
-    {
-        throwError("Command Read", "Unrecognized script Keyword");
-        return CommandPtr();
-    }
+
+    std::string msg = "Unrecognized comand keyword: " + kw;
+    LOGGER->Log("Command Factory", msg);
+    return nullptr;
 }
 
 CommandFactory::CommandPtr CommandFactory::generateRegCommand(const std::string& kw, const std::string& id, const std::string& args)

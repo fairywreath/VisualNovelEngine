@@ -22,7 +22,6 @@ State::Ptr StateStack::createState(States::ID stateID)
 }
 
 
-
 void StateStack::handleEvent(const sf::Event& event)
 {
 	for (auto itr = nStack.rbegin(); itr != nStack.rend(); itr++)
@@ -65,17 +64,17 @@ void StateStack::applyPendingChanges()
 	{
 		switch (change.action)
 		{
-		case Push:
+		case Action::Push:
 		{
 			nStack.push_back(createState(change.stateID));			
 			break;
 		}
 
-		case Pop:
+		case Action::Pop:
 			nStack.pop_back();		
 			break;
 
-		case Clear:
+		case Action::Clear:
 			nStack.clear();
 			break;
 		}
@@ -96,17 +95,17 @@ StateStack::PendingChange::PendingChange(Action action, States::ID stateID) :
 
 void StateStack::pushState(States::ID stateID)
 {
-	nPendingList.push_back(PendingChange(Push, stateID));
+	nPendingList.push_back(PendingChange(Action::Push, stateID));
 }
 
 void StateStack::popState()
 {
-	nPendingList.push_back(PendingChange(Pop));				
+	nPendingList.push_back(PendingChange(Action::Pop));				
 }
 
 void StateStack::clearStates()
 {
-	nPendingList.push_back(PendingChange(Clear));		
+	nPendingList.push_back(PendingChange(Action::Clear));		
 }
 
 bool StateStack::isEmpty() const

@@ -4,12 +4,12 @@
 // identifiers for (screen) states
 namespace States
 {
-	enum ID
+	enum class ID
 	{
 		None,
 		Title,
 		MainMenu,
-		SettingsMenu,
+		Settings,
 		Config,
 		Game
 	};

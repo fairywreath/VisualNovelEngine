@@ -17,6 +17,13 @@ public:
 
 	void update(sf::Time dt);
 
+	/*
+		@ only different with entity for movement
+	*/
+	void move(float time, const sf::Vector2f& target, const sf::Vector2f& source);
+	
+	void setPosition(const sf::Vector2f& pos);
+
 	std::string getIdentifier() const;
 
 	bool inAnimation() const;
@@ -43,6 +50,7 @@ private:
 	sf::Time nTransitionElapsed;
 	float nTransitionTime;
 	bool nInTransition;
+
 };
 
 #endif

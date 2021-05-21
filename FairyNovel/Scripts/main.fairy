@@ -4,10 +4,16 @@
 <DisplayCharacter> (mayuri) "Pos: 700,50;State: state2;   Fade: 1.5; Wait: True"
 <CharacterState> (mayuri) "State: state1; Fade: 1.5; Wait: True"
 
-<MoveEntity> (mayuri) "Target: 200,0; Time: 2.32"
+<MoveEntity> (mayuri) "Target: 200,0; Time: 2.32; Wait: True"
+<CharacterState> (mayuri) "Fade: 2.32; State: state2; Wait: True"
+<RemoveSprite> (mayuri) ""
+
+# SetBackground
+# <FadeOutBackground> () "Time: 0.5"
+#<SetBackground> (bg2) "Time: 1.5"
 
 # fade is optional
-<DisplaySprite> (suoh2) "Pos: 100,30; Fade:  3.5"       
+<DisplayEntity> (suoh2) "Pos: 100,30; Fade:  3.5"       
 
 <DisplayText> (Suoh) "Hello Mayuri, are you there?"
 <DisplayText> (Darren) "HELLO TEST TEST"

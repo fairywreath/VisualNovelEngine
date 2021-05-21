@@ -31,7 +31,7 @@ TitleState::TitleState(StateStack& stack, Context context) :
 	button1.setCallback([this]()
 		{
 			requestStackPop();;
-			requestStackPush(States::Game);
+			requestStackPush(States::ID::Game);
 		});
 }
 

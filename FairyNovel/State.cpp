@@ -1,5 +1,6 @@
 #include "State.hpp"
 #include "StateStack.hpp"
+#include "Command.hpp"
 
 State::Context::Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts,
 	MusicPlayer& music, SoundPlayer& sound, std::vector<CommandPtr>& commands,

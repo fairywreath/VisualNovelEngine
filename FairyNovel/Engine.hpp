@@ -53,7 +53,7 @@ public:
 		@set/fade/clear background image
 		@setBackground without time arg is instant
 	*/
-	void setBackground(const std::string& id) noexcept;
+	bool setBackground(const std::string& id);
 	void clearBackground(float time) noexcept;
 	void fadeInBackground(float time) noexcept;
 
@@ -81,6 +81,7 @@ public:
 	*/
 	void clearDialogueBoxText();
 	void displayText(const std::string& text, const std::string& name);
+	float getOpacityPercent() const;
 
 	/*
 		@adding/getting/removing characters

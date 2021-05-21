@@ -52,6 +52,14 @@ std::string Util::trimEnds(const std::string& str)
 	return str.substr(1, str.size() - 2);
 }
 
+std::vector<std::string> Util::splitAndTrim(const std::string& str, char delimiter)
+{
+	auto res = split(str, delimiter);
+	for (auto& str : res) str = trim(str);
+
+	return res;
+}
+
 sf::String Util::wrapText(sf::String string, unsigned width, const sf::Font& font, unsigned characterSize, unsigned extraLen, bool bold)
 {
 	unsigned currentOffset = 0;

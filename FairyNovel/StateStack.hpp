@@ -11,6 +11,8 @@
 #include <functional>
 #include <map>
 
+class Engine;
+
 namespace sf
 {
 	class Event;
@@ -20,7 +22,7 @@ namespace sf
 class StateStack : private sf::NonCopyable
 {
 public:
-	enum Action	
+	enum class Action	
 	{
 		Push,
 		Pop,
@@ -46,12 +48,13 @@ public:
 
 private:
 	State::Ptr createState(States::ID stateID);
+
 	void applyPendingChanges();
 
 private:
 	struct PendingChange
 	{
-		explicit PendingChange(Action action, States::ID stateID = States::None);			// set default to none if not given
+		explicit PendingChange(Action action, States::ID stateID = States::ID::None);			// set default to none if not given
 		Action action;			
 		States::ID stateID;
 	};
@@ -74,5 +77,7 @@ void StateStack::registerState(States::ID stateID)
 		return State::Ptr(new T(*this, nContext));		
 	};
 }
+
+
 
 #endif

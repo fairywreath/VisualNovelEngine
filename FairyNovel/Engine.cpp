@@ -56,6 +56,9 @@ Engine::Engine(State::Context context) :
 	nEntities.reserve(10);			// RESERVE WITH THE SIZE OF THE SPRITES???
 
 	nBackground.setPosition(0.f, 0.f);
+
+	//clearBackground(1.5);
+	//fadeDialogueBox(3, 0);
 }
 
 
@@ -219,9 +222,12 @@ bool Engine::shouldWait() const
 	return nWait;
 }
 
-void Engine::setBackground(const std::string& id) noexcept
+bool Engine::setBackground(const std::string& id) 
 {
+	if (!nTextures.contains(id)) return false;
+
 	nBackground.setTexture(nTextures.get(id));
+	return true;
 }
 
 void Engine::clearBackground(float time) noexcept
@@ -295,6 +301,8 @@ void Engine::fadeDialogueBox(float time, int alpha)
 }
 
 
+
+
 /*
 	@text functionalities
 */
@@ -314,6 +322,11 @@ void Engine::displayText(const std::string& text, const std::string& name)
 	nWait = true;
 	nText.setString("");
 	nCharName.setString(name);
+}
+
+float Engine::getOpacityPercent() const
+{
+	return nDialogueBoxOpacity;
 }
 
 

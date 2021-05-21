@@ -30,11 +30,23 @@ void Character::update(sf::Time dt)
 		}
 	}
 
-	if (nInTransition)
+	if (nInTransition || nSecondaryEntity.inAnimation())
 	{
 		nSecondaryEntity.update(dt);
 	}
 	nEntity.update(dt);
+}
+
+void Character::move(float time, const sf::Vector2f& target, const sf::Vector2f& source)
+{
+	nEntity.move(time, target, source);
+	nSecondaryEntity.move(time, target, source);
+}
+
+void Character::setPosition(const sf::Vector2f& pos)
+{
+	nEntity.setPosition(pos);
+	nSecondaryEntity.setPosition(pos);
 }
 
 std::string Character::getIdentifier() const
@@ -115,8 +127,6 @@ Entity* Character::getEntity()
 
 void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	// states.transform *= getTransform();   
-
 	if (nInTransition)
 	{
 		target.draw(nSecondaryEntity, states);

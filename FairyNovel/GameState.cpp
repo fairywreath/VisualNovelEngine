@@ -1,5 +1,7 @@
 #include "GameState.hpp"
 #include "Logger.hpp"
+#include "Command.hpp"
+
 #include <sfml/Graphics/RenderWindow.hpp>
 
 #include <iostream>
@@ -29,19 +31,21 @@ bool GameState::update(sf::Time dt)
 	// if engine not int wait state
 	nEngine.update(dt);
 
+	// skip nulls
+	while (nIP != nCommands.cend() && (*nIP) == nullptr)
+	{
+		nIP++;
+	}
+
 	if (!nEngine.shouldWait() && nIP != nCommands.cend())
 	{
-		if ((*nIP)->getType() == Command::Type::Label)
-		{
-			nIP++;		// skip label declarations, executing them also yeilds void() nothing
-		}
-		else if ((*nIP)->getType() == Command::Type::Jump)
+		if ((*nIP)->getType() == Command::Type::Jump)
 		{
 			if (nCommandLabels.find((*nIP)->getIdentifier()) == nCommandLabels.cend())
 			{
 				std::string msg = "Could not find script label " + (*nIP)->getIdentifier();
 				LOGGER->Log("Command Jump error", msg);
-			//	std::cout << msg << std::endl;
+				//	std::cout << msg << std::endl;
 				nIP++;		// for now just go to next 
 			}
 			else
@@ -53,8 +57,7 @@ bool GameState::update(sf::Time dt)
 				nIP = std::next(newIP);
 			}
 		}
-
-		else if ((*nIP) != nullptr)		// normal case
+		else 		// normal case
 		{
 			(*nIP)->execute(nEngine);
 			nIP++;
