@@ -9,7 +9,7 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
-class Character : public sf::Drawable, public sf::Transformable
+class Character : public sf::Drawable
 {
 public:
 	explicit Character(CharacterBlueprint& blueprint);
@@ -27,6 +27,7 @@ public:
 
 	bool setState(const std::string& id) noexcept;
 	bool setState(const std::string& id, float transitionTime) noexcept;
+
 
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

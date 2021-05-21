@@ -46,7 +46,7 @@ void DisplayCharacterCommand::execute(Engine& engine)
 	}
 
 	for (auto& pos : posArr) pos = Util::trim(pos);
-	chr->setPosition(sf::Vector2f(std::stof(posArr[0]), std::stof(posArr[1])));
+//	chr->setPosition(sf::Vector2f(std::stof(posArr[0]), std::stof(posArr[1])));
 
 	// state, if given, not default
 	if (args[1] != "")

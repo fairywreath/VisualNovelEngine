@@ -48,7 +48,7 @@ bool Character::setState(const std::string& id) noexcept
 {
 	if (!nBlueprint.stateExists(id))
 	{
-		return false;		// also log later
+		return false;	
 	}
 
 	nCurrentState = id;
@@ -88,6 +88,7 @@ bool Character::setState(const std::string& id, float transitionTime) noexcept
 	
 	return setState(id);		// instant
 }
+
 
 bool Character::inAnimation() const
 {
