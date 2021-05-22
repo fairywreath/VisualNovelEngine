@@ -4,6 +4,7 @@
 #include "State.hpp"
 #include "Label.hpp"
 #include "ConfigButton.hpp"
+#include "CheckBox.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -22,6 +23,7 @@ private:
 	*/
 	GUI::Label nLabel;
 	GUI::ConfigButton nCButton;
+	GUI::CheckBox nCBox;
 
 	/*
 		@bg

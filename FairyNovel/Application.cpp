@@ -84,6 +84,10 @@ void Application::initialize(const std::string& configPath)
 
 	registerStates();
 	nStateStack.pushState(States::ID::Config);
+	/*
+		@need guards 
+	*/
+	nTextures.load("checkmark", "Media/GUI/checkmark.JPG");
 }
 
 void Application::run()
