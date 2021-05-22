@@ -70,7 +70,7 @@ void DisplayCharacterCommand::execute(Engine& engine)
 	}
 
 	// wait
-	bool wait = false;
+	bool wait{ true };
 	if (args[3] != "")
 	{
 		if (args[3] == "True")

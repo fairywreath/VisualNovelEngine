@@ -15,9 +15,12 @@
 # fade is optional
 <DisplayEntity> (suoh2) "Pos: 100,30; Fade:  3.5"       
 
+<BlurEntity> (mayuri) "Time: 1.5; Target: 10"
+# start is optional for blur
+
 <DisplayText> (Suoh) "Hello Mayuri, are you there?"
 <DisplayText> (Darren) "HELLO TEST TEST"
-<DisplaySprite> (mayuri1) "Fade: 2;Pos: 400,30; Wait: True"
+<DisplayEntity> (mayuri1) "Fade: 2;Pos: 400,30; Wait: True"
 
 # move full form, total 4 args , use comma for position vector
 #<MoveEntity> (mayuri1) "Time: 1.5; Target: 400,40; Start: 700,40; Wait: True"
@@ -31,7 +34,11 @@
 
 <DisplayText> (Mayuri) "Yes Suoh, I am here."
 
+<HideDialogueBox> () "Time: 2.1"
+<ShowDialogueBox> () "Time: 1.77"
 
+<FadeOutBackground> () "Time: 1"
+<DisplayBackground> (BG1) "Time: 1.1"
 
 
 <DisplayText> (Suoh) "Don't ever leave me again okay?"

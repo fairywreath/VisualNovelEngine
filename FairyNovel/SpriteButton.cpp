@@ -46,7 +46,6 @@ void GUI::SpriteButton::setText(const std::string& text)
 {
 	nText.setString(text);
 	Util::centerOrigin<sf::Text>(nText);
-
 }
 
 void GUI::SpriteButton::draw(sf::RenderTarget& target, sf::RenderStates states) const

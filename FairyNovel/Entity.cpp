@@ -233,6 +233,7 @@ void Entity::skipAnimation()
 {
 	if (nInFade)
 	{
+		std::cout << "skipped fade " << getIdentifier() << std::endl;
 		nInFade = false;
 		nOpacity = nTargetOpacity;
 		setOpacityAlpha((int)nTargetOpacity);

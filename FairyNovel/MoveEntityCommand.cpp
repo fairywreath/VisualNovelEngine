@@ -36,7 +36,7 @@ void MoveEntityCommand::execute(Engine& engine)
 	float time{ 0 };
 	sf::Vector2f target{ 0, 0 };
 	sf::Vector2f start{ FLT_MAX, FLT_MAX };
-	bool wait{ false };
+	bool wait{ true };
 
 	if (args[0] != "")
 	{

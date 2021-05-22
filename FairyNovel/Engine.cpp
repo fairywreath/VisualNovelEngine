@@ -115,8 +115,6 @@ void Engine::update(sf::Time dt)
 	for (const auto& ent : nCharacters) ent->update(dt);
 	for (const auto& ent : nEntities) ent->update(dt);
 
-	// clearTransparentEntities();
-
 	if (nAnimationWait)
 	{
 		if (isInAnimation()) nWait = true;
@@ -132,24 +130,20 @@ bool Engine::handleEvent(const sf::Event& event)
 {
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
 	{
-		// case to case basis???
 		if (!nLinePrinted)
 		{
 			skipDialogueLine();
 		}
-	//	if (isInAnimation()) skipAnimations();
-
+	
 		nWait = false;
 	}
 	else if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left)
 	{
-		// case to case basis???
 		if (!nLinePrinted)
 		{
 			skipDialogueLine();
 		}
-	//	if (isInAnimation()) skipAnimations();
-
+		skipAnimations();
 		nWait = false;
 	}
 	return false;
@@ -195,9 +189,16 @@ void Engine::skipAnimations()
 	if (nBackground.inAnimation()) nBackground.skipAnimation();
 	if (nDialogueBox.inAnimation()) nDialogueBox.skipAnimation();
 
-	for (const auto& ent : nEntities)
+	std::cout << nEntities.size();
+
+	for (auto& ent : nEntities)
 	{
 		if (ent->inAnimation()) ent->skipAnimation();
+	}
+
+	for (auto& chr : nCharacters)
+	{
+		if (chr->inAnimation()) chr->skipAnimation();
 	}
 
 	setWaitAnimation(false);
@@ -211,6 +212,10 @@ bool Engine::isInAnimation() const
 	for (const auto& ent : nEntities)
 	{
 		if (ent->inAnimation()) return true;
+	}
+	for (auto& chr : nCharacters)
+	{
+		if (chr->getEntity()->inAnimation()) return true;
 	}
 	
 	return false;

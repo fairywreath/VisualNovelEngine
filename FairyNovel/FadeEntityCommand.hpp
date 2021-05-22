@@ -12,9 +12,6 @@ public:
 	void execute(Engine& engine) override;
 	std::vector<std::string> getArguments() const override;
 
-private:
-	bool isNumber(const std::string& str);
-
 };
 
 #endif

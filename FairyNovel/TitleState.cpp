@@ -38,7 +38,7 @@ TitleState::TitleState(StateStack& stack, Context context) :
 void TitleState::draw()
 {
 	sf::RenderWindow& window = *getContext().window;			
-	// window.draw(nBackgroundSprite);
+	window.draw(nBackgroundSprite);
 
 	if (nShowText) window.draw(nText);
 

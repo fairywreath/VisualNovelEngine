@@ -70,6 +70,9 @@
     <Filter Include="Header Files\Commands-System/Engine">
       <UniqueIdentifier>{3707e5f8-1fbe-4538-a1ed-e8ccb62ae901}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Commands-Characters/entities">
+      <UniqueIdentifier>{c75033d6-0946-4688-8c09-3743c6e19e4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="State.cpp">
@@ -96,16 +99,10 @@
     <ClCompile Include="DisplayTextCommand.cpp">
       <Filter>Header Files\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="DisplayEntityCommand.cpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClCompile>
     <ClCompile Include="PlayMusicCommand.cpp">
       <Filter>Header Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="PlaySoundCommand.cpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="RemoveEntityCommand.cpp">
       <Filter>Header Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="RegisterCommand.cpp">
@@ -114,20 +111,11 @@
     <ClCompile Include="CommandFactory.cpp">
       <Filter>Header Files\CommandFactory</Filter>
     </ClCompile>
-    <ClCompile Include="FadeEntityCommand.cpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="BlurEntityCommand.cpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Header Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="RegisterEngine.cpp">
       <Filter>Header Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveEntityCommand.cpp">
-      <Filter>Header Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="Utility.cpp">
       <Filter>Header Files\Utility</Filter>
@@ -177,12 +165,6 @@
     <ClCompile Include="CharacterBlueprint.cpp">
       <Filter>Header Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="CharacterStateCommand.cpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="DisplayCharacterCommand.cpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClCompile>
     <ClCompile Include="Command.cpp">
       <Filter>Header Files\CommandFactory</Filter>
     </ClCompile>
@@ -197,6 +179,36 @@
     </ClCompile>
     <ClCompile Include="DisplayBackgroundCommand.cpp">
       <Filter>Header Files\Commands-System/Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="RemoveEntityCommand.cpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurEntityCommand.cpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeEntityCommand.cpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveEntityCommand.cpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayEntityCommand.cpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayCharacterCommand.cpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterStateCommand.cpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMentuState.cpp">
+      <Filter>Header Files\State</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigState.cpp">
+      <Filter>Header Files\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>Header Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,13 +266,7 @@
     <ClInclude Include="Engine.hpp">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="DisplayEntityCommand.hpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
     <ClInclude Include="DisplayTextCommand.hpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="RemoveEntityCommand.hpp">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="Entity.hpp">
@@ -280,15 +286,6 @@
     </ClInclude>
     <ClInclude Include="CommandFactory.hpp">
       <Filter>Header Files\CommandFactory</Filter>
-    </ClInclude>
-    <ClInclude Include="FadeEntityCommand.hpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="BlurEntityCommand.hpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveEntityCommand.hpp">
-      <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="Component.hpp">
       <Filter>Header Files\GUI</Filter>
@@ -311,12 +308,6 @@
     <ClInclude Include="CharacterBlueprint.hpp">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="DisplayCharacterCommand.hpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterStateCommand.hpp">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
     <ClInclude Include="Command.hpp">
       <Filter>Header Files\CommandFactory</Filter>
     </ClInclude>
@@ -331,6 +322,36 @@
     </ClInclude>
     <ClInclude Include="DisplayBackgroundCommand.hpp">
       <Filter>Header Files\Commands-System/Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoveEntityCommand.hpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurEntityCommand.hpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeEntityCommand.hpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveEntityCommand.hpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayEntityCommand.hpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayCharacterCommand.hpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterStateCommand.hpp">
+      <Filter>Header Files\Commands-Characters/entities</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.hpp">
+      <Filter>Header Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigState.hpp">
+      <Filter>Header Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.hpp">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -18,7 +18,7 @@ void DisplayEntityCommand::execute(Engine& engine)
 
 	float fade{ 0 };
 	sf::Vector2f target{ 0, 0 };
-	bool wait{ false };
+	bool wait{ true };
 
 	if (args[0] != "")
 	{
@@ -86,9 +86,7 @@ void DisplayEntityCommand::execute(Engine& engine)
 	Entity* ent = engine.getEntity(getIdentifier());
 	ent->fade(fade, 255, 0);
 
-	std::cout << "Entity added: " << getIdentifier() << std::endl;
-
-	if (wait) engine.setWait(true);
+	if (wait) engine.setWaitAnimation(true);
 }
 
 std::vector<std::string> DisplayEntityCommand::getArguments() const

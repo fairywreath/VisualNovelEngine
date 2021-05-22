@@ -7,13 +7,13 @@
 #include "PlaySoundCommand.hpp"
 #include "JumpCommand.hpp"
 #include "LabelCommand.hpp"
-#include"FadeEntityCommand.hpp"
+#include "FadeEntityCommand.hpp"
 #include "BlurEntityCommand.hpp"
 #include "MoveEntityCommand.hpp"
 #include "DisplayEntityCommand.hpp"
 #include "CharacterStateCommand.hpp"
 #include "DisplayCharacterCommand.hpp"
-
+#include "FadeEntityCommand.hpp"
 
 #include "DisplayBackgroundCommand.hpp"
 #include "FadeOutBackgroundCommand.hpp"
@@ -35,18 +35,22 @@ CommandFactory::CommandFactory() :
     */
     registerCommand<PlayMusicCommand>("PlayMusic");
     registerCommand<PlaySoundCommand>("PlaySound");
-
+    registerCommand<DisplayTextCommand>("DisplayText");
+    registerCommand<DisplayBackgroundCommand>("DisplayBackground");
+    registerCommand<FadeOutBackgroundCommand>("FadeOutBackground");
+    registerCommand<ShowDialogueBoxCommand>("ShowDialogueBox");
+    registerCommand<HideDialogueBoxCommand>("HideDialogueBox");
 
     /*
-        @game graphics commands
+        @game entity commands
     */
-    registerCommand<DisplayTextCommand>("DisplayText");
     registerCommand<DisplayEntityCommand>("DisplayEntity");
     registerCommand<RemoveEntityCommand>("RemoveEntity");
     registerCommand<MoveEntityCommand>("MoveEntity");
     registerCommand<FadeEntityCommand>("FadeEntity");
     registerCommand<DisplayCharacterCommand>("DisplayCharacter");
     registerCommand<CharacterStateCommand>("CharacterState");
+    registerCommand<BlurEntityCommand>("BlurEntity");
 
     /*
         @control flow commands
@@ -91,14 +95,7 @@ CommandFactory::CommandPtr CommandFactory::generateRegCommand(const std::string&
     }
     else
     {
-        throwError("Command Read", "Unrecognized Register Keyword");
-        return CommandPtr();
+        throw std::runtime_error("Error in register command read: " + kw);
     }
 }
 
-void CommandFactory::throwError(const std::string& tag, const std::string& msg)
-{
-    std::string message = msg;
-    LOGGER->Log(tag, message);
-    throw std::runtime_error("Error in command read: " + tag + " " + message);
-}

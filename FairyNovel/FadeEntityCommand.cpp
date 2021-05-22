@@ -35,11 +35,11 @@ void FadeEntityCommand::execute(Engine& engine)
 	float time{ 0 };				// time is automatically instant
 	int start{ INT_MAX };		// flag for entity fade cmd
 	int target{ 0 };
-	bool wait{ false };			// wait is automatically false
+	bool wait{ true };			// wait is automatically false
 
 	if (args[0] != "")
 	{
-		if (!isNumber(args[0]) || stof(args[0]) < 0)
+		if (!Util::isNumber(args[0]) || stof(args[0]) < 0)
 		{
 			std::string message = "Fade Time must be a non negative number: " + args[0];
 			LOGGER->Log("Fade Entity Command", message);
@@ -48,7 +48,7 @@ void FadeEntityCommand::execute(Engine& engine)
 		time = stof(args[0]);
 	}
 
-	if (args[1] == "" || !isNumber(args[1]))
+	if (args[1] == "" || !Util::isNumber(args[1]))
 	{
 		std::string message = "Fade target alpha is not numeric: " + args[1];
 		LOGGER->Log("Fade Entity Command", message);
@@ -58,7 +58,7 @@ void FadeEntityCommand::execute(Engine& engine)
 
 	if (args[2] != "")
 	{
-		if (!isNumber(args[2]))
+		if (!Util::isNumber(args[2]))
 		{
 			std::string message = "Fade starting alpha is not numeric: " + args[2];
 			LOGGER->Log("Fade Entity Command", message);
@@ -148,19 +148,3 @@ std::vector<std::string> FadeEntityCommand::getArguments() const
 
 	return args;
 }
-
-bool FadeEntityCommand::isNumber(const std::string& str)
-{
-	bool pointFound = false;		// allow one decimal point
-	return !str.empty() && std::find_if(str.begin(),
-		str.end(), [&pointFound](unsigned char c) {
-			if (c == '.')
-			{
-				if (pointFound) return true;
-				pointFound = true;
-				return false;
-			}
-			return !std::isdigit(c);
-		}) == str.end();
-}
-			

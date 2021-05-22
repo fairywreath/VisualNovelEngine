@@ -3,7 +3,7 @@
 #include "Utility.hpp"
 #include "TitleState.hpp"
 #include "GameState.hpp"
-
+#include "ConfigState.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <iostream>
@@ -65,14 +65,25 @@ void Application::initialize(const std::string& configPath)
 		sf::String((std::string)config.getOption("WINDOW_NAME")),
 		sf::Style::Close);
 
-	// set up misc text
+	/*
+		@load fonts
+	*/
 	nFonts.load("overlock", "Media/Fonts/Overlock-Mod.ttf");
+	nFonts.load("huxleyv", "Media/Fonts/Huxley Vertical Regular.otf");
+	nFonts.load("ttcommons", "Media/Fonts/TT Commons Regular.otf");
+	nFonts.load("sinkins", "Media/Fonts/SinkinSans-100Thin.otf");
+	nFonts.load("aria", "Media/Fonts/Aria Pro Regular.otf");
+
+
+	/*
+		@setup misc text
+	*/
 	nStatisticsText.setFont(nFonts.get("overlock"));
 	nStatisticsText.setCharacterSize(25);
 	nStatisticsText.setFillColor(sf::Color::White);
 
 	registerStates();
-	nStateStack.pushState(States::ID::Title);
+	nStateStack.pushState(States::ID::Config);
 }
 
 void Application::run()
@@ -146,6 +157,8 @@ void Application::registerStates()
 {
 	nStateStack.registerState<TitleState>(States::ID::Title);
 	nStateStack.registerState<GameState>(States::ID::Game);
+	nStateStack.registerState<ConfigState>(States::ID::Config);
+
 }
 
 

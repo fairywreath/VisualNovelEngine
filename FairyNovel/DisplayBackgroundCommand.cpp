@@ -30,6 +30,8 @@ void DisplayBackgroundCommand::execute(Engine& engine)
 	}
 
 	engine.fadeInBackground(std::stof(time));
+
+	engine.setWaitAnimation(true);
 }
 
 std::vector<std::string> DisplayBackgroundCommand::getArguments() const
@@ -50,7 +52,7 @@ std::vector<std::string> DisplayBackgroundCommand::getArguments() const
 
 	std::vector<std::string> splt = Util::splitAndTrim(args[0], ':');
 
-	if ((splt.size() != 2) != (splt[0] != "Time"))
+	if ((splt.size() != 2) || (splt[0] != "Time"))
 	{
 		std::string msg = "Incorrect DIsplay Background argument: " + getArgumentString();
 		LOGGER->Log("DIsplay Background Command", msg);

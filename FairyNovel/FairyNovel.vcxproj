@@ -152,6 +152,7 @@
     <ClInclude Include="CommandFactory.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Config.hpp" />
+    <ClInclude Include="ConfigState.hpp" />
     <ClInclude Include="Container.hpp" />
     <ClInclude Include="Decision.hpp" />
     <ClInclude Include="DisplayBackgroundCommand.hpp" />
@@ -165,8 +166,10 @@
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="HideDialogueBoxCommand.hpp" />
     <ClInclude Include="JumpCommand.hpp" />
+    <ClInclude Include="Label.hpp" />
     <ClInclude Include="LabelCommand.hpp" />
     <ClInclude Include="Logger.hpp" />
+    <ClInclude Include="MainMenuState.hpp" />
     <ClInclude Include="MoveEntityCommand.hpp" />
     <ClInclude Include="MusicPlayer.hpp" />
     <ClInclude Include="Option.hpp" />
@@ -198,6 +201,7 @@
     <ClCompile Include="CommandFactory.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="ConfigState.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Decision.cpp" />
     <ClCompile Include="DisplayBackgroundCommand.cpp" />
@@ -211,9 +215,11 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HideDialogueBoxCommand.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="LabelCommand.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMentuState.cpp" />
     <ClCompile Include="MoveEntityCommand.cpp" />
     <ClCompile Include="MusicPlayer.cpp" />
     <ClCompile Include="Option.cpp" />

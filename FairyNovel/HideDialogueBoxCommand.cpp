@@ -24,6 +24,8 @@ void HideDialogueBoxCommand::execute(Engine& engine)
 	}
 
 	engine.fadeDialogueBox(std::stof(time), 0);
+
+	engine.setWaitAnimation(true);
 }
 
 std::vector<std::string> HideDialogueBoxCommand::getArguments() const
@@ -44,7 +46,7 @@ std::vector<std::string> HideDialogueBoxCommand::getArguments() const
 
 	std::vector<std::string> splt = Util::splitAndTrim(args[0], ':');
 
-	if ((splt.size() != 2) != (splt[0] != "Time"))
+	if ((splt.size() != 2) || (splt[0] != "Time"))
 	{
 		std::string msg = "Incorrect Hide Dialogue Box argument: " + getArgumentString();
 		LOGGER->Log("Hide Dialogue Box Command", msg);

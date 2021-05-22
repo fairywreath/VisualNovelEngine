@@ -22,8 +22,10 @@ void ShowDialogueBoxCommand::execute(Engine& engine)
 		return;
 	}
 
-	float alpha = 255.0 * (engine.getOpacityPercent() / 100.0);
+	float alpha = (float)255.0 * (engine.getOpacityPercent() / (float)100.0);
 	engine.fadeDialogueBox(std::stof(time), static_cast<int>(alpha));
+
+	engine.setWaitAnimation(true);
 }
 
 std::vector<std::string> ShowDialogueBoxCommand::getArguments() const
@@ -44,7 +46,7 @@ std::vector<std::string> ShowDialogueBoxCommand::getArguments() const
 
 	std::vector<std::string> splt = Util::splitAndTrim(args[0], ':');
 
-	if ((splt.size() != 2) != (splt[0] != "Time"))
+	if ((splt.size() != 2) || (splt[0] != "Time"))
 	{
 		std::string msg = "Incorrect Show Dialogue Box argument: " + getArgumentString();
 		LOGGER->Log("Show Dialogue Box Command", msg);

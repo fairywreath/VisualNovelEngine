@@ -110,14 +110,17 @@ bool Character::inAnimation() const
 
 void Character::skipAnimation()
 {
+	nEntity.skipAnimation();
+	nInTransition = false;
+	nSecondaryEntity.skipAnimation();
+	nTransitionElapsed = sf::Time::Zero;
 	// skip transition
-	if (nInTransition)
-	{
-		nInTransition = false;
-		nEntity.skipAnimation();
-		nSecondaryEntity.skipAnimation();
-		nTransitionElapsed = sf::Time::Zero;
-	}
+	//if (nInTransition)
+	//{
+	//	nInTransition = false;
+	//	nSecondaryEntity.skipAnimation();
+	//	nTransitionElapsed = sf::Time::Zero;
+	//}
 }
 
 Entity* Character::getEntity() 

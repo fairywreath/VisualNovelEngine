@@ -57,7 +57,7 @@ void CharacterStateCommand::execute(Engine& engine)
 		return;
 	}
 
-	bool wait = false;
+	bool wait{ true };
 	if (args[2] != "")
 	{
 		if (args[2] == "True")
@@ -76,7 +76,7 @@ void CharacterStateCommand::execute(Engine& engine)
 		}
 	}
 
-	if (wait) engine.setWait(true);
+	if (wait) engine.setWaitAnimation(true);
 
 	std::cout << "character state success\n";
 }
@@ -94,7 +94,7 @@ std::vector<std::string> CharacterStateCommand::getArguments() const
 	// TODO: will change these log errors to proper functions
 	for (const auto& arg : splt)
 	{
-		std::vector<std::string> currSplt = Util::split(arg, ':');
+		std::vector<std::string> currSplt = Util::splitAndTrim(arg, ':');
 
 		if (currSplt.size() != 2)		// at least pos 
 		{
@@ -102,12 +102,6 @@ std::vector<std::string> CharacterStateCommand::getArguments() const
 			LOGGER->Log("Character State Command", message);
 			continue;
 		}
-
-		currSplt[0] = Util::trim(currSplt[0]);
-		currSplt[1] = Util::trim(currSplt[1]);
-
-		currSplt[0] = Util::trim(currSplt[0]);
-		currSplt[1] = Util::trim(currSplt[1]);
 
 		int index = -1;
 		if (currSplt[0] == "State")

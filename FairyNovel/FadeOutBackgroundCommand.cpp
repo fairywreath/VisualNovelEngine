@@ -23,6 +23,8 @@ void FadeOutBackgroundCommand::execute(Engine& engine)
 	}
 
 	engine.clearBackground(std::stof(time));
+
+	engine.setWaitAnimation(true);
 }
 
 std::vector<std::string> FadeOutBackgroundCommand::getArguments() const
@@ -43,7 +45,7 @@ std::vector<std::string> FadeOutBackgroundCommand::getArguments() const
 
 	std::vector<std::string> splt = Util::splitAndTrim(args[0], ':');
 
-	if ((splt.size() != 2) != (splt[0] != "Time"))
+	if ((splt.size() != 2) || (splt[0] != "Time"))
 	{
 		std::string msg = "Incorrect fade background argument: " + getArgumentString();
 		LOGGER->Log("Fade background Command", msg);

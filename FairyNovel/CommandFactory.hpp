@@ -19,7 +19,6 @@ public:
 	CommandPtr generateRegCommand(const std::string& kw, const std::string& id, const std::string& args);
 
 private:
-	void throwError(const std::string& tag, const std::string& msg);
 
 	template<typename T>
 	void registerCommand(const std::string& kw);
