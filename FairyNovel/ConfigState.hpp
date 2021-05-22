@@ -3,6 +3,7 @@
 
 #include "State.hpp"
 #include "Label.hpp"
+#include "ConfigButton.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -20,7 +21,8 @@ private:
 		@settings UI components?
 	*/
 	GUI::Label nLabel;
-	
+	GUI::ConfigButton nCButton;
+
 	/*
 		@bg
 	*/

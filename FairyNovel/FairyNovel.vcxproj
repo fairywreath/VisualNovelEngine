@@ -152,6 +152,7 @@
     <ClInclude Include="CommandFactory.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Config.hpp" />
+    <ClInclude Include="ConfigButton.hpp" />
     <ClInclude Include="ConfigState.hpp" />
     <ClInclude Include="Container.hpp" />
     <ClInclude Include="Decision.hpp" />
@@ -201,6 +202,7 @@
     <ClCompile Include="CommandFactory.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="ConfigButton.cpp" />
     <ClCompile Include="ConfigState.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Decision.cpp" />

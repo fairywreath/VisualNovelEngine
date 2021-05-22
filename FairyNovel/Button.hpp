@@ -20,43 +20,43 @@ class SoundPlayer;
 namespace GUI
 {
 
-	class Button : public Component
+class Button : public Component
+{
+public:
+	using Ptr = std::shared_ptr<Button>;
+	using Callback = std::function<void()>;				// button functions are all void()
+
+	enum class ButtonState
 	{
-	public:
-		using Ptr = std::shared_ptr<Button>;
-		using Callback = std::function<void()>;				// button functions are all void()
-
-		enum class ButtonState
-		{
-			Normal,
-			Hover,
-			Pressed			
-		};
-
-	public:
-		explicit Button(State::Context context);
-		~Button() override = default;
-
-		void setCallback(Callback callback);
-		void setToggle(bool flag);
-
-		bool isSelectable() const override;
-
-		void select() override;
-		void deselect() override ;
-		void activate() override;
-		void deactivate() override;
-
-	private:
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
-		virtual void updateApperance(ButtonState state) = 0;
-
-	private:
-		Callback nCallback;
-	
-		bool nIsToggle;
-		SoundPlayer& nSounds;
+		Normal,
+		Hover,
+		Pressed			
 	};
+
+public:
+	explicit Button(State::Context context);
+	~Button() override = default;
+
+	void setCallback(Callback callback);
+	void setToggle(bool flag);
+
+	bool isSelectable() const override;
+
+	void select() override;
+	void deselect() override ;
+	void activate() override;
+	void deactivate() override;
+
+private:
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
+	virtual void updateApperance(ButtonState state) = 0;
+
+private:
+	Callback nCallback;
+	
+	bool nIsToggle;
+	SoundPlayer& nSounds;
+};
 
 
 }

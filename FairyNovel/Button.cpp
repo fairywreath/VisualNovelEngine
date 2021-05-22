@@ -25,7 +25,7 @@ bool GUI::Button::isSelectable() const
 void GUI::Button::select()
 {
 	Component::select();
-	nSounds.play("ButtonClick");
+	// nSounds.play("ButtonClick");
 
 	updateApperance(ButtonState::Hover);
 }

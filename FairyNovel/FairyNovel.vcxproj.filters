@@ -210,6 +210,9 @@
     <ClCompile Include="Label.cpp">
       <Filter>Header Files\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="ConfigButton.cpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceIdentifiers.hpp">
@@ -351,6 +354,9 @@
       <Filter>Header Files\State</Filter>
     </ClInclude>
     <ClInclude Include="Label.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigButton.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>

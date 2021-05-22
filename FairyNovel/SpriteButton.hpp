@@ -23,7 +23,7 @@ namespace GUI
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		void updateApperance(ButtonState state) override;
 
-		bool checkMouseLocation() const;		// realtime
+		bool checkMouseLocation() const;	
 
 	private:
 		const sf::RenderWindow& nWindow;
