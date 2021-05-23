@@ -225,7 +225,7 @@
     <ClCompile Include="TextButton.cpp">
       <Filter>Header Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="GameSettings.cpp">
+    <ClCompile Include="ConfigManager.cpp">
       <Filter>Header Files\Settings</Filter>
     </ClCompile>
   </ItemGroup>
@@ -383,7 +383,7 @@
     <ClInclude Include="TextButton.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="GameSettings.hpp">
+    <ClInclude Include="ConfigManager.hpp">
       <Filter>Header Files\Settings</Filter>
     </ClInclude>
   </ItemGroup>

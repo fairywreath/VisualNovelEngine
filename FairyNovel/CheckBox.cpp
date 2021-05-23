@@ -20,6 +20,8 @@ GUI::CheckBox::CheckBox(State::Context context) :
 	nRect.setOutlineThickness(OutlineThickness);
 
 	nSprite.setPosition(1.f, 1.f);
+
+	setOrigin(0, nRect.getGlobalBounds().top + nRect.getGlobalBounds().height);
 }
 
 void GUI::CheckBox::handleEvent(const sf::Event& event)

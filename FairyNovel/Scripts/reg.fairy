@@ -1,5 +1,7 @@
 <Texture> (BG1) "Media/Backgrounds/city_night.png"
 <Texture> (BG2) "Media/Backgrounds/school-gate-night.png"
+<Texture> (EteFlowers) "Media/Images/ete_pink_flowers.png"
+
 <Music> (title) "Media/Music/SecondaryTheme.ogg"
 <SoundEffect> (ButtonClick) "Media/Sound/ButtonActivate.wav"
 <Texture> (MMBG) "Media/Backgrounds/school-gate-night.png"

@@ -18,11 +18,12 @@ Application::Application(const std::string& configPath) :
 	nCommandLabels(),
 	nCharacters(),
 	nStateStack(State::Context(nWindow, nTextures, nFonts, nMusicPlayer, nSoundPlayer, 
-		nCommands, nCommandLabels, nCharacters)),		// create new state context here and pass it in
+		nCommands, nCommandLabels, nCharacters, nGameConfigManager)),		// create new state context here and pass it in
 	nStatisticsText(),
 	nStatisticsUpdateTime(),
 	nTimePerFrame(),
-	nStatisticsNumFrames()
+	nStatisticsNumFrames(),
+	nGameConfigManager()
 {
 	initialize(configPath);
 }
@@ -52,11 +53,10 @@ void Application::initialize(const std::string& configPath)
 
 
 	nCommands.clear();						// reuse the vector
-	
-	std::cout << "started reading commands\n";
+
 	scanner->scanCommands();			// open srcipt file and reserve commands vector
 
-	std::cout << "finished reading commands\n";
+
 
 	// set up window
 	nTimePerFrame = sf::seconds(1.f / (float)config.getOption("FPS"));
@@ -79,8 +79,8 @@ void Application::initialize(const std::string& configPath)
 		@setup misc text
 	*/
 	nStatisticsText.setFont(nFonts.get("overlock"));
-	nStatisticsText.setCharacterSize(25);
-	nStatisticsText.setFillColor(sf::Color::White);
+	nStatisticsText.setCharacterSize(17);
+	nStatisticsText.setFillColor(sf::Color::Cyan);
 
 	registerStates();
 	nStateStack.pushState(States::ID::Config);

@@ -166,7 +166,7 @@
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="FadeEntityCommand.hpp" />
     <ClInclude Include="FadeOutBackgroundCommand.hpp" />
-    <ClInclude Include="GameSettings.hpp" />
+    <ClInclude Include="ConfigManager.hpp" />
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="HideDialogueBoxCommand.hpp" />
     <ClInclude Include="JumpCommand.hpp" />
@@ -220,7 +220,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FadeEntityCommand.cpp" />
     <ClCompile Include="FadeOutBackgroundCommand.cpp" />
-    <ClCompile Include="GameSettings.cpp" />
+    <ClCompile Include="ConfigManager.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HideDialogueBoxCommand.cpp" />
     <ClCompile Include="JumpCommand.cpp" />

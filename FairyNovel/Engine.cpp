@@ -22,7 +22,7 @@ Engine::Engine(State::Context context) :
 	nTextTime(sf::Time::Zero),
 	nDelayTime(sf::Time::Zero),
 	nTextInterval(BaseInterval),
-	nDelaySpeed(1),
+	nDelaySpeed(4),
 	nDelay(BaseDelay),
 	nDialogueBoxOpacity(50),
 	nWait(false),
@@ -32,8 +32,9 @@ Engine::Engine(State::Context context) :
 	nDialogueBox("DialogueBox", context.textures->get("dialoguebox")),
 	nBackground("Background", context.textures->get("MMBG"))
 {
-	nDelay = BaseDelay / nDelaySpeed;
-	nTextInterval = BaseInterval / nDialogueSpeed;
+	setDialogueSpeed(nDialogueSpeed);
+	setAutoSpeed(nDelaySpeed);
+	
 
 	// set up dialogue textures and fonts and text
 	nText.setCharacterSize(35);
@@ -137,7 +138,7 @@ bool Engine::handleEvent(const sf::Event& event)
 	
 		nWait = false;
 	}
-	else if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left)
+	else if (event.type == sf::Event::MouseButtonPressed && event.key.code == sf::Mouse::Left)
 	{
 		if (!nLinePrinted)
 		{
@@ -166,9 +167,10 @@ void Engine::stopMusic()
 
 void Engine::setDialogueSpeed(int amount)
 {
-	if (amount < 1 && amount > 10) return;
-	nDialogueSpeed = 5;
-	nTextInterval = BaseInterval / nDialogueSpeed;
+	if (amount < 0 || amount > 10) return;
+	nDialogueSpeed = amount;
+
+	nTextInterval = BaseInterval - (amount * TextSpeedDelta);
 }
 
 void Engine::setAuto(bool autoState)
@@ -182,6 +184,14 @@ void Engine::skipDialogueLine()
 	nText.setString(wrapped);
 	nLinePrinted = true;
 	nDelayTime = sf::Time::Zero;
+}
+
+void Engine::setAutoSpeed(int amount)
+{
+	if (amount < 0 || amount > 10) return;
+
+	nDelaySpeed = amount;
+	nDelay = BaseDelay - (amount * DelaySpeedDelta);
 }
 
 void Engine::skipAnimations()

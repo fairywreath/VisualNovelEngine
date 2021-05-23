@@ -42,6 +42,8 @@ public:
 	void setDialogueSpeed(int amount);
 	void setAuto(bool autoState);
 	void skipDialogueLine();
+
+	void setAutoSpeed(int amount);
 	
 	/*
 		@animation state
@@ -132,8 +134,11 @@ private:
 	float nDialogueBoxOpacity;		// percentage later?
 	
 	// in milliseconds
-	static constexpr int BaseInterval = 70;
-	static constexpr int BaseDelay = 1700;
+	static constexpr int BaseInterval = 30;
+	static constexpr int TextSpeedDelta = 3;
+
+	static constexpr int BaseDelay = 2200;
+	static constexpr int DelaySpeedDelta = 200;
 
 	int nDialogueSpeed;
 	int nTextInterval;			

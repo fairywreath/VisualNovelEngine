@@ -9,7 +9,7 @@ GUI::ConfigLabel::ConfigLabel(const std::string& text, const sf::Font& font) :
 		@default fixed values
 	*/
 	setColor(sf::Color(249, 169, 178));
-	setSize(55);
+	setSize(50);
 
 	nRect.setSize(sf::Vector2f(RectLength, RectLength));
 

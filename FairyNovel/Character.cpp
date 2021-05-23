@@ -114,13 +114,6 @@ void Character::skipAnimation()
 	nInTransition = false;
 	nSecondaryEntity.skipAnimation();
 	nTransitionElapsed = sf::Time::Zero;
-	// skip transition
-	//if (nInTransition)
-	//{
-	//	nInTransition = false;
-	//	nSecondaryEntity.skipAnimation();
-	//	nTransitionElapsed = sf::Time::Zero;
-	//}
 }
 
 Entity* Character::getEntity() 

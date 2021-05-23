@@ -10,6 +10,7 @@
 #include "Scanner.hpp"
 #include "RegisterEngine.hpp"
 #include "CharacterBlueprint.hpp"
+#include "ConfigManager.hpp"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -53,6 +54,8 @@ private:
 	MusicPlayer nMusicPlayer;
 
 	StateStack nStateStack;
+
+	ConfigManager nGameConfigManager;
 
 	sf::Text nStatisticsText;
 	sf::Time nStatisticsUpdateTime;

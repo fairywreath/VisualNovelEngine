@@ -16,6 +16,8 @@ GameState::GameState(StateStack& stack, Context context) :
 	nBackgroundSprite.setTexture(context.textures->get("MMBG"));
 	context.musicPlayer->play("mainmenu");
 
+	context.configManager->applySettings(nEngine);
+
 	std::cout << "Command Label size: " << nCommandLabels.size();
 }
 

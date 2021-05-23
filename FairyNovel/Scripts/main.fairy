@@ -1,6 +1,18 @@
 <Label> (start)
 
 <DisplayText> () "Start start start"
+
+<DisplayText> (Suoh) "Hello Mayuri, are you there?"
+<DisplayText> (Suoh) "Hello Mayuri, are you there?"
+<DisplayText> (Suoh) "Hello Mayuri, are you there?"
+<DisplayText> (Suoh) "Hello Mayuri, are you there?"
+<DisplayText> (Suoh) "Hello Mayuri, are you there?"
+<DisplayText> (Suoh) "Hello Mayuri, are you there?"
+<DisplayText> (Suoh) "Hello Mayuri, are you there?"
+<DisplayText> (Suoh) "Hello Mayuri, are you there?"
+<DisplayText> (Suoh) "Hello Mayuri, are you there?"
+<DisplayText> (Suoh) "Hello Mayuri, are you there?"
+
 <DisplayCharacter> (mayuri) "Pos: 700,50;State: state2;   Fade: 1.5; Wait: True"
 <CharacterState> (mayuri) "State: state1; Fade: 1.5; Wait: True"
 

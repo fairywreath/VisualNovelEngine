@@ -89,7 +89,7 @@ void DisplayCharacterCommand::execute(Engine& engine)
 		}
 	}
 
-	if (wait) engine.setWait(true);
+	if (wait) engine.setWaitAnimation(true);
 }
 
 std::vector<std::string> DisplayCharacterCommand::getArguments() const

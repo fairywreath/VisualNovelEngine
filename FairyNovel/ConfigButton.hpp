@@ -20,7 +20,7 @@ public:
 	
 	void handleEvent(const sf::Event& event) override;
 
-	float getAmount() const;
+	int getAmount() const;
 
 	/*
 		@set initial amount

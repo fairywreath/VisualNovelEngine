@@ -8,7 +8,7 @@
 #include "CheckBox.hpp"
 #include "Container.hpp"
 
-#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 class ConfigState : public State
 {
@@ -32,17 +32,19 @@ private:
 	void packComponent(GUI::Component* cmp);
 
 private:
-	static constexpr auto ConfigLabelX = 220.f;
+	static constexpr auto ConfigLabelX = 210.f;
 
-	static constexpr auto ConfigButton1X = 540.f;
-	static constexpr auto ConfigButton2X = 830.f;
+	static constexpr auto ConfigButton1X = 500.f;
+	static constexpr auto ConfigButton2X = 880.f;
 
-	static constexpr auto Label1X = 430.f;
-	static constexpr auto Label2X = 760.f;
+	static constexpr auto Label1X = 400.f;
+	static constexpr auto Label2X = 730.f;
 
+	static constexpr auto Row1Y = 80.f;
+	static constexpr auto RowDist = 60.f;
 
-	static constexpr auto Row1Y = 120.f;
-	static constexpr auto RowDist = 75.f;
+	static constexpr auto TitleLabelX = 50.f;
+	static constexpr auto TitleLabelY = 680.f;
 
 
 	std::vector<GUI::Component*> nComponents;
@@ -92,8 +94,8 @@ private:
 	/*
 		@bg
 	*/
-	sf::Sprite nBackground;
-
+	sf::RectangleShape nBackground;
+	sf::Sprite nSprite;
 };
 
 

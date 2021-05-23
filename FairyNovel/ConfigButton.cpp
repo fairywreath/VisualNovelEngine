@@ -42,9 +42,9 @@ void GUI::ConfigButton::handleEvent(const sf::Event& event)
 	}
 }
 
-float GUI::ConfigButton::getAmount() const
+int GUI::ConfigButton::getAmount() const
 {
-	return (float)nAmount;
+	return nAmount;
 }
 
 void GUI::ConfigButton::setAmount(int amount)
