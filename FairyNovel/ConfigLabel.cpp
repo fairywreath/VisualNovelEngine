@@ -15,9 +15,9 @@ GUI::ConfigLabel::ConfigLabel(const std::string& text, const sf::Font& font) :
 
 	nRect.setPosition(nText.getGlobalBounds().left - RectDist - RectLength
 		, nText.getGlobalBounds().height + nText.getGlobalBounds().top - RectLength);
-	//nRect.setPosition(0 - RectDist - RectLength, nText.getLocalBounds().height - RectLength);
 	nRect.setFillColor(sf::Color(201, 95, 110));
 
+	refreshOrigin();
 }
 
 void GUI::ConfigLabel::draw(sf::RenderTarget& target, sf::RenderStates states) const

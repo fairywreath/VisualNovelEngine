@@ -29,6 +29,9 @@ public:
 	void setSize(unsigned int size);
 	void setColor(const sf::Color& color);
 
+	void centerOriginX();
+	void refreshOrigin();
+
 protected:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

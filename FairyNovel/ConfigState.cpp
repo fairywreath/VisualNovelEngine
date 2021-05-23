@@ -51,14 +51,53 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 	nSectionLabel.setSize(85);
 	nSectionLabel.setColor(sf::Color(249, 169, 178));
 	nSectionLabel.setPosition(50.f, 580.f);
+	packComponent(&nSectionLabel);
 
-	nSoundLabel.setPosition(700.f, 500.f);
+	/*
+		@normal labels
+	*/
+	setNormalLabel(nBgmLbl);
+	nBgmLbl.setPosition(Label1X, Row1Y);
+	packComponent(&nBgmLbl);
 
-	nBgmButton.setPosition(200.f, 400.f);
+	setNormalLabel(nSeLbl);
+	nSeLbl.setPosition(Label2X, Row1Y);
+	packComponent(&nSeLbl);
+
+	setNormalLabel(nSeLbl);
+	setNormalLabel(nMsgSpeedLbl);
+	setNormalLabel(nAutoSpeedLbl);
+	setNormalLabel(nTWindowTransLbl);
+	setNormalLabel(nAutoModeLbl);
+
+
+
+	/*
+		@config buttons
+	*/
+	nBgmButton.setPosition(ConfigButton1X, Row1Y);
 	nBgmButton.setAmount((int)std::ceil((getContext().musicPlayer->getVolume() / 10.f)));
 	nBgmButton.setCallback([this]() {
 		getContext().musicPlayer->setVolume(nBgmButton.getAmount() * 10);
 		});
+	packComponent(&nBgmButton);
+
+	nSeButton.setPosition(ConfigButton2X, Row1Y);
+	nSeButton.setAmount((int)std::ceil((getContext().soundPlayer->getVolume() / 10.f)));
+	nSeButton.setCallback([this]() {
+		getContext().soundPlayer->setVolume(nSeButton.getAmount() * 10);
+		});
+	packComponent(&nSeButton);
+
+
+	/*
+		@config labels, dist between configlabel and normaallabel/config button = 40
+	*/
+	nSoundLabel.setPosition(ConfigLabelX, Row1Y);
+	packComponent(&nSoundLabel);
+
+	nMessageLabel.setPosition(ConfigLabelX, Row1Y + RowDist);
+	packComponent(&nMessageLabel);
 
 
 	nAutoModeCB.setPosition(100.f, 400.f);
@@ -70,6 +109,7 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 		}
 	};
 	nAutoModeCB.setCallback(callback);
+	packComponent(&nAutoModeCB);
 
 	context.musicPlayer->play("mainmenu");
 }
@@ -78,12 +118,11 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 void ConfigState::draw()
 {
 	sf::RenderWindow& window = *getContext().window;
+
 	// window.draw(nBackground);
-	window.draw(nSectionLabel);
-	window.draw(nBgmButton);
-	// std::cout << nAutoModeCB.getPosition().x << " " << nAutoModeCB.getPosition().y << std::endl;
-	window.draw(nAutoModeCB);
-	window.draw(nSoundLabel);
+
+
+	for (const auto& cmp : nComponents) window.draw(*cmp);
 }
 
 
@@ -101,8 +140,19 @@ bool ConfigState::handleEvent(const sf::Event& event)
 	//	requestStackPush(States::ID::Game);
 	}
 
-	nBgmButton.handleEvent(event);
-	nAutoModeCB.handleEvent(event);
+	for (const auto& cmp : nComponents) cmp->handleEvent(event);
 
 	return false;
+}
+
+void ConfigState::setNormalLabel(GUI::Label& label)
+{
+	label.setSize(22);
+	label.setColor(sf::Color(249, 169, 178));
+	label.centerOriginX();
+}
+
+void ConfigState::packComponent(GUI::Component* cmp)
+{
+	nComponents.push_back(cmp);
 }

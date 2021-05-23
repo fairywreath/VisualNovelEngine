@@ -12,10 +12,13 @@ GUI::ConfigButton::ConfigButton(State::Context context) :
 	NormalColor(252, 219, 226),
 	nAmount(5),
 	nRectangles(NumRects),
-	ButtonBounds(0, 0, (NumRects * RectWidth) + ((NumRects - 1) * (RectDist - RectWidth)), RectHeight)
+	ButtonBounds(-RectDist, 0,
+		((NumRects + 1) * RectWidth) + (NumRects * (RectDist - RectWidth)), RectHeight)
 {
 	initializeRectangles();
 	updateColors();
+
+	setOrigin(0, nRectangles[0].getGlobalBounds().top + nRectangles[0].getGlobalBounds().height);
 }
 
 void GUI::ConfigButton::handleEvent(const sf::Event& event)
@@ -77,7 +80,6 @@ void GUI::ConfigButton::updateApperance(ButtonState state)
 bool GUI::ConfigButton::checkMouseLocation() const
 {
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(nWindow);
-
 	if (getTransform().transformRect(ButtonBounds).contains(static_cast<sf::Vector2f>(mousePosition)))
 	{
 		return true;

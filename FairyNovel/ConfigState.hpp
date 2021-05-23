@@ -6,6 +6,7 @@
 #include "ConfigLabel.hpp"
 #include "ConfigButton.hpp"
 #include "CheckBox.hpp"
+#include "Container.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -23,10 +24,29 @@ private:
 	/*
 		@GUI component modifications
 	*/
-	
+	void setNormalLabel(GUI::Label& label);
 
+	/*
+		@add to array
+	*/
+	void packComponent(GUI::Component* cmp);
 
 private:
+	static constexpr auto ConfigLabelX = 220.f;
+
+	static constexpr auto ConfigButton1X = 540.f;
+	static constexpr auto ConfigButton2X = 830.f;
+
+	static constexpr auto Label1X = 430.f;
+	static constexpr auto Label2X = 760.f;
+
+
+	static constexpr auto Row1Y = 120.f;
+	static constexpr auto RowDist = 75.f;
+
+
+	std::vector<GUI::Component*> nComponents;
+
 	/*
 		@title label
 	*/

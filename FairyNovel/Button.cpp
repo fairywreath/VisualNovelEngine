@@ -40,7 +40,6 @@ void GUI::Button::deselect()
 void GUI::Button::activate()
 {
 	Component::activate();		
-	nSounds.play("ButtonClick");
 
 	if (nIsToggle)
 	{
@@ -52,6 +51,8 @@ void GUI::Button::activate()
 
 	if (!nIsToggle)
 		deactivate();
+
+	nSounds.play("ButtonClick");
 }
 
 void GUI::Button::deactivate()

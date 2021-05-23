@@ -12,7 +12,7 @@ namespace GUI
 class Container : public Component
 {
 public:
-	using Ptr =  std::unique_ptr<Component>;
+	using Ptr =  std::shared_ptr<Component>;
 
 public:
 	Container();

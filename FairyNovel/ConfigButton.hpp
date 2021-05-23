@@ -40,9 +40,9 @@ private:
 
 private:
 	static constexpr unsigned NumRects = 10;
-	static constexpr float RectHeight = 26;
-	static constexpr float RectWidth = 14;
-	static constexpr float RectDist = 16;
+	static constexpr float RectHeight = 25;
+	static constexpr float RectWidth = 13;
+	static constexpr float RectDist = 14;
 
 	const sf::FloatRect ButtonBounds;
 

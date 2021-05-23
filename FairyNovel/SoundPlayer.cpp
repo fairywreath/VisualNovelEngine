@@ -3,6 +3,7 @@
 #include <SFML/Audio/Listener.hpp>
 
 #include <cmath>
+#include <iostream>
 
 namespace
 {
@@ -79,7 +80,10 @@ bool SoundPlayer::find(const std::string& id) const
 void SoundPlayer::setVolume(float amount)
 {
 	if ((nVolume + amount) >= 0.f && (nVolume + amount) <= 100.f)
-		nVolume += amount;
+	{
+		nVolume = amount;
+		std::cout << "new amount: " << amount << std::endl;
+	}
 }
 
 float SoundPlayer::getVolume() const
