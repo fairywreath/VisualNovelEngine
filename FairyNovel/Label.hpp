@@ -9,33 +9,33 @@
 namespace GUI
 {
 
-	class Label : public Component
-	{
-	public:
+class Label : public Component
+{
+public:
+	Label(const std::string& text, const sf::Font& font);
+	~Label() override = default;
 
-		Label(const std::string& text, const sf::Font& font);
+	/*
+		@component member functions
+	*/
+	bool isSelectable() const override;
+	void handleEvent(const sf::Event& event) override;
 
-		/*
-			@component member functions
-		*/
-		bool isSelectable() const override;
-		void handleEvent(const sf::Event& event) override;
+	/*
+		@label functionalities
+	*/
+	void setText(const std::string& text);
+	void setFont(const sf::Font& font);
+	void setSize(unsigned int size);
+	void setColor(const sf::Color& color);
 
-		/*
-			@label functionalities
-		*/
-		void setText(const std::string& text);
-		void setFont(const sf::Font& font);
-		void setSize(unsigned int size);
-		void setColor(const sf::Color& color);
+protected:
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-	private:
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+protected:
+	sf::Text nText;
 
-	private:
-		sf::Text nText;
-
-	};
+};
 
 }
 

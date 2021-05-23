@@ -2,16 +2,20 @@
 #define CHECKBOX_HPP
 
 #include "State.hpp"
-#include "Component.hpp"
+#include "Button.hpp"
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
+/*
+	@acts like a button
+*/
+#include <functional>
 
 namespace GUI
 {
 
-class CheckBox : public Component
+class CheckBox : public Button
 {
 
 public:
@@ -20,22 +24,21 @@ public:
 
 	void handleEvent(const sf::Event& event) override;
 
-	bool isSelectable() const override;
-
-	void activate() override;
-
 	bool getStatus() const;
 
 private:
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 	bool checkMouseLocation() const;
 
+	void updateApperance(ButtonState state) override;
+
 private:
 	static constexpr float BoxWidth = 22;
 	static constexpr float BoxHeight = 22;
 
-	static constexpr float OutlineThickness = 2;
-	const sf::Color Color;
+	static constexpr float OutlineThickness = 2.5;
+	const sf::Color OutlineColor;
+	const sf::Color HoverColor;
 
 	sf::RenderWindow& nWindow;
 

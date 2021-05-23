@@ -73,6 +73,9 @@
     <Filter Include="Header Files\Commands-Characters/entities">
       <UniqueIdentifier>{c75033d6-0946-4688-8c09-3743c6e19e4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Settings">
+      <UniqueIdentifier>{482d2a21-b896-4bbe-9033-4484bf910cb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="State.cpp">
@@ -215,6 +218,15 @@
     </ClCompile>
     <ClCompile Include="CheckBox.cpp">
       <Filter>Header Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigLabel.cpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TextButton.cpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSettings.cpp">
+      <Filter>Header Files\Settings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -364,6 +376,15 @@
     </ClInclude>
     <ClInclude Include="CheckBox.hpp">
       <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigLabel.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextButton.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSettings.hpp">
+      <Filter>Header Files\Settings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

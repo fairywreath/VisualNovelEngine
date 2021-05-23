@@ -5,16 +5,18 @@
 #include <iostream>
 
 GUI::CheckBox::CheckBox(State::Context context) :
+	Button(context),
 	nWindow(*context.window),
 	nChecked(false),
 	nRect(),
 	nSprite(context.textures->get("checkmark")),
-	Color(255, 187, 202)
+	OutlineColor(249, 169, 178),
+	HoverColor(252, 219, 226)
 {
 	nRect.setPosition(0, 0);
 	nRect.setSize(sf::Vector2f(BoxHeight, BoxHeight));
 	nRect.setFillColor(sf::Color::White);
-	nRect.setOutlineColor(Color);
+	nRect.setOutlineColor(OutlineColor);
 	nRect.setOutlineThickness(OutlineThickness);
 
 	nSprite.setPosition(1.f, 1.f);
@@ -22,16 +24,32 @@ GUI::CheckBox::CheckBox(State::Context context) :
 
 void GUI::CheckBox::handleEvent(const sf::Event& event)
 {
-	if (checkMouseLocation() && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+	if (checkMouseLocation())
 	{
-		activate();
+		if (!isSelected() && !nChecked)
+		{
+			select();
+		}
+		else if (isSelected() || nChecked)
+		{
+			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+			{
+				nChecked = !nChecked;
+				activate();
+				if (nChecked) deselect();
+			}
+		}
+		else
+		{
+			/*
+				@do nothing
+			*/
+		}
 	}
-
-}
-
-void GUI::CheckBox::activate()
-{
-	nChecked = !nChecked;
+	else
+	{
+		if (isSelected()) deselect();
+	}
 }
 
 bool GUI::CheckBox::getStatus() const
@@ -53,11 +71,21 @@ bool GUI::CheckBox::checkMouseLocation() const
 		contains(static_cast<sf::Vector2f>(sf::Mouse::getPosition(nWindow))));
 }
 
-
-bool GUI::CheckBox::isSelectable() const
+void GUI::CheckBox::updateApperance(ButtonState state)
 {
-	/*
-		@ does not matter?
-	*/
-	return false;
+	switch(state)
+	{
+	case ButtonState::Hover:
+		nRect.setFillColor(HoverColor);
+		break;
+	case ButtonState::Normal:
+		nRect.setFillColor(sf::Color::White);
+		break;
+	default:
+		/*
+			@do nothing, return
+		*/
+		break;
+	}
 }
+

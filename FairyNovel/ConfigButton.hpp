@@ -22,6 +22,10 @@ public:
 
 	float getAmount() const;
 
+	/*
+		@set initial amount
+	*/
+	void setAmount(int amount);
 
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -31,6 +35,8 @@ private:
 
 	void initializeRectangles();
 	void updateColors(bool hover = false);
+
+	void updateAppearannceOnClick();
 
 private:
 	static constexpr unsigned NumRects = 10;

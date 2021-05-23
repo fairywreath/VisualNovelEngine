@@ -29,6 +29,9 @@ public:
 	using CommandPtr = std::unique_ptr<Command>;
 	using CommandLbl = std::vector<CommandPtr>::const_iterator;
 
+	/*
+		@dependency injection, possibly change later for better use
+	*/
 	struct Context
 	{
 		Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts,

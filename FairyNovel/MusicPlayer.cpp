@@ -2,6 +2,8 @@
 
 #include <stdexcept>
 
+#include <iostream>
+
 MusicPlayer::MusicPlayer() :
 	nMusic(),
 	nFileNames(),
@@ -87,6 +89,7 @@ void MusicPlayer::setVolume(float amount)
 	// if amount is not in range leave it be
 	if ((amount) >= 0.f && (amount) <= 100.f)
 	{
+		std::cout << "new amount: " << amount << std::endl;
 		nVolume = amount;
 		nMusic.setVolume(nVolume);
 	}

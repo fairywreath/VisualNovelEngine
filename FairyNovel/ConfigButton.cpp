@@ -16,15 +16,6 @@ GUI::ConfigButton::ConfigButton(State::Context context) :
 {
 	initializeRectangles();
 	updateColors();
-
-	auto callback = [this]() {
-		sf::Vector2i mousePosition = sf::Mouse::getPosition(nWindow);
-		float amount = ((float)mousePosition.x - (float)getPosition().x) / (RectWidth + (RectDist - RectWidth));
-		nAmount = (int)std::ceil(amount);
-		updateApperance(ButtonState::Hover);
-	};
-
-	setCallback(callback);
 }
 
 void GUI::ConfigButton::handleEvent(const sf::Event& event)
@@ -37,6 +28,7 @@ void GUI::ConfigButton::handleEvent(const sf::Event& event)
 	{
 		if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
 		{
+			updateAppearannceOnClick();
 			activate();
 		}
 
@@ -49,7 +41,13 @@ void GUI::ConfigButton::handleEvent(const sf::Event& event)
 
 float GUI::ConfigButton::getAmount() const
 {
-	return static_cast<float>(nAmount)/(float)10.0;
+	return (float)nAmount;
+}
+
+void GUI::ConfigButton::setAmount(int amount)
+{
+	nAmount = amount;
+	updateColors();
 }
 
 void GUI::ConfigButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -113,6 +111,14 @@ void GUI::ConfigButton::updateColors(bool hover)
 			nRectangles[i].setFillColor(NormalColor);
 		}
 	}
+}
+
+void GUI::ConfigButton::updateAppearannceOnClick()
+{
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(nWindow);
+	float amount = ((float)mousePosition.x - (float)getPosition().x) / (RectWidth + (RectDist - RectWidth));
+	nAmount = (int)std::ceil(amount);
+	updateApperance(ButtonState::Hover);
 }
 
 

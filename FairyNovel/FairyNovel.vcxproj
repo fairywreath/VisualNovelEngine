@@ -154,6 +154,7 @@
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Config.hpp" />
     <ClInclude Include="ConfigButton.hpp" />
+    <ClInclude Include="ConfigLabel.hpp" />
     <ClInclude Include="ConfigState.hpp" />
     <ClInclude Include="Container.hpp" />
     <ClInclude Include="Decision.hpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="FadeEntityCommand.hpp" />
     <ClInclude Include="FadeOutBackgroundCommand.hpp" />
+    <ClInclude Include="GameSettings.hpp" />
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="HideDialogueBoxCommand.hpp" />
     <ClInclude Include="JumpCommand.hpp" />
@@ -189,6 +191,7 @@
     <ClInclude Include="State.hpp" />
     <ClInclude Include="StateIdentifiers.hpp" />
     <ClInclude Include="StateStack.hpp" />
+    <ClInclude Include="TextButton.hpp" />
     <ClInclude Include="TitleState.hpp" />
     <ClInclude Include="Utility.hpp" />
   </ItemGroup>
@@ -205,6 +208,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ConfigButton.cpp" />
+    <ClCompile Include="ConfigLabel.cpp" />
     <ClCompile Include="ConfigState.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Decision.cpp" />
@@ -216,6 +220,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FadeEntityCommand.cpp" />
     <ClCompile Include="FadeOutBackgroundCommand.cpp" />
+    <ClCompile Include="GameSettings.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HideDialogueBoxCommand.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
@@ -238,6 +243,7 @@
     <ClCompile Include="SpriteButton.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
+    <ClCompile Include="TextButton.cpp" />
     <ClCompile Include="TitleState.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>

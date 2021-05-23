@@ -7,7 +7,7 @@
 GUI::Label::Label(const std::string& text, const sf::Font& font) :
 	nText(text, font)
 {
-	Util::centerOrigin<sf::Text>(nText);
+	// Util::centerOrigin<sf::Text>(nText);
 }
 
 bool GUI::Label::isSelectable() const
@@ -25,7 +25,7 @@ void GUI::Label::handleEvent(const sf::Event& event)
 void GUI::Label::setText(const std::string& text)
 {
 	nText.setString(text);
-	Util::centerOrigin<sf::Text>(nText);
+	// Util::centerOrigin<sf::Text>(nText);
 }
 
 void GUI::Label::setFont(const sf::Font& font)
