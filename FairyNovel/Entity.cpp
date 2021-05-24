@@ -10,6 +10,7 @@
 Entity::Entity(const std::string& identifier, const sf::Texture& texture) :
     nIdentifier(identifier),
     nSprite(),
+	nAnimeSprite(nSprite),
     nInFade(false),
     nInMovement(false),
     nOpacity(255),		// start at 0 or 255?
@@ -31,38 +32,43 @@ Entity::Entity(const std::string& identifier, const sf::Texture& texture) :
 		nSprite.setTexture(texture);
 	}
 	initializeBlurShader();
+
+
 }
 
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    states.transform *= getTransform();     // get transform from transformable class parent, when setPosition is doen from the oustide
-	if (nUseShader)
-	{
-		states.shader = &nBlurShader;
-	}
-	target.draw(nSprite, states);
+ //   states.transform *= getTransform();     // get transform from transformable class parent, when setPosition is doen from the oustide
+	//if (nUseShader)
+	//{
+	//	states.shader = &nBlurShader;
+	//}
+	//target.draw(nSprite, states);
+	states.transform *= getTransform();
+	target.draw(nAnimeSprite, states);
 }
 
 
 void Entity::update(sf::Time dt)
 {
-	if (nInFade)
-	{
-		nFadeElapsed += dt;
-		if (nFadeElapsed.asSeconds() >= nFadeTime)
-		{
-			nInFade = false;
-			nOpacity = nTargetOpacity;
-			setOpacityAlpha((int)nTargetOpacity);
-			nFadeElapsed = sf::Time::Zero;
-		}
-		else
-		{
-			float alpha = (float)nOpacity + ((float)(nTargetOpacity - nOpacity)
-				* nFadeElapsed.asSeconds() / nFadeTime);
-			nSprite.setColor(sf::Color(255, 255, 255, (int)alpha));
-		}
-	}
+	nAnimeSprite.update(dt);
+	//if (nInFade)
+	//{
+	//	nFadeElapsed += dt;
+	//	if (nFadeElapsed.asSeconds() >= nFadeTime)
+	//	{
+	//		nInFade = false;
+	//		nOpacity = nTargetOpacity;
+	//		setOpacityAlpha((int)nTargetOpacity);
+	//		nFadeElapsed = sf::Time::Zero;
+	//	}
+	//	else
+	//	{
+	//		float alpha = (float)nOpacity + ((float)(nTargetOpacity - nOpacity)
+	//			* nFadeElapsed.asSeconds() / nFadeTime);
+	//		nSprite.setColor(sf::Color(255, 255, 255, (int)alpha));
+	//	}
+	//}
 
 	if (nInMovement)
 	{
@@ -82,28 +88,28 @@ void Entity::update(sf::Time dt)
 		}
 	}
 
-	if (nInBlurAnimation)
-	{
-		nBlurElapsed += dt;
-		if (nBlurElapsed.asSeconds() >= nBlurTime)
-		{
-			nInBlurAnimation = false;
+	//if (nInBlurAnimation)
+	//{
+	//	nBlurElapsed += dt;
+	//	if (nBlurElapsed.asSeconds() >= nBlurTime)
+	//	{
+	//		nInBlurAnimation = false;
 
-			if(nTargetBlurRadius == 0)
-				nUseShader = false;
-			else
-				setShaderUniform("blur_radius", nTargetBlurRadius);
+	//		if(nTargetBlurRadius == 0)
+	//			nUseShader = false;
+	//		else
+	//			setShaderUniform("blur_radius", nTargetBlurRadius);
 
-			nBlurRadius = nTargetBlurRadius;
-			nBlurElapsed = sf::Time::Zero;
-		}
-		else
-		{
-			float radius = nBlurRadius + (nTargetBlurRadius - nBlurRadius)
-				* nBlurElapsed.asSeconds() / nBlurTime;
-			setShaderUniform("blur_radius", radius);
-		}
-	}
+	//		nBlurRadius = nTargetBlurRadius;
+	//		nBlurElapsed = sf::Time::Zero;
+	//	}
+	//	else
+	//	{
+	//		float radius = nBlurRadius + (nTargetBlurRadius - nBlurRadius)
+	//			* nBlurElapsed.asSeconds() / nBlurTime;
+	//		setShaderUniform("blur_radius", radius);
+	//	}
+	//}
 }
 
 void Entity::fade(float time, int targetAlpha)
@@ -113,26 +119,27 @@ void Entity::fade(float time, int targetAlpha)
 
 void Entity::fade(float time, int targetAlpha, int startAlpha)
 {
-	if (time < 0)
-	{
-		std::string msg = "Time is negative";
-		LOGGER->Log("Error at blur entity", msg);
-		return;
-	}
+	nAnimeSprite.fade(time, targetAlpha, startAlpha);
+	//if (time < 0)
+	//{
+	//	std::string msg = "Time is negative";
+	//	LOGGER->Log("Error at blur entity", msg);
+	//	return;
+	//}
 
-	if (targetAlpha < 0 || targetAlpha > 255 || startAlpha < 0 || startAlpha > 255)
-	{
-		std::string msg = "Invalid arguments for fade alpha value: Target=" + std::to_string(targetAlpha)
-			+ " Start= " + std::to_string(startAlpha);
-		LOGGER->Log("Error at fade entity", msg);
-		return;
-	}
+	//if (targetAlpha < 0 || targetAlpha > 255 || startAlpha < 0 || startAlpha > 255)
+	//{
+	//	std::string msg = "Invalid arguments for fade alpha value: Target=" + std::to_string(targetAlpha)
+	//		+ " Start= " + std::to_string(startAlpha);
+	//	LOGGER->Log("Error at fade entity", msg);
+	//	return;
+	//}
 
-	nTargetOpacity = targetAlpha;
-	nFadeTime = time;
-	setOpacityAlpha(startAlpha);
+	//nTargetOpacity = targetAlpha;
+	//nFadeTime = time;
+	//setOpacityAlpha(startAlpha);
 
-	nInFade = true;
+	//nInFade = true;
 }
 
 void Entity::move(float time, const sf::Vector2f& dest)
@@ -157,7 +164,8 @@ void Entity::blur(float time, float endPerc)
 
 void Entity::blur(float time, float endPerc, float startPerc)
 {
-	if (time < 0)
+	nAnimeSprite.blur(time, endPerc, startPerc);
+	/*if (time < 0)
 	{
 		std::string msg = "Time is negative";
 		LOGGER->Log("Error at blur entity", msg);
@@ -179,7 +187,7 @@ void Entity::blur(float time, float endPerc, float startPerc)
 	setShaderUniform("blur_radius", startRadius);
 	nInBlurAnimation = true;
 	nUseShader = true;
-	nBlurTime = time;
+	nBlurTime = time;*/
 }
 
 float Entity::getBlurPercentage() const
@@ -232,38 +240,40 @@ int Entity::getOpacityAlpha() const
 
 bool Entity::inAnimation() const 
 {
-	return (nInFade || nInMovement || nInBlurAnimation);
+	return nAnimeSprite.inAnimation();
+	//return (nInFade || nInMovement || nInBlurAnimation);
 }
 
 void Entity::skipAnimation()
 {
-	if (nInFade)
-	{
-		nInFade = false;
-		nOpacity = nTargetOpacity;
-		setOpacityAlpha((int)nTargetOpacity);
-		nFadeElapsed = sf::Time::Zero;
-	}
+	nAnimeSprite.skipAnimation();
+	//if (nInFade)
+	//{
+	//	nInFade = false;
+	//	nOpacity = nTargetOpacity;
+	//	setOpacityAlpha((int)nTargetOpacity);
+	//	nFadeElapsed = sf::Time::Zero;
+	//}
 
-	if (nInMovement)
-	{
-		nInMovement = false;
-		setPosition(nTargetPosition);
-		nMoveElapsed = sf::Time::Zero;
-	}
+	//if (nInMovement)
+	//{
+	//	nInMovement = false;
+	//	setPosition(nTargetPosition);
+	//	nMoveElapsed = sf::Time::Zero;
+	//}
 
-	if (nInBlurAnimation)
-	{
-		nInBlurAnimation = false;
+	//if (nInBlurAnimation)
+	//{
+	//	nInBlurAnimation = false;
 
-		if (nTargetBlurRadius == 0)
-			nUseShader = false;
-		else
-			setShaderUniform("blur_radius", nTargetBlurRadius);
+	//	if (nTargetBlurRadius == 0)
+	//		nUseShader = false;
+	//	else
+	//		setShaderUniform("blur_radius", nTargetBlurRadius);
 
-		nBlurRadius = nTargetBlurRadius;
-		nMoveElapsed = sf::Time::Zero;
-	}
+	//	nBlurRadius = nTargetBlurRadius;
+	//	nBlurElapsed = sf::Time::Zero;
+	//}
 }
 
 

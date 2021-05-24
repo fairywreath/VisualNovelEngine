@@ -153,6 +153,7 @@
     <ClInclude Include="CommandFactory.hpp" />
     <ClInclude Include="CommandManager.hpp" />
     <ClInclude Include="Component.hpp" />
+    <ClInclude Include="Components.hpp" />
     <ClInclude Include="Config.hpp" />
     <ClInclude Include="ConfigButton.hpp" />
     <ClInclude Include="ConfigLabel.hpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="DisplayEntityCommand.hpp" />
     <ClInclude Include="DisplayTextCommand.hpp" />
     <ClInclude Include="Engine.hpp" />
+    <ClInclude Include="Animatable.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="FadeEntityCommand.hpp" />
     <ClInclude Include="FadeOutBackgroundCommand.hpp" />
@@ -198,6 +200,7 @@
     <ClInclude Include="Utility.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animatable.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BlurEntityCommand.cpp" />
     <ClCompile Include="Button.cpp" />
@@ -252,6 +255,7 @@
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Animatable.inl" />
     <None Include="Blur.frag" />
     <None Include="Media\Shaders\Add.frag" />
     <None Include="Media\Shaders\Blur2.frag" />

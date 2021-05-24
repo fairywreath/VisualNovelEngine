@@ -240,6 +240,9 @@
     <ClCompile Include="CommandManager.cpp">
       <Filter>Header Files\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Animatable.cpp">
+      <Filter>Header Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceIdentifiers.hpp">
@@ -404,6 +407,12 @@
     <ClInclude Include="CommandManager.hpp">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Animatable.hpp">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.hpp">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ResourceManager.inl">
@@ -432,6 +441,9 @@
     </None>
     <None Include="Blur.frag">
       <Filter>Header Files\ShaderFIles</Filter>
+    </None>
+    <None Include="Animatable.inl">
+      <Filter>Header Files\Entities</Filter>
     </None>
   </ItemGroup>
 </Project>

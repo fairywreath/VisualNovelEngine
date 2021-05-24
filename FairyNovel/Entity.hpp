@@ -9,7 +9,12 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include <string>
-#include <limits>
+#include <memory>
+
+#include "Logger.hpp"
+#include "Components.hpp"
+#include "Animatable.hpp"
+
 
 class Entity : public sf::Drawable, public sf::Transformable
 {
@@ -37,7 +42,7 @@ public:
 	void blur(float time, float endPerc);
 	virtual void blur(float time, float endPerc, float startPerc);
 
-	float getBlurPercentage() const;
+	float getBlurPercentage() const; 
 	void setShaderUniform(const std::string& uniform, float args);
 
 	virtual sf::FloatRect getBoundingRect() const;
@@ -47,8 +52,10 @@ private:
 	void initializeBlurShader();
 
 private:
-	std::string nIdentifier;		
+	AnimatableSprite nAnimeSprite;
 	sf::Sprite nSprite;
+
+	std::string nIdentifier;	
 
 	/*
 		@fading
@@ -78,6 +85,7 @@ private:
 	float nBlurTime;
 	float nBlurRadius;
 	float nTargetBlurRadius;			
+
 
 	sf::Time nFadeElapsed;
 	sf::Time nMoveElapsed;

@@ -1,7 +1,9 @@
 <Label> (reunion)
+<HideDialogueBox> () "Time: 0"
+
 
 <PlayMusic> (title)
-<HideDialogueBox> () "Time: 0"
+
 
 <DisplayBackground> (BG1) "Time: 1.1; Wait: False"
 

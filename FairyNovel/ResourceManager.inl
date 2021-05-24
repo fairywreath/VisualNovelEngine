@@ -1,4 +1,4 @@
-#include "ResourceManager.hpp"
+
 template <typename Resource, typename Identifier>
 void ResourceManager<Resource, Identifier>::load(const Identifier& id, const std::string& filename)
 {
