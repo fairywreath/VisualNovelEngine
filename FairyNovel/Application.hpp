@@ -11,6 +11,7 @@
 #include "RegisterEngine.hpp"
 #include "CharacterBlueprint.hpp"
 #include "ConfigManager.hpp"
+#include "CommandManager.hpp"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -41,8 +42,6 @@ private:
 	void initialize(const std::string& configPath);
 
 private:
-	std::vector<CommandPtr> nCommands;
-	std::unordered_map<std::string, CommandLbl> nCommandLabels;
 	std::unordered_map<std::string, CharacterBlueprint> nCharacters;
 
 	sf::Time nTimePerFrame;		// 1/FPS
@@ -56,6 +55,7 @@ private:
 	StateStack nStateStack;
 
 	ConfigManager nGameConfigManager;
+	CommandManager nCommandManager;
 
 	sf::Text nStatisticsText;
 	sf::Time nStatisticsUpdateTime;

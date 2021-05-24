@@ -1,6 +1,8 @@
 #include "Entity.hpp"
 #include "Logger.hpp"
 
+#include <SFML/Graphics/Texture.hpp>
+
 #include <stdexcept>
 #include <cassert>
 #include <iostream>
@@ -23,7 +25,11 @@ Entity::Entity(const std::string& identifier, const sf::Texture& texture) :
 	nTargetBlurRadius(0),
 	nBlurTime(0)
 {
-    nSprite.setTexture(texture);
+	// if not default texture
+	if (texture.getSize() != sf::Vector2u(0, 0))
+	{
+		nSprite.setTexture(texture);
+	}
 	initializeBlurShader();
 }
 
@@ -95,7 +101,6 @@ void Entity::update(sf::Time dt)
 		{
 			float radius = nBlurRadius + (nTargetBlurRadius - nBlurRadius)
 				* nBlurElapsed.asSeconds() / nBlurTime;
-			std::cout << "new radius: " << radius << std::endl;
 			setShaderUniform("blur_radius", radius);
 		}
 	}
@@ -201,7 +206,7 @@ std::string Entity::getIdentifier() const
 
 void Entity::setTexture(const sf::Texture& texture)
 {
-    nSprite.setTexture(texture);
+    nSprite.setTexture(texture);	
 }
 
 void Entity::setOpacityAlpha(int alpha)

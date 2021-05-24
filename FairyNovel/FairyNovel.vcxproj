@@ -151,6 +151,7 @@
     <ClInclude Include="CheckBox.hpp" />
     <ClInclude Include="Command.hpp" />
     <ClInclude Include="CommandFactory.hpp" />
+    <ClInclude Include="CommandManager.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Config.hpp" />
     <ClInclude Include="ConfigButton.hpp" />
@@ -206,6 +207,7 @@
     <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandFactory.cpp" />
+    <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ConfigButton.cpp" />

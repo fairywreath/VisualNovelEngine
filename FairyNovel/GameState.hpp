@@ -3,6 +3,7 @@
 
 #include "State.hpp"
 #include "Engine.hpp"
+#include "CommandManager.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -13,6 +14,7 @@ public:
 
 public:
 	GameState(StateStack& stack, Context context);
+	~GameState() override;
 
 	// virtual functions for drawing, updating and handling events
 	virtual void draw();
@@ -24,15 +26,9 @@ public:
 private:
 	sf::Sprite nBackgroundSprite;
 
-	std::vector<CommandPtr>& nCommands;
-	std::vector<CommandPtr>::const_iterator nIP;		// instruction pointer
-	std::unordered_map<std::string, std::vector<CommandPtr>::const_iterator>& nCommandLabels;
-
-	// engine
 	Engine nEngine;
-	
-	
-	// characters and commands
+	CommandManager& nCommandManager;
+
 };
 
 #endif

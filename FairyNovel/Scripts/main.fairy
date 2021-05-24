@@ -1,5 +1,12 @@
 <Label> (reunion)
 
+<PlayMusic> (title)
+<HideDialogueBox> () "Time: 0"
+
+<DisplayBackground> (BG1) "Time: 1.1; Wait: False"
+
+<ShowDialogueBox> () "Time: 1.77"
+
 <DisplayText> (Suoh) "Hello? Anybody there?"
 
 <DisplayCharacter> (mayuri) "Pos: 700,50;State: state2;   Fade: 1.5; Wait: True"
@@ -19,4 +26,6 @@
 <CharacterState> (mayuri) "State: state1; Fade: 0.5; Wait: False"
 <DisplayText> (Mayuri) "Ahahahah, sure Suoh. You always get nervous when I get close to you. But this never happense when we are on the bed though"
 <MoveEntity> (mayuri) "Target: 700,50; Time: 1.32; Wait: True"
+
+<Jump> (reunion)
 

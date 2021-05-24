@@ -79,6 +79,9 @@
     <Filter Include="Header Files\Graphics/Anims">
       <UniqueIdentifier>{92d8839c-02d0-498f-94db-97fa5e214b47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Player/Points">
+      <UniqueIdentifier>{b68202dc-552e-465f-99dc-d83d8c737a31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="State.cpp">
@@ -233,6 +236,9 @@
     </ClCompile>
     <ClCompile Include="SlideShow.cpp">
       <Filter>Header Files\Graphics/Anims</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandManager.cpp">
+      <Filter>Header Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -394,6 +400,9 @@
     </ClInclude>
     <ClInclude Include="SlideShow.hpp">
       <Filter>Header Files\Graphics/Anims</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandManager.hpp">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

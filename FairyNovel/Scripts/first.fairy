@@ -46,7 +46,7 @@
 
 <DisplayText> (Mayuri) "Yes Suoh, I am here."
 
-<HideDialogueBox> () "Time: 2.1"
+<HideDialogueBox> () "Time: 0"
 <ShowDialogueBox> () "Time: 1.77"
 
 <FadeOutBackground> () "Time: 1"

@@ -1,10 +1,9 @@
 #include "State.hpp"
 #include "StateStack.hpp"
-#include "Command.hpp"
+#include "CommandManager.hpp"
 
 State::Context::Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts,
-	MusicPlayer& music, SoundPlayer& sound, std::vector<CommandPtr>& commands,
-	std::unordered_map<std::string, CommandLbl>& commandLabels,
+	MusicPlayer& music, SoundPlayer& sound, CommandManager& commandManager,
 	std::unordered_map<std::string, CharacterBlueprint>& characters,
 	ConfigManager &configManager):
 	window(&window),		
@@ -12,10 +11,9 @@ State::Context::Context(sf::RenderWindow& window, TextureManager& textures, Font
 	fonts(&fonts),
 	musicPlayer(&music),
 	soundPlayer(&sound),
-	commands(&commands),
-	commandLabels(&commandLabels),
 	characters(&characters),
-	configManager(&configManager)
+	configManager(&configManager),
+	commandManager(&commandManager)
 {
 }
 

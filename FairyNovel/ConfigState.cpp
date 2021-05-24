@@ -161,7 +161,7 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 	*/
 	nExitButton.setFont(context.fonts->get("huxleyv"));
 	nExitButton.setSize(55);
-	nExitButton.setPosition(960.f, TitleLabelY);
+	nExitButton.setPosition(80.f, TitleLabelY);
 	nExitButton.setCallback([this]() {
 		requestStackPop();
 		});
@@ -169,7 +169,7 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 
 	nSetupDefaultButton.setFont(context.fonts->get("huxleyv"));
 	nSetupDefaultButton.setSize(55);
-	nSetupDefaultButton.setPosition(1050.f, TitleLabelY);
+	nSetupDefaultButton.setPosition(170.f, TitleLabelY);
 	nSetupDefaultButton.setCallback([this]() {
 		getContext().musicPlayer->setupDefault();
 		getContext().soundPlayer->setupDefault();
@@ -182,7 +182,7 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 
 	nBackground.setFillColor(sf::Color::White);
 	nBackground.setPosition(0, 0);
-	nSprite.setPosition(800, 200);
+	nSprite.setPosition(900, 20);
 	context.musicPlayer->play("mainmenu");
 }
 
@@ -225,10 +225,9 @@ bool ConfigState::handleEvent(const sf::Event& event)
 	//	requestStackPush(States::ID::Game);
 	}
 
-	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 	{
 		requestStackPop();
-		requestStackPush(States::ID::Game);
 	}
 
 	for (const auto& cmp : nComponents) cmp->handleEvent(event);

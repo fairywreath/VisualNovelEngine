@@ -6,7 +6,8 @@
 <SoundEffect> (ButtonClick) "Media/Sound/ButtonActivate.wav"
 <Texture> (MMBG) "Media/Backgrounds/school-gate-night.png"
 <Music> (mainmenu) "Media/Music/MainTheme.ogg"
-<Texture> (dialoguebox) "Media/GUI/blooming_tb.png"
+<Texture> (dialoguebox) "Media/GUI/ete_twindow.png"
+<Texture> (textbg) "Media/GUI/textbg_white.png"
 
 <Texture> (ButtonNormal) "Media/Textures/bar_empty.png"
 <Texture> (ButtonHover) "Media/Textures/bar_full.png"

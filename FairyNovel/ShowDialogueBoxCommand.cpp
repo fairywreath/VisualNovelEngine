@@ -22,8 +22,7 @@ void ShowDialogueBoxCommand::execute(Engine& engine)
 		return;
 	}
 
-	float alpha = (float)255.0 * (engine.getOpacityPercent() / (float)100.0);
-	engine.fadeDialogueBox(std::stof(time), static_cast<int>(alpha));
+	engine.fadeInDialogueBox(std::stof(time));
 
 	engine.setWaitAnimation(true);
 }

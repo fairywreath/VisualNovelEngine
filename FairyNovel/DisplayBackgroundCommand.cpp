@@ -43,7 +43,7 @@ std::vector<std::string> DisplayBackgroundCommand::getArguments() const
 
 	std::vector<std::string> args = Util::split(getArgumentString(), ';');
 
-	if (args.size() != 1)
+	if (args.size() > 2)
 	{
 		std::string msg = "Incorrect argument size, display background must have only 1 argument: " + getArgumentString();
 		LOGGER->Log("DIsplay Background Command", msg);

@@ -21,6 +21,7 @@ namespace sf
 }
 
 class StateStack;			
+class CommandManager;
 class Command;
 
 class State
@@ -36,8 +37,7 @@ public:
 	struct Context
 	{
 		Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts,
-			MusicPlayer& music, SoundPlayer& sound, std::vector<CommandPtr>& commands, 
-			std::unordered_map<std::string, CommandLbl>& commandLabels,
+			MusicPlayer& music, SoundPlayer& sound, CommandManager& commandManager,
 			std::unordered_map<std::string, CharacterBlueprint>& characters,
 			ConfigManager& configManager);
 
@@ -46,11 +46,14 @@ public:
 		FontManager* fonts;
 		MusicPlayer* musicPlayer;
 		SoundPlayer* soundPlayer;
-		std::vector<CommandPtr>* commands;
-		std::unordered_map<std::string, CommandLbl>* commandLabels;
+
+		//std::vector<CommandPtr>* commands;
+		//std::unordered_map<std::string, CommandLbl>* commandLabels;
+
 		std::unordered_map<std::string, CharacterBlueprint>* characters;
 
 		ConfigManager* configManager;
+		CommandManager* commandManager;
 	};
 
 public:

@@ -30,19 +30,24 @@ Engine::Engine(State::Context context) :
 	nEntities(),
 	nCharacters(),
 	nDialogueBox("DialogueBox", context.textures->get("dialoguebox")),
-	nBackground("Background", context.textures->get("MMBG"))
+	nTextBackground("TextBackground", context.textures->get("textbg")),
+	nBackground("Background", sf::Texture())	// set empty first time around
 {
 	setDialogueSpeed(nDialogueSpeed);
 	setAutoSpeed(nDelaySpeed);
 	
+	/*
+		@initial background, 0 opacity?
+	*/
+	nBackground.fade(0, 0);
 
 	// set up dialogue textures and fonts and text
-	nText.setCharacterSize(35);
+	nText.setCharacterSize(TextSize);
 	nText.setPosition(260.f, 520.f);
 	nText.setFillColor(sf::Color::Black);
 	nText.setFont(context.fonts->get("overlock"));
 
-	nCharName.setCharacterSize(35);
+	nCharName.setCharacterSize(TextSize);
 	nCharName.setPosition(130.f, 520.f);
 	nCharName.setFillColor(sf::Color::Black);
 	nCharName.setFont(context.fonts->get("overlock"));
@@ -51,6 +56,20 @@ Engine::Engine(State::Context context) :
 	float dbx = (float)context.window->getSize().x / 2 - (float)dbT.getSize().x / 2;
 	float dby = (float)context.window->getSize().y - (float)dbT.getSize().y - 30.f;
 	nDialogueBox.setPosition(dbx, dby);
+
+	/*
+		@text window size: 1149 x 156
+	*/
+	sf::Texture& tbT = nTextures.get("textbg");
+	float tbx = (float)context.window->getSize().x / 2 - (float)tbT.getSize().x / 2 - 2.f;
+	float tby = (float)context.window->getSize().y - (float)tbT.getSize().y - 56.f;
+	nTextBackground.setPosition(tbx, tby);
+
+	//nTextWindow.setSize(sf::Vector2f(1149, 156));
+
+	//
+	//nTextWindow.setFillColor(sf::Color(255, 255, 255, 125));
+	//nTextWindow.setPosition(wbx, wby);
 
 	setDialogueBoxOpacityPercent(nDialogueBoxOpacity);
 
@@ -69,8 +88,12 @@ void Engine::draw(sf::RenderTarget& target, sf::RenderStates states)  const
 
 	for (const auto& ch : nCharacters) target.draw(*ch, states);
 	for (const auto& ent : nEntities) target.draw(*ent, states);
-	
+
+	//target.draw(nTextWindow);
+	target.draw(nTextBackground);
 	target.draw(nDialogueBox, states);
+
+
 	target.draw(nCharName, states);
 	target.draw(nText, states);
 }
@@ -93,7 +116,7 @@ void Engine::update(sf::Time dt)
 			size_t pos = nTextPos;
 			while (nTextString[pos] != ' ' && pos < nTextString.size()) pos++;
 
-			sf::String wrapped = Util::wrapText(sf::String(str), 800, nFont, 35, (int)(pos - nTextPos));
+			sf::String wrapped = Util::wrapText(sf::String(str), 800, nFont, TextSize, (int)(pos - nTextPos));
 			nText.setString(wrapped);
 		}
 		nTextTime = sf::Time::Zero;
@@ -112,6 +135,7 @@ void Engine::update(sf::Time dt)
 
 	nBackground.update(dt);
 	nDialogueBox.update(dt);
+	nTextBackground.update(dt);
 
 	for (const auto& ent : nCharacters) ent->update(dt);
 	for (const auto& ent : nEntities) ent->update(dt);
@@ -242,6 +266,7 @@ bool Engine::setBackground(const std::string& id)
 	if (!nTextures.contains(id)) return false;
 
 	nBackground.setTexture(nTextures.get(id));
+	std::cout << "background set\n";
 	return true;
 }
 
@@ -299,20 +324,30 @@ void Engine::clearTransparentEntities()
 */
 void Engine::setDialogueBoxOpacityPercent(float amount)
 {
-	// set opacity, 100% = 225
+	if (amount < 0 || amount > 100) return;
+
 	nDialogueBoxOpacity = amount;
 	float alpha = (amount / (float)100) * (float)255;
-	nDialogueBox.setOpacityAlpha((int)alpha);
+	setDialogueBoxOpacity((int)alpha);
 }
 
 void Engine::setDialogueBoxOpacity(int alpha)
 {
-	nDialogueBox.setOpacityAlpha(alpha);
+	if (alpha < 0 || alpha > 255) return;
+	nTextBackground.setOpacityAlpha(alpha);
 }
 
+// fade all, including frame, without changine current amount
 void Engine::fadeDialogueBox(float time, int alpha)
 {
+	nTextBackground.fade(time, alpha);
 	nDialogueBox.fade(time, alpha);
+}
+// restore to normal
+void Engine::fadeInDialogueBox(float time)
+{
+	nTextBackground.fade(time, (int)((nDialogueBoxOpacity / (float)100) * (float)255));
+	nDialogueBox.fade(time, 255);
 }
 
 

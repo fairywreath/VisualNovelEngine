@@ -11,6 +11,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/System/Clock.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 /*
 	@engine class for graphics and game logic, acts like a 'canvas'
@@ -72,6 +73,7 @@ public:
 	void setDialogueBoxOpacityPercent(float amount);
 	void setDialogueBoxOpacity(int alpha);
 	void fadeDialogueBox(float time, int alpha);
+	void fadeInDialogueBox(float time);			// restore to normal
 
 	/*
 		@cleanup
@@ -112,12 +114,18 @@ private:
 	void fadeScreen(float time, int targetAlpha) noexcept;
 
 private:
+	static constexpr auto TextSize = 29;
+
+private:
 	MusicPlayer& nMusicPlayer;
 	SoundPlayer& nSoundPlayer;
 	TextureManager& nTextures;
 	sf::Font& nFont;		// most likely can be removed later
 	std::unordered_map<std::string, CharacterBlueprint>& nCharacterBPs;
 
+	sf::RectangleShape nTextWindow;
+
+	Entity nTextBackground;
 	Entity nDialogueBox;
 	Entity nBackground;		// derive entity class later for zoom effects
 

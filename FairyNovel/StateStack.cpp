@@ -83,10 +83,10 @@ void StateStack::applyPendingChanges()
 		case Action::Pop:
 		{
 			nStack.pop_back();
-	/*		if (!nStack.empty())
+			if (!nStack.empty())
 			{
 				(*nStack.rbegin())->refresh();
-			}*/
+			}
 			break;
 		}
 		case Action::Clear:

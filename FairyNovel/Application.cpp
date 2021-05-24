@@ -14,11 +14,9 @@ Application::Application(const std::string& configPath) :
 	nFonts(),
 	nSoundPlayer(),
 	nMusicPlayer(),
-	nCommands(),
-	nCommandLabels(),
 	nCharacters(),
 	nStateStack(State::Context(nWindow, nTextures, nFonts, nMusicPlayer, nSoundPlayer, 
-		nCommands, nCommandLabels, nCharacters, nGameConfigManager)),		// create new state context here and pass it in
+		nCommandManager, nCharacters, nGameConfigManager)),		// create new state context here and pass it in
 	nStatisticsText(),
 	nStatisticsUpdateTime(),
 	nTimePerFrame(),
@@ -26,6 +24,8 @@ Application::Application(const std::string& configPath) :
 	nGameConfigManager()
 {
 	initialize(configPath);
+
+	nStateStack.pushState(States::ID::Game);
 }
 
 void Application::initialize(const std::string& configPath)
@@ -39,22 +39,21 @@ void Application::initialize(const std::string& configPath)
 
 	// read commands from file
 	CommandFactory commandFactory;
-
-	auto scanner = std::make_unique<Scanner>((std::string)config.getOption("SCRIPT_PATH"),
-		(std::string)config.getOption("REG_PATH"), commandFactory, nCommands, nCommandLabels);
 	
+	Scanner scanner((std::string)config.getOption("SCRIPT_PATH"),
+		(std::string)config.getOption("REG_PATH"), commandFactory,
+		nCommandManager.getCommands(), nCommandManager.getCommandLabels());
+
 	RegisterEngine regEngine(nTextures, nFonts, nSoundPlayer, nMusicPlayer, nCharacters);
 
-	scanner->scanCommands(false);		// reserve register vector
-	for (const auto& ptr : nCommands)
+	scanner.scanCommands(false);		// reserve register vector
+	for (const auto& ptr : nCommandManager.getCommands())
 	{
 		regEngine.runCommand(ptr.get());
 	}
 
-
-	nCommands.clear();						// reuse the vector
-
-	scanner->scanCommands();			// open srcipt file and reserve commands vector
+	nCommandManager.getCommands().clear();
+	scanner.scanCommands();				// read rest of game commands
 
 
 
@@ -83,7 +82,7 @@ void Application::initialize(const std::string& configPath)
 	nStatisticsText.setFillColor(sf::Color::Cyan);
 
 	registerStates();
-	nStateStack.pushState(States::ID::Config);
+
 	/*
 		@need guards 
 	*/
