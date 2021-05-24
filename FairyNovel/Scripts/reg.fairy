@@ -9,9 +9,9 @@
 <Texture> (dialoguebox) "Media/GUI/ete_twindow.png"
 <Texture> (textbg) "Media/GUI/textbg_white.png"
 
-<Texture> (ButtonNormal) "Media/Textures/bar_empty.png"
-<Texture> (ButtonHover) "Media/Textures/bar_full.png"
-<Texture> (ButtonClick) "Media/Textures/bar_full.png"
+<Texture> (ButtonNormal) "Media/GUI/bar_empty.png"
+<Texture> (ButtonHover) "Media/GUI/bar_full.png"
+<Texture> (ButtonClick) "Media/GUI/bar_full.png"
 
 <Texture> (mayuri1) "Media/Characters/kmayuri_1.png"
 <Texture> (mayuri2) "Media/Characters/kmayuri_2.png"
