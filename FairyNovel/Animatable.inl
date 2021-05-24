@@ -22,6 +22,7 @@ Animatable<T>::Animatable() :
 	nTargetBlurRadius(0),
 	nBlurTime(0)
 {
+	initializeBlurShader();
 }
 
 template<typename T>
@@ -48,6 +49,7 @@ Animatable<T>::Animatable(T& resource) :
 	nTargetBlurRadius(0),
 	nBlurTime(0)
 {
+	initializeBlurShader();
 }
 
 template<typename T>
@@ -104,6 +106,7 @@ void Animatable<T>::update(sf::Time dt)
 		{
 			float radius = nBlurRadius + (nTargetBlurRadius - nBlurRadius)
 				* nBlurElapsed.asSeconds() / nBlurTime;
+			//std::cout << "radius: " << radius << std::endl;
 			setShaderUniform(radius);
 		}
 	}
@@ -257,6 +260,7 @@ void Animatable<T>::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 
 	if (nUseShader)
 	{
+	//	std::cout << "shader used\n";
 		states.shader = &nBlurShader;
 	}
 	target.draw(*nObject, states);

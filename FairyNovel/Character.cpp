@@ -12,6 +12,7 @@ Character::Character(CharacterBlueprint& blueprint) :
 	nInTransition(false),
 	nCurrentState(blueprint.getDefaultState())
 {
+
 }
 
 void Character::update(sf::Time dt)

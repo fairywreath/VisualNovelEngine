@@ -3,7 +3,7 @@
 
 #include <cassert>
 #include <stdint.h>
-
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Logger.hpp"
 
@@ -78,10 +78,11 @@ private:
 
 	sf::Time nBlurElapsed;
 
-
-
 };
 
+/*
+	@full member specializations
+*/
 template<>
 void Animatable<sf::Sprite>::setObjectAlpha(int alpha);
 

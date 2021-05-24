@@ -1,3 +1,4 @@
+
 <Label> (reunion)
 <HideDialogueBox> () "Time: 0"
 
@@ -8,15 +9,19 @@
 <DisplayBackground> (BG1) "Time: 1.1; Wait: False"
 
 <ShowDialogueBox> () "Time: 1.77"
+ 
+
 
 <DisplayText> (Suoh) "Hello? Anybody there?"
 
-<DisplayCharacter> (mayuri) "Pos: 700,50;State: state2;   Fade: 1.5; Wait: True"
+<DisplayCharacter> (mayuri) "Pos: 500,50;State: state2;   Fade: 1.5; Wait: True"
+
+
 <DisplayText> (Mayuri) "Suoh? Is that you?"
 
 <MoveEntity> (mayuri) "Target: 300,50; Time: 1.32; Wait: True"
 
-<DisplayEntity> (Suoh) "Yes Mayuri, this is your wife."
+<DisplayText> (Suoh) "Yes Mayuri, this is your wife."
 <DisplayEntity> (suoh2) "Pos: 100,30; Fade:  0.5"       
 
 <BlurEntity> (mayuri) "Time: 1; Target: 10"
@@ -29,5 +34,8 @@
 <DisplayText> (Mayuri) "Ahahahah, sure Suoh. You always get nervous when I get close to you. But this never happense when we are on the bed though"
 <MoveEntity> (mayuri) "Target: 700,50; Time: 1.32; Wait: True"
 
+<CharacterState> (mayuri) "State: state2; Fade: 0.5; Wait: False"
+<FadeOutBackground> () "Time: 1.5"
+<RemoveEntity> (mayuri)
 <Jump> (reunion)
 

@@ -14,6 +14,7 @@
 #include "Logger.hpp"
 #include "Components.hpp"
 #include "Animatable.hpp"
+#include "Movable.hpp"
 
 
 class Entity : public sf::Drawable, public sf::Transformable
@@ -27,6 +28,10 @@ public:
 	std::string getIdentifier() const;
 
 	void setTexture(const sf::Texture& texture);
+
+	/*
+		@fade values, on animatable
+	*/
 	void setOpacityAlpha(int alpha);
 	int getOpacityAlpha() const;
 
@@ -43,53 +48,19 @@ public:
 	virtual void blur(float time, float endPerc, float startPerc);
 
 	float getBlurPercentage() const; 
-	void setShaderUniform(const std::string& uniform, float args);
 
 	virtual sf::FloatRect getBoundingRect() const;
 
 private:	
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void initializeBlurShader();
 
 private:
 	AnimatableSprite nAnimeSprite;
 	sf::Sprite nSprite;
 
+	Movable nMover;
+
 	std::string nIdentifier;	
-
-	/*
-		@fading
-	*/
-	int nOpacity;	
-	int nTargetOpacity;
-	float nFadeTime;	
-	bool nInFade;
-
-	/*
-		@movement
-	*/
-	sf::Vector2f nStartingPosition;
-	sf::Vector2f nTargetPosition;
-	float nMoveTime;
-	bool nInMovement;
-
-	/*
-		@blurring
-	*/
-	sf::Shader nBlurShader;
-	
-	static constexpr float MaxBlurRadius = 0.25;
-
-	bool nUseShader;
-	bool nInBlurAnimation;
-	float nBlurTime;
-	float nBlurRadius;
-	float nTargetBlurRadius;			
-
-
-	sf::Time nFadeElapsed;
-	sf::Time nMoveElapsed;
-	sf::Time nBlurElapsed;
 };
 
 #endif

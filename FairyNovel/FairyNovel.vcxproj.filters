@@ -243,6 +243,9 @@
     <ClCompile Include="Animatable.cpp">
       <Filter>Header Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Movable.cpp">
+      <Filter>Header Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceIdentifiers.hpp">
@@ -411,6 +414,9 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Components.hpp">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Movable.hpp">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>

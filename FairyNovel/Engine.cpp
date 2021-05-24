@@ -81,15 +81,17 @@ Engine::Engine(State::Context context) :
 	//fadeDialogueBox(3, 0);
 }
 
-
+bool trek = false;
 void Engine::draw(sf::RenderTarget& target, sf::RenderStates states)  const
 {
 	target.draw(nBackground, states);
 
-	for (const auto& ch : nCharacters) target.draw(*ch, states);
+	for (const auto& ch : nCharacters) {
+		target.draw(*ch, states);
+	}
+
 	for (const auto& ent : nEntities) target.draw(*ent, states);
 
-	//target.draw(nTextWindow);
 	target.draw(nTextBackground);
 	target.draw(nDialogueBox, states);
 
@@ -385,7 +387,7 @@ float Engine::getOpacityPercent() const
 */
 Character* Engine::getCharacter(const std::string& id)
 {
-	const auto ch = std::find_if(nCharacters.begin(), nCharacters.end(), [&id](const CharacterPtr& ptr)
+	auto ch = std::find_if(nCharacters.begin(), nCharacters.end(), [&id](const CharacterPtr& ptr)
 		{
 			return (ptr->getIdentifier() == id);
 		});
@@ -404,6 +406,7 @@ bool Engine::addCharacter(const std::string& id)
 		return false;
 	}
 	nCharacters.push_back(std::make_unique<Character>(nCharacterBPs.at(id)));
+	std::cout << "CHARACTER SIZE: " << nCharacters.size() << std::endl;
 	return true;
 }
 

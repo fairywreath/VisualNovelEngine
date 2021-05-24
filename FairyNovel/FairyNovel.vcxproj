@@ -177,6 +177,7 @@
     <ClInclude Include="LabelCommand.hpp" />
     <ClInclude Include="Logger.hpp" />
     <ClInclude Include="MainMenuState.hpp" />
+    <ClInclude Include="Movable.hpp" />
     <ClInclude Include="MoveEntityCommand.hpp" />
     <ClInclude Include="MusicPlayer.hpp" />
     <ClInclude Include="Option.hpp" />
@@ -235,6 +236,7 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMentuState.cpp" />
+    <ClCompile Include="Movable.cpp" />
     <ClCompile Include="MoveEntityCommand.cpp" />
     <ClCompile Include="MusicPlayer.cpp" />
     <ClCompile Include="Option.cpp" />

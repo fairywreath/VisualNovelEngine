@@ -19,6 +19,9 @@ void DisplayCharacterCommand::execute(Engine& engine)
 		return;
 	}
 
+	/*
+		@does not get most recent added, maybe add later for better implementation?
+	*/
 	Character* chr = engine.getCharacter(getIdentifier());
 	auto args = getArguments();
 
