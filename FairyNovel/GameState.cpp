@@ -14,11 +14,8 @@ GameState::GameState(StateStack& stack, Context context) :
 	nEngine(context)
 {
 	nBackgroundSprite.setTexture(context.textures->get("MMBG"));
-	context.musicPlayer->play("mainmenu");
 
 	context.configManager->applySettings(nEngine);
-
-	std::cout << "Command Label size: " << nCommandLabels.size();
 }
 
 void GameState::draw()
@@ -76,5 +73,13 @@ bool GameState::handleEvent(const sf::Event& event)
 {
 	nEngine.handleEvent(event);
 
+	/*
+		@return true for cascading events between states
+	*/
 	return false;
+}
+
+void GameState::refresh()
+{
+	getContext().configManager->applySettings(nEngine);
 }

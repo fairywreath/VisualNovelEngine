@@ -59,6 +59,11 @@ bool GUI::CheckBox::getStatus() const
 	return nChecked;
 }
 
+void GUI::CheckBox::setStatus(bool status)
+{
+	nChecked = status;
+}
+
 void GUI::CheckBox::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();

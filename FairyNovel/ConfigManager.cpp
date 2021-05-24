@@ -4,13 +4,21 @@
 #include <iostream>
 
 ConfigManager::ConfigManager() :
-	nChanged(false),
-	AutoMode(false),
-	DialogueBoxOpacity(60.f),
-	DialogueSpeed(5),
-	AutoDelaySpeed(1)
+	AutoMode(DefAutoMode),
+	DialogueBoxOpacity(DefTWindowTrans),
+	DialogueSpeed(DefDialSpeed),
+	AutoDelaySpeed(DefDelaySpeed)
 {
 }
+
+void ConfigManager::setupDefault()
+{
+	AutoMode = DefAutoMode;
+	DialogueBoxOpacity = DefTWindowTrans;
+	DialogueSpeed = DefDialSpeed;
+	AutoDelaySpeed = DefDelaySpeed;
+}
+
 
 void ConfigManager::applySettings(Engine& engine)
 {
@@ -26,7 +34,7 @@ void ConfigManager::applySettings(Engine& engine)
 	std::cout << "AUTO SPEED: " << AutoDelaySpeed << std::endl;
 	engine.setAutoSpeed(AutoDelaySpeed);
 
-	std::cout << "apply settings\n";
+	std::cout << "apply settings finished\n";
 }
 
 bool ConfigManager::getAutoMode() const
@@ -68,5 +76,7 @@ void ConfigManager::setAutoDelaySpeed(int speed)
 {
 	AutoDelaySpeed = speed;
 }
+
+
 
 

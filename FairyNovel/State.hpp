@@ -64,6 +64,11 @@ public:
 	virtual bool update(sf::Time dt) = 0;
 	virtual bool handleEvent(const sf::Event& event) = 0;
 
+	/*
+		@do right when current state is at the top
+	*/
+	virtual void refresh();
+
 protected:
 	void requestStackPush(States::ID stateID);
 	void requestStackPop();

@@ -71,8 +71,5 @@ bool GUI::SpriteButton::checkMouseLocation() const
 
 	sf::FloatRect buttonBounds = getTransform().transformRect(nSprite.getGlobalBounds());
 	
-	if (buttonBounds.contains(static_cast<sf::Vector2f>(mousePosition)))
-		return true;
-	
-	return false;
+	return buttonBounds.contains(static_cast<sf::Vector2f>(mousePosition));
 }

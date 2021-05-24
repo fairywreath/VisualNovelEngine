@@ -16,7 +16,7 @@ namespace
 SoundPlayer::SoundPlayer() :
 	nSoundBuffers(),
 	nSounds(),
-	nVolume(60.f)
+	nVolume(DefaultVolume)
 {
 	// load SEs to the manager
 	
@@ -89,5 +89,10 @@ void SoundPlayer::setVolume(float amount)
 float SoundPlayer::getVolume() const
 {
 	return nVolume;
+}
+
+void SoundPlayer::setupDefault()
+{
+	setVolume(DefaultVolume);
 }
 

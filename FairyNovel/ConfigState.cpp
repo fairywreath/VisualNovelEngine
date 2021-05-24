@@ -44,12 +44,17 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 	/*
 		 @checkboxes
 	*/
-	nAutoModeCB(context)
+	nAutoModeCB(context),
+	/*
+		@text buttons
+	*/
+	nExitButton(context, "EXIT"),
+	nSetupDefaultButton(context, "SETUP DEFAULT")
 {
 	/*
 		@title label
 	*/
-	nSectionLabel.setSize(85);
+	nSectionLabel.setSize(100);
 	nSectionLabel.setColor(sf::Color(249, 169, 178));
 	nSectionLabel.setPosition(TitleLabelX, TitleLabelY);
 	packComponent(&nSectionLabel);
@@ -85,35 +90,35 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 		@config buttons
 	*/
 	nBgmButton.setPosition(ConfigButton1X, Row1Y);
-	nBgmButton.setAmount((int)std::ceil((getContext().musicPlayer->getVolume() / 10.f)));
+	//nBgmButton.setAmount((int)std::ceil((getContext().musicPlayer->getVolume() / 10.f)));
 	nBgmButton.setCallback([context, &nBgmButton = nBgmButton]() {
 		context.musicPlayer->setVolume(static_cast<float>(nBgmButton.getAmount() * 10));
 		});
 	packComponent(&nBgmButton);
 
 	nSeButton.setPosition(ConfigButton2X, Row1Y);
-	nSeButton.setAmount((int)std::ceil((getContext().soundPlayer->getVolume() / 10.f)));
+	//nSeButton.setAmount((int)std::ceil((getContext().soundPlayer->getVolume() / 10.f)));
 	nSeButton.setCallback([context, &nSeButton = nSeButton]() {
 		context.soundPlayer->setVolume(static_cast<float>(nSeButton.getAmount() * 10));
 		});
 	packComponent(&nSeButton);
 
 	nMsgSpeedButton.setPosition(ConfigButton1X, Row1Y + RowDist);
-	nMsgSpeedButton.setAmount(context.configManager->getMessageSpeed());
+	//nMsgSpeedButton.setAmount(context.configManager->getMessageSpeed());
 	nMsgSpeedButton.setCallback([context, &nMsgSpeedButton = nMsgSpeedButton]() {
 		context.configManager->setMessageSpeed(nMsgSpeedButton.getAmount());
 		});
 	packComponent(&nMsgSpeedButton);
 
 	nAutoSpeedButton.setPosition(ConfigButton2X, Row1Y + RowDist);
-	nAutoSpeedButton.setAmount(context.configManager->getAutoDelaySpeed());
+	//nAutoSpeedButton.setAmount(context.configManager->getAutoDelaySpeed());
 	nAutoSpeedButton.setCallback([context, &nAutoSpeedButton = nAutoSpeedButton]() {
 		context.configManager->setAutoDelaySpeed(nAutoSpeedButton.getAmount());
 		});
 	packComponent(&nAutoSpeedButton);
 
 	nTWindowTransButton.setPosition(ConfigButton2X - 200.f, Row1Y + (5 * RowDist));
-	nTWindowTransButton.setAmount(static_cast<int>(context.configManager->getTextWindowTrans() / 10.f));
+	//nTWindowTransButton.setAmount(static_cast<int>(context.configManager->getTextWindowTrans() / 10.f));
 	nTWindowTransButton.setCallback([context, &nTWindowTransButton = nTWindowTransButton]() {
 		context.configManager->setTextwindowTrans(nTWindowTransButton.getAmount() * 10);
 		// std::cout << "YEAHHHH " << nTWindowTransButton.getAmount() << std::endl;
@@ -151,10 +156,47 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 	nAutoModeCB.setCallback(callback);
 	packComponent(&nAutoModeCB);
 
+	/*
+		@text buttons
+	*/
+	nExitButton.setFont(context.fonts->get("huxleyv"));
+	nExitButton.setSize(55);
+	nExitButton.setPosition(960.f, TitleLabelY);
+	nExitButton.setCallback([this]() {
+		requestStackPop();
+		});
+	packComponent(&nExitButton);
+
+	nSetupDefaultButton.setFont(context.fonts->get("huxleyv"));
+	nSetupDefaultButton.setSize(55);
+	nSetupDefaultButton.setPosition(1050.f, TitleLabelY);
+	nSetupDefaultButton.setCallback([this]() {
+		getContext().musicPlayer->setupDefault();
+		getContext().soundPlayer->setupDefault();
+		getContext().configManager->setupDefault();
+		refreshUI();
+		});
+	packComponent(&nSetupDefaultButton);
+
+	refreshUI();
+
 	nBackground.setFillColor(sf::Color::White);
 	nBackground.setPosition(0, 0);
 	nSprite.setPosition(800, 200);
 	context.musicPlayer->play("mainmenu");
+}
+
+void ConfigState::refreshUI()
+{
+
+	nBgmButton.setAmount((int)std::ceil((getContext().musicPlayer->getVolume() / 10.f)));
+	nSeButton.setAmount((int)std::ceil((getContext().soundPlayer->getVolume() / 10.f)));
+	nMsgSpeedButton.setAmount(getContext().configManager->getMessageSpeed());
+	nAutoSpeedButton.setAmount(getContext().configManager->getAutoDelaySpeed());
+	nTWindowTransButton.setAmount(static_cast<int>
+		(getContext().configManager->getTextWindowTrans() / 10.f));
+
+	nAutoModeCB.setStatus(getContext().configManager->getAutoMode());
 }
 
 
@@ -185,7 +227,7 @@ bool ConfigState::handleEvent(const sf::Event& event)
 
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
 	{
-		requestStackPop();;
+		requestStackPop();
 		requestStackPush(States::ID::Game);
 	}
 
@@ -205,3 +247,5 @@ void ConfigState::packComponent(GUI::Component* cmp)
 {
 	nComponents.push_back(cmp);
 }
+
+

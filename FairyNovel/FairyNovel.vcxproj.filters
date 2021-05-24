@@ -76,6 +76,9 @@
     <Filter Include="Header Files\Settings">
       <UniqueIdentifier>{482d2a21-b896-4bbe-9033-4484bf910cb5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics/Anims">
+      <UniqueIdentifier>{92d8839c-02d0-498f-94db-97fa5e214b47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="State.cpp">
@@ -227,6 +230,9 @@
     </ClCompile>
     <ClCompile Include="ConfigManager.cpp">
       <Filter>Header Files\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="SlideShow.cpp">
+      <Filter>Header Files\Graphics/Anims</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -385,6 +391,9 @@
     </ClInclude>
     <ClInclude Include="ConfigManager.hpp">
       <Filter>Header Files\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="SlideShow.hpp">
+      <Filter>Header Files\Graphics/Anims</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

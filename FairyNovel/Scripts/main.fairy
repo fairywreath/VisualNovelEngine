@@ -1,71 +1,22 @@
-<Label> (start)
+<Label> (reunion)
 
-<DisplayText> () "Start start start"
-
-<DisplayText> (Suoh) "Hello Mayuri, are you there?"
-<DisplayText> (Suoh) "Hello Mayuri, are you there?"
-<DisplayText> (Suoh) "Hello Mayuri, are you there?"
-<DisplayText> (Suoh) "Hello Mayuri, are you there?"
-<DisplayText> (Suoh) "Hello Mayuri, are you there?"
-<DisplayText> (Suoh) "Hello Mayuri, are you there?"
-<DisplayText> (Suoh) "Hello Mayuri, are you there?"
-<DisplayText> (Suoh) "Hello Mayuri, are you there?"
-<DisplayText> (Suoh) "Hello Mayuri, are you there?"
-<DisplayText> (Suoh) "Hello Mayuri, are you there?"
+<DisplayText> (Suoh) "Hello? Anybody there?"
 
 <DisplayCharacter> (mayuri) "Pos: 700,50;State: state2;   Fade: 1.5; Wait: True"
-<CharacterState> (mayuri) "State: state1; Fade: 1.5; Wait: True"
+<DisplayText> (Mayuri) "Suoh? Is that you?"
 
-<MoveEntity> (mayuri) "Target: 200,0; Time: 2.32; Wait: True"
-<CharacterState> (mayuri) "Fade: 2.32; State: state2; Wait: True"
-<RemoveSprite> (mayuri) ""
+<MoveEntity> (mayuri) "Target: 300,50; Time: 1.32; Wait: True"
 
-# SetBackground
-# <FadeOutBackground> () "Time: 0.5"
-#<SetBackground> (bg2) "Time: 1.5"
+<DisplayEntity> (Suoh) "Yes Mayuri, this is your wife."
+<DisplayEntity> (suoh2) "Pos: 100,30; Fade:  0.5"       
 
-# fade is optional
-<DisplayEntity> (suoh2) "Pos: 100,30; Fade:  3.5"       
+<BlurEntity> (mayuri) "Time: 1; Target: 10"
+<DisplayText> (Suoh) ""I haven't seen Mayuri in a while, oh how I missed here pretty face. I will make sure we have fun on bed tonight.""
+<BlurEntity> (mayuri) "Time: 1; Target: 0"
 
-<BlurEntity> (mayuri) "Time: 1.5; Target: 10"
-# start is optional for blur
+<DisplayText> (Suoh) "Uhm Mayuri, can you move back a bit? I am getting a little nervous here."
 
-<DisplayText> (Suoh) "Hello Mayuri, are you there?"
-<DisplayText> (Darren) "HELLO TEST TEST"
-<DisplayEntity> (mayuri1) "Fade: 2;Pos: 400,30; Wait: True"
+<CharacterState> (mayuri) "State: state1; Fade: 0.5; Wait: False"
+<DisplayText> (Mayuri) "Ahahahah, sure Suoh. You always get nervous when I get close to you. But this never happense when we are on the bed though"
+<MoveEntity> (mayuri) "Target: 700,50; Time: 1.32; Wait: True"
 
-# move full form, total 4 args , use comma for position vector
-#<MoveEntity> (mayuri1) "Time: 1.5; Target: 400,40; Start: 700,40; Wait: True"
-<MoveEntity> (mayuri1) "Time: 1.5; Target: 800,30; Wait: True"
-# can remove start for move, wait is automatically false, time is always required
-
-# fade full form, total 4 args
-<DisplayText> (Mayuri) "suoh I am leaving"
-<FadeEntity> (mayuri1) "Time: 1.5; Target: 0;  Wait: False"
-
-
-<DisplayText> (Mayuri) "Yes Suoh, I am here."
-
-<HideDialogueBox> () "Time: 2.1"
-<ShowDialogueBox> () "Time: 1.77"
-
-<FadeOutBackground> () "Time: 1"
-<DisplayBackground> (BG1) "Time: 1.1"
-
-
-<DisplayText> (Suoh) "Don't ever leave me again okay?"
-<DisplayText> (Mayuri) "Yes, I am very sorry Suoh"
-<DisplaySprite> (mayuri2) "700;40"          
-# need to be able to set startin alpha for display sprite as 0
-<FadeEntity> (mayuri2) "Time: 0.5; Target: 255; Start:0"
-<FadeEntity> (mayuri1) "Time: 0.5; Target: 0; Wait: True"
-<RemoveSprite> (mayuri1)
-<RemoveSprite> (mayuri2)
-<RemoveSprite> (suoh1)
-<RemoveSprite> (suoh2)
-<Jump> (start)
-
-
-# <ClearText> () ""
-# <ClearBackground> () "0.5"
-# <SetBackground> (bg2) "1.5"

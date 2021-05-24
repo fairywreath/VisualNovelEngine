@@ -37,7 +37,11 @@ public:
 	void setVolume(float amount);
 	float getVolume() const;
 
+	void setupDefault();
+
 private:
+	static constexpr auto DefaultVolume = 60.f;
+
 	sf::Music nMusic;
 	std::string nCurrentMusic;
 

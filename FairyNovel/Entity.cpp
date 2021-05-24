@@ -89,12 +89,13 @@ void Entity::update(sf::Time dt)
 				setShaderUniform("blur_radius", nTargetBlurRadius);
 
 			nBlurRadius = nTargetBlurRadius;
-			nMoveElapsed = sf::Time::Zero;
+			nBlurElapsed = sf::Time::Zero;
 		}
 		else
 		{
 			float radius = nBlurRadius + (nTargetBlurRadius - nBlurRadius)
 				* nBlurElapsed.asSeconds() / nBlurTime;
+			std::cout << "new radius: " << radius << std::endl;
 			setShaderUniform("blur_radius", radius);
 		}
 	}

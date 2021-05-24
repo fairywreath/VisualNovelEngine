@@ -8,7 +8,7 @@ MusicPlayer::MusicPlayer() :
 	nMusic(),
 	nFileNames(),
 	nCurrentMusic("None"),
-	nVolume(60.f)		
+	nVolume(DefaultVolume)		
 {
 	// mapping the music files 
 //	nFileNames[Music::Main] = "Media/Music/MainTheme.ogg";
@@ -98,4 +98,9 @@ void MusicPlayer::setVolume(float amount)
 float MusicPlayer::getVolume() const
 {
 	return nVolume;
+}
+
+void MusicPlayer::setupDefault()
+{
+	setVolume(DefaultVolume);
 }

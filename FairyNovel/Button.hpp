@@ -42,8 +42,9 @@ public:
 
 	bool isSelectable() const override;
 
+protected:
 	void select() override;
-	void deselect() override ;
+	void deselect() override;
 	void activate() override;
 	void deactivate() override;
 

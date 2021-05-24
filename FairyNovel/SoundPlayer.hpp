@@ -33,7 +33,11 @@ public:
 	void setVolume(float amount);
 	float getVolume() const;
 
+	void setupDefault();
+
 private:
+	static constexpr auto DefaultVolume = 60.f;
+
 	SoundBufferManager nSoundBuffers;
 	float nVolume;
 	std::list<sf::Sound> nSounds;

@@ -186,6 +186,7 @@
     <ClInclude Include="ResourceManager.hpp" />
     <ClInclude Include="Scanner.hpp" />
     <ClInclude Include="ShowDialogueBoxCommand.hpp" />
+    <ClInclude Include="SlideShow.hpp" />
     <ClInclude Include="SoundPlayer.hpp" />
     <ClInclude Include="SpriteButton.hpp" />
     <ClInclude Include="State.hpp" />
@@ -239,6 +240,7 @@
     <ClCompile Include="RemoveEntityCommand.cpp" />
     <ClCompile Include="Scanner.cpp" />
     <ClCompile Include="ShowDialogueBoxCommand.cpp" />
+    <ClCompile Include="SlideShow.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="SpriteButton.cpp" />
     <ClCompile Include="State.cpp" />

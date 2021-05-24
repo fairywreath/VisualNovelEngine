@@ -64,7 +64,7 @@ void CharacterStateCommand::execute(Engine& engine)
 		{
 			wait = true;
 		}
-		else if (args[3] == "False")
+		else if (args[2] == "False")
 		{
 			wait = false;
 		}

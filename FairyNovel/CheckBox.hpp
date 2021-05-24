@@ -25,6 +25,7 @@ public:
 	void handleEvent(const sf::Event& event) override;
 
 	bool getStatus() const;
+	void setStatus(bool status);
 
 private:
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
@@ -36,7 +37,7 @@ private:
 	static constexpr float BoxWidth = 22;
 	static constexpr float BoxHeight = 22;
 
-	static constexpr float OutlineThickness = 2.5;
+	static constexpr float OutlineThickness = 1.5;
 	const sf::Color OutlineColor;
 	const sf::Color HoverColor;
 

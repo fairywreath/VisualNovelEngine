@@ -7,6 +7,7 @@
 #include "ConfigButton.hpp"
 #include "CheckBox.hpp"
 #include "Container.hpp"
+#include "TextButton.hpp"
 
 #include <SFML/Graphics/RectangleShape.hpp>
 
@@ -30,6 +31,11 @@ private:
 		@add to array
 	*/
 	void packComponent(GUI::Component* cmp);
+
+	/*
+		@refresh config appearances based on current settings, after setup default for eg. :)
+	*/
+	void refreshUI();
 
 private:
 	static constexpr auto ConfigLabelX = 210.f;
@@ -90,6 +96,11 @@ private:
 	*/
 	GUI::CheckBox nAutoModeCB;
 
+	/*
+		@textbuttons
+	*/
+	GUI::TextButton nExitButton;		// pops the config state
+	GUI::TextButton nSetupDefaultButton;
 
 	/*
 		@bg

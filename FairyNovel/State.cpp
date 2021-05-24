@@ -31,6 +31,10 @@ State::~State()
 	// do nothing here
 }
 
+void State::refresh()
+{
+}
+
 void State::requestStackPush(States::ID stateID)
 {
 	nStack->pushState(stateID);

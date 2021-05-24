@@ -24,26 +24,35 @@ State::Ptr StateStack::createState(States::ID stateID)
 
 void StateStack::handleEvent(const sf::Event& event)
 {
-	for (auto itr = nStack.rbegin(); itr != nStack.rend(); itr++)
+	//for (auto itr = nStack.rbegin(); itr != nStack.rend(); itr++)
+	//{
+	//	if (!(*itr)->handleEvent(event))
+	//	{
+	//		break;
+	//	}
+
+	//}
+	if (!nStack.empty())
 	{
-		if (!(*itr)->handleEvent(event))
-		{
-			break;
-		}
-
+		(*nStack.rbegin())->handleEvent(event);
 	}
+	
 
-	// apply stack operations after stack iteration above, when it is already safe
 	applyPendingChanges();
 }
 
 
 void StateStack::update(sf::Time dt)
 {
-	for (auto itr = nStack.rbegin(); itr != nStack.rend(); itr++)
+	//for (auto itr = nStack.rbegin(); itr != nStack.rend(); itr++)
+	//{
+	//	if (!(*itr)->update(dt))		
+	//		break;
+	//}
+
+	if (!nStack.empty())
 	{
-		if (!(*itr)->update(dt))		
-			break;
+		(*nStack.rbegin())->update(dt);
 	}
 
 	applyPendingChanges();
@@ -51,10 +60,11 @@ void StateStack::update(sf::Time dt)
 
 void StateStack::draw()
 {
-	for (const auto& state : nStack)
-	{
-		state->draw();
-	}
+	//for (const auto& state : nStack)
+	//{
+	//	state->draw();
+	//}
+	if (!nStack.empty()) (*nStack.rbegin())->draw();
 }
 
 
@@ -71,9 +81,14 @@ void StateStack::applyPendingChanges()
 		}
 
 		case Action::Pop:
-			nStack.pop_back();		
+		{
+			nStack.pop_back();
+	/*		if (!nStack.empty())
+			{
+				(*nStack.rbegin())->refresh();
+			}*/
 			break;
-
+		}
 		case Action::Clear:
 			nStack.clear();
 			break;

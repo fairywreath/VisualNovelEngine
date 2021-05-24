@@ -9,33 +9,35 @@
 
 namespace GUI
 {
-	class SpriteButton : public Button
-	{
-	public:
-		explicit SpriteButton(State::Context context);
-		~SpriteButton() override = default;
 
-		void handleEvent(const sf::Event& event) override;
+class SpriteButton : public Button
+{
+public:
+	explicit SpriteButton(State::Context context);
+	~SpriteButton() override = default;
 
-		void setText(const std::string& text);
+	void handleEvent(const sf::Event& event) override;
 
-	private:
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-		void updateApperance(ButtonState state) override;
+	void setText(const std::string& text);
 
-		bool checkMouseLocation() const;	
+private:
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void updateApperance(ButtonState state) override;
 
-	private:
-		const sf::RenderWindow& nWindow;
+	bool checkMouseLocation() const;	
 
-		const sf::Texture& nNormalTexture;
-		const sf::Texture& nHoverTexture;
-		const sf::Texture& nPressedTexture;
+private:
+	const sf::RenderWindow& nWindow;
 
-		sf::Sprite nSprite;
-		sf::Text nText;
+	const sf::Texture& nNormalTexture;
+	const sf::Texture& nHoverTexture;
+	const sf::Texture& nPressedTexture;
 
-	};
+	sf::Sprite nSprite;
+	sf::Text nText;
+
+};
+
 }
 
 
