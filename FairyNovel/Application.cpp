@@ -4,6 +4,7 @@
 #include "TitleState.hpp"
 #include "GameState.hpp"
 #include "ConfigState.hpp"
+#include "BacklogState.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <iostream>
@@ -161,7 +162,7 @@ void Application::registerStates()
 	nStateStack.registerState<TitleState>(States::ID::Title);
 	nStateStack.registerState<GameState>(States::ID::Game);
 	nStateStack.registerState<ConfigState>(States::ID::Config);
-
+	nStateStack.registerState<BacklogState>(States::ID::Backlog);
 }
 
 

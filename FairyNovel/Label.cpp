@@ -5,6 +5,10 @@
 
 #include <iostream>
 
+GUI::Label::Label()
+{
+}
+
 GUI::Label::Label(const std::string& text, const sf::Font& font) :
 	nText(text, font)
 {
@@ -70,6 +74,36 @@ void GUI::Label::refreshOrigin()
 	std::string curr = nText.getString();
 	nText.setString("SHINOBU");			// all caps
 	setOrigin(0,nText.getGlobalBounds().top +  nText.getGlobalBounds().height);
+	nText.setString(curr);
+}
+
+void GUI::Label::setOriginBottom()
+{
+	std::string curr = nText.getString();
+	nText.setString("SHINOBU");			// all caps
+	setOrigin(getOrigin().x, nText.getGlobalBounds().top + nText.getGlobalBounds().height);
+	nText.setString(curr);
+}
+
+void GUI::Label::setOriginLeft()
+{
+	std::cout << "left bounds: " << nText.getGlobalBounds().left
+		<< std::endl;
+	setOrigin(nText.getGlobalBounds().left, getOrigin().y);
+}
+
+void GUI::Label::setOriginRight()
+{
+	auto bounds = nText.getGlobalBounds();
+	setOrigin(nText.getGlobalBounds().left + nText.getGlobalBounds().width, getOrigin().y);
+
+}
+
+void GUI::Label::setOriginTop()
+{
+	std::string curr = nText.getString();
+	nText.setString("SHINOBU");			// all caps
+	setOrigin(getOrigin().x, nText.getGlobalBounds().top);
 	nText.setString(curr);
 }
 

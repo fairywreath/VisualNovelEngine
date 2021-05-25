@@ -6,6 +6,8 @@ GUI::TextButton::TextButton(State::Context context, const std::string& text) :
 	Button(context),
 	nWindow(*context.window),
 	nText(text, context.fonts->get("aria")),
+	nAnimeText(nText),
+	nMover(this),
 	NormalColor(sf::Color(249, 169, 178)),
 	HoverColor(232, 126, 146),
 	FilledColor(252, 219, 226),
@@ -14,6 +16,8 @@ GUI::TextButton::TextButton(State::Context context, const std::string& text) :
 	nText.setCharacterSize(30);
 	nText.setFillColor(NormalColor);
 	nText.setOutlineColor(OutlineHoverColor);
+
+	nAnimeText.setObjectColor(NormalColor);
 }
 
 void GUI::TextButton::handleEvent(const sf::Event& event)
@@ -99,4 +103,20 @@ void GUI::TextButton::refreshOrigin()
 	nText.setString("SHINOBU");			// all caps
 	setOrigin(0, nText.getGlobalBounds().top + nText.getGlobalBounds().height);
 	nText.setString(curr);
+}
+
+void GUI::TextButton::update(sf::Time dt)
+{
+	if (nAnimeText.inAnimation()) nAnimeText.update(dt);
+	if (nMover.inMovement()) nMover.update(dt);
+}
+
+void GUI::TextButton::fade(float time, int targetAlpha, int startAlpha)
+{
+	nAnimeText.fade(time, targetAlpha, startAlpha);
+}
+
+void GUI::TextButton::move(float time, const sf::Vector2f& dest, const sf::Vector2f& source)
+{
+	nMover.move(time, dest, source);
 }

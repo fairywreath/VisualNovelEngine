@@ -11,7 +11,9 @@ GUI::CheckBox::CheckBox(State::Context context) :
 	nRect(),
 	nSprite(context.textures->get("checkmark")),
 	OutlineColor(249, 169, 178),
-	HoverColor(252, 219, 226)
+	HoverColor(252, 219, 226),
+	nAnimeRect(nRect),
+	nAnimeSprite(nSprite)
 {
 	nRect.setPosition(0, 0);
 	nRect.setSize(sf::Vector2f(BoxHeight, BoxHeight));
@@ -62,6 +64,18 @@ bool GUI::CheckBox::getStatus() const
 void GUI::CheckBox::setStatus(bool status)
 {
 	nChecked = status;
+}
+
+void GUI::CheckBox::update(sf::Time dt)
+{
+	nAnimeRect.update(dt);
+	nAnimeSprite.update(dt);
+}
+
+void GUI::CheckBox::fade(float time, int targetAlpha, int startAlpha)
+{
+	nAnimeRect.fade(time, targetAlpha, startAlpha);
+	nAnimeSprite.fade(time, targetAlpha, startAlpha);
 }
 
 void GUI::CheckBox::draw(sf::RenderTarget& target, sf::RenderStates states) const

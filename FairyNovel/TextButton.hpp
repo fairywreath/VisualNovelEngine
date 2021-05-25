@@ -3,6 +3,10 @@
 
 #include "Button.hpp"
 
+#include "Components.hpp"
+#include "Animatable.hpp"
+#include "Movable.hpp"
+
 namespace GUI
 {
 
@@ -20,6 +24,11 @@ public:
 
 	void refreshOrigin();
 
+	void update(sf::Time dt) override;
+
+	void fade(float time, int targetAlpha, int startAlpha);
+	void move(float time, const sf::Vector2f& dest, const sf::Vector2f& source);
+
 private:
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 	void updateApperance(ButtonState state) override;
@@ -27,7 +36,10 @@ private:
 	bool checkMouseLocation() const;
 
 private:
+	AnimatableText nAnimeText;
 	sf::Text nText;
+
+	Movable nMover;
 
 	const sf::Color FilledColor;
 	const sf::Color HoverColor;

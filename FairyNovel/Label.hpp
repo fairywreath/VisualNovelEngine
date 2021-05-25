@@ -6,12 +6,17 @@
 
 #include <SFML/Graphics/Text.hpp>
 
+/*
+	@will add movement/animations later
+*/
+
 namespace GUI
 {
 
 class Label : public Component
 {
 public:
+	Label();
 	Label(const std::string& text, const sf::Font& font);
 	~Label() override = default;
 
@@ -30,7 +35,13 @@ public:
 	void setColor(const sf::Color& color);
 
 	void centerOriginX();
-	void refreshOrigin();
+	void refreshOrigin();		// set origin to bottom line of text
+	// same as
+	void setOriginBottom();
+
+	void setOriginLeft();
+	void setOriginRight();
+	void setOriginTop();
 
 protected:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;

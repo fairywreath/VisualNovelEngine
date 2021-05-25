@@ -1,5 +1,5 @@
 #ifndef MOVABLE_HPP
-#define MOVABLE_CPP
+#define MOVABLE_HPP
 
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/System/Time.hpp>

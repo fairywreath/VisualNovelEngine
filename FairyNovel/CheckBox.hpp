@@ -3,6 +3,7 @@
 
 #include "State.hpp"
 #include "Button.hpp"
+#include "Components.hpp"
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -27,6 +28,11 @@ public:
 	bool getStatus() const;
 	void setStatus(bool status);
 
+	void update(sf::Time dt) override;
+
+	void fade(float time, int targetAlpha, int startAlpha);
+//	void move(float time, const sf::Vector2f& dest, const sf::Vector2f& source);
+
 private:
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 	bool checkMouseLocation() const;
@@ -40,6 +46,9 @@ private:
 	static constexpr float OutlineThickness = 1.5;
 	const sf::Color OutlineColor;
 	const sf::Color HoverColor;
+
+	AnimatableRectShape nAnimeRect;
+	AnimatableSprite nAnimeSprite;
 
 	sf::RenderWindow& nWindow;
 

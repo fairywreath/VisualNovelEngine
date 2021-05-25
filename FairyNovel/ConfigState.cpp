@@ -184,6 +184,15 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 	nBackground.setPosition(0, 0);
 	nSprite.setPosition(900, 20);
 	context.musicPlayer->play("mainmenu");
+
+
+	/*
+		@misc animations
+	*/
+	nSetupDefaultButton.fade(0.6f, 255, 0);
+	nAutoModeCB.fade(2.f, 255, 0);
+	nAutoModeCB.setStatus(true);
+	//nSetupDefaultButton.move(5, sf::Vector2f(170.f, TitleLabelY), sf::Vector2f(100, 100));
 }
 
 void ConfigState::refreshUI()
@@ -213,6 +222,8 @@ void ConfigState::draw()
 
 bool ConfigState::update(sf::Time dt)
 {
+	for (const auto& cmp : nComponents) cmp->update(dt);
+
 	return false;
 }
 

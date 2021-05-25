@@ -64,9 +64,6 @@
     <Filter Include="Header Files\State">
       <UniqueIdentifier>{8441828e-aa39-4e83-9fb9-06dfc463610c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\State\State">
-      <UniqueIdentifier>{21bcc21b-ed26-47b7-beb3-6d3e919820ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Commands-System/Engine">
       <UniqueIdentifier>{3707e5f8-1fbe-4538-a1ed-e8ccb62ae901}</UniqueIdentifier>
     </Filter>
@@ -84,18 +81,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="State.cpp">
-      <Filter>Header Files\State\State</Filter>
-    </ClCompile>
-    <ClCompile Include="StateStack.cpp">
-      <Filter>Header Files\State\State</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleState.cpp">
-      <Filter>Header Files\State\State</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Header Files\State\State</Filter>
-    </ClCompile>
     <ClCompile Include="Scanner.cpp">
       <Filter>Header Files\Scanner</Filter>
     </ClCompile>
@@ -245,6 +230,24 @@
     </ClCompile>
     <ClCompile Include="Movable.cpp">
       <Filter>Header Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="BacklogPanel.cpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Header Files\State</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Header Files\State</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleState.cpp">
+      <Filter>Header Files\State</Filter>
+    </ClCompile>
+    <ClCompile Include="StateStack.cpp">
+      <Filter>Header Files\State</Filter>
+    </ClCompile>
+    <ClCompile Include="BacklogState.cpp">
+      <Filter>Header Files\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -418,6 +421,12 @@
     </ClInclude>
     <ClInclude Include="Movable.hpp">
       <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="BacklogPanel.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="BacklogState.hpp">
+      <Filter>Header Files\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

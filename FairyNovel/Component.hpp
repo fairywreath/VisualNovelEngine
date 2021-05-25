@@ -2,6 +2,7 @@
 #define COMPONENT_HPP
 
 
+#include <SFML/System/Time.hpp>
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
@@ -24,6 +25,8 @@ namespace GUI
 	public:
 		Component();
 		virtual ~Component();
+
+		virtual void update(sf::Time dt);
 
 		virtual bool isSelectable() const = 0;
 		bool isSelected() const;

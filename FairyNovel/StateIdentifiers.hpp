@@ -11,7 +11,8 @@ namespace States
 		MainMenu,
 		Settings,
 		Config,
-		Game
+		Game,
+		Backlog
 	};
 }
 

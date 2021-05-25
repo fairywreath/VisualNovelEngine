@@ -224,6 +224,7 @@ void Engine::skipAnimations()
 {
 	if (nBackground.inAnimation()) nBackground.skipAnimation();
 	if (nDialogueBox.inAnimation()) nDialogueBox.skipAnimation();
+	if (nTextBackground.inAnimation()) nTextBackground.skipAnimation();
 
 	std::cout << nEntities.size();
 

@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="BacklogState.hpp" />
     <ClInclude Include="BlurEntityCommand.hpp" />
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="CharacterStateCommand.hpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="Movable.hpp" />
     <ClInclude Include="MoveEntityCommand.hpp" />
     <ClInclude Include="MusicPlayer.hpp" />
+    <ClInclude Include="BacklogPanel.hpp" />
     <ClInclude Include="Option.hpp" />
     <ClInclude Include="PlayMusicCommand.hpp" />
     <ClInclude Include="PlaySoundCommand.hpp" />
@@ -203,6 +205,7 @@
   <ItemGroup>
     <ClCompile Include="Animatable.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BacklogState.cpp" />
     <ClCompile Include="BlurEntityCommand.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CharacterStateCommand.cpp" />
@@ -239,6 +242,7 @@
     <ClCompile Include="Movable.cpp" />
     <ClCompile Include="MoveEntityCommand.cpp" />
     <ClCompile Include="MusicPlayer.cpp" />
+    <ClCompile Include="BacklogPanel.cpp" />
     <ClCompile Include="Option.cpp" />
     <ClCompile Include="PlayMusicCommand.cpp" />
     <ClCompile Include="PlaySoundCommand.cpp" />
