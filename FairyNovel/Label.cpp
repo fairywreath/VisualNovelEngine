@@ -57,6 +57,11 @@ void GUI::Label::setColor(const sf::Color& color)
 	nText.setFillColor(color);
 }
 
+int GUI::Label::getSize() const
+{
+	return nText.getCharacterSize();
+}
+
 void GUI::Label::centerOriginX()
 {
 	std::string curr = nText.getString();
@@ -87,8 +92,6 @@ void GUI::Label::setOriginBottom()
 
 void GUI::Label::setOriginLeft()
 {
-	std::cout << "left bounds: " << nText.getGlobalBounds().left
-		<< std::endl;
 	setOrigin(nText.getGlobalBounds().left, getOrigin().y);
 }
 

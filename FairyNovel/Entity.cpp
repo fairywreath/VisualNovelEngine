@@ -72,7 +72,7 @@ float Entity::getBlurPercentage() const
 
 sf::FloatRect Entity::getBoundingRect() const
 {
-    return this->getTransform().transformRect(nSprite.getLocalBounds());
+    return getTransform().transformRect(nSprite.getLocalBounds());
 }
 
 std::string Entity::getIdentifier() const

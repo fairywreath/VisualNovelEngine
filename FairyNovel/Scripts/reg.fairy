@@ -1,8 +1,15 @@
 <Texture> (BG1) "Media/Backgrounds/city_night.png"
 <Texture> (BG2) "Media/Backgrounds/school-gate-night.png"
+
+<Texture> (MainMenuBG) "Media/Images/suoh_mayuri_hiver.jpg"
 <Texture> (EteFlowers) "Media/Images/ete_pink_flowers.png"
+<Texture> (EteLogo) "Media/Images/flowers_ete_logo.png"
+<Texture> (MMLogo) "Media/Images/automne_tlogo.png"
 
 <Music> (title) "Media/Music/SecondaryTheme.ogg"
+<Music> (AutomneMM) "Media/Music/AutomneMM.ogg"
+
+
 <SoundEffect> (ButtonClick) "Media/Sound/ButtonActivate.wav"
 <Texture> (MMBG) "Media/Backgrounds/school-gate-night.png"
 <Music> (mainmenu) "Media/Music/MainTheme.ogg"

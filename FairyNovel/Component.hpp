@@ -17,33 +17,38 @@ namespace sf
 namespace GUI
 {
 
-	class Component : public sf::Drawable, public sf::Transformable, private sf::NonCopyable
-	{
-	public:
-		using Ptr = std::shared_ptr<Component>;
+class Component : public sf::Drawable, public sf::Transformable, private sf::NonCopyable
+{
+public:
+	using Ptr = std::shared_ptr<Component>;
 
-	public:
-		Component();
-		virtual ~Component();
+public:
+	Component();
+	virtual ~Component();
 
-		virtual void update(sf::Time dt);
+	virtual void update(sf::Time dt);
 
-		virtual bool isSelectable() const = 0;
-		bool isSelected() const;
+	virtual bool isSelectable() const = 0;
+	bool isSelected() const;
 
-		virtual void select();
-		virtual void deselect();
-		virtual bool isActive() const;
-		virtual void activate();
-		virtual void deactivate();
+	virtual void select();
+	virtual void deselect();
+	virtual bool isActive() const;
+	virtual void activate();
+	virtual void deactivate();
 
-		virtual void handleEvent(const sf::Event& event) = 0;
+	virtual void handleEvent(const sf::Event& event) = 0;
 
-	private:
-		bool nIsSelected;
-		bool nIsActive;
+	virtual sf::FloatRect getBoundingRect() const;
 
-	};
+	virtual void fade(float time, int start, int end);
+	virtual void move(float time, const sf::Vector2f& target, const sf::Vector2f& start);
+
+private:
+	bool nIsSelected;
+	bool nIsActive;
+
+};
 
 }
 

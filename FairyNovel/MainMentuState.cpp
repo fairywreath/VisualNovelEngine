@@ -1,0 +1,165 @@
+#include "MainMenuState.hpp"
+
+MainMenuState::MainMenuState(StateStack& stack, Context context) :
+	State(stack, context),
+	nBackground("BG", context.textures->get("MainMenuBG")),
+	nTitle("Title", context.textures->get("MMLogo")),
+	nStartBtn(context, "START"),
+	nLoadgBtn(context, "LOAD"),
+	nConfigBtn(context, "CONFIG"),
+	nGalleryBtn(context, "GALLERY"),		// or achievements
+	nExitBtn(context, "EXIT"),
+	nBgDone(false),
+	nTitleDone(false),
+	nAnimeRect(nGUIWindow),
+	nRectMover(&nGUIWindow)
+{
+	nBackground.setPosition(0.f, 0.f);
+
+	/*
+		@entity origin at top left(default)
+		@entity origin not cetered, need to manually adjust to center it
+	*/
+	sf::Vector2u wSize = context.window->getSize();
+	sf::FloatRect eBounds = nTitle.getBoundingRect();
+	nTitle.setPosition((wSize.x / 2) - (eBounds.width / 2), (wSize.y / 2) - (eBounds.height / 2) + 60);
+	//nTitle.setPosition(50, 270);
+
+	setButton(nStartBtn);
+	setButton(nLoadgBtn);
+	setButton(nConfigBtn);
+	setButton(nGalleryBtn);
+	setButton(nExitBtn);
+
+	nStartBtn.setCallback([this](){
+		requestStackPop();
+		requestStackPush(States::ID::Game);
+	});
+
+	nConfigBtn.setCallback([this]() {
+		requestStackPush(States::ID::Config);
+		});
+
+	nExitBtn.setCallback([this]() {
+		requestStackPop();
+		});
+
+	initialize();
+}
+
+MainMenuState::~MainMenuState()
+{
+}
+
+void MainMenuState::initialize()
+{
+	nStartBtn.fade(0, 0, 0);
+
+	nBackground.fade(2.5, 255, 0);
+	getContext().musicPlayer->play("AutomneMM");
+
+
+}
+
+void MainMenuState::setupButtons()
+{
+	for (int i = 0; i < ButtonCount; i++)
+	{
+		nComponents[i]->fade(0.5, 255, 0);
+		nComponents[i]->move(0.5, sf::Vector2f((float)ButtonsX, (float)(ButtonsStartY + (i * ButtonsDist))), 
+			sf::Vector2f((float)(ButtonsX + 40), (float)(ButtonsStartY + (i * ButtonsDist))));
+	}
+
+	nGUIWindow.setSize(sf::Vector2f(ButtonsX - 40, 800));
+	nGUIWindow.setOutlineColor(sf::Color(249, 169, 178));
+	nGUIWindow.setFillColor(sf::Color(255, 255, 255, 125));
+	nGUIWindow.setOutlineThickness(2);
+
+	nAnimeRect.fade(0.5, 220, 0);
+
+	nRectMover.move(0.5, sf::Vector2f(ButtonsX - 40, -10), sf::Vector2f(ButtonsX, -10));
+}
+
+
+void MainMenuState::draw()
+{
+	sf::RenderWindow& window = *getContext().window;
+
+	window.draw(nBackground);
+
+	if (nBgDone) window.draw(nTitle);
+
+	if (nTitleDone)
+	{
+		window.draw(nAnimeRect);
+		for (const auto& cmp : nComponents) window.draw(*cmp);
+	}
+}
+
+bool MainMenuState::update(sf::Time dt)
+{
+	/*
+		@setup slideshow here
+	*/
+	if (!nBackground.inAnimation() && !nBgDone)
+	{
+		nBgDone = true;
+		nTitle.fade(2, 255, 0);
+	}
+	if (!nTitle.inAnimation() && nBgDone && !nTitleDone)
+	{
+		nTitleDone = true;
+		setupButtons();
+	}
+
+	nBackground.update(dt);
+	if (nBgDone) nTitle.update(dt);
+
+	if (nTitleDone)
+	{
+		for (const auto& cmp : nComponents) cmp->update(dt);
+		nAnimeRect.update(dt);
+		nRectMover.update(dt);
+	}
+
+	return false;
+}
+
+bool MainMenuState::handleEvent(const sf::Event& event)
+{
+	if (event.type == sf::Event::MouseButtonPressed && event.key.code == sf::Mouse::Left)
+	{
+		/*
+			@skipp all anims
+		*/
+	
+		
+	}
+
+	if (nTitleDone)
+	{
+		for (const auto& cmp : nComponents) cmp->handleEvent(event);
+	}
+
+	return false;
+}
+
+void MainMenuState::refresh()
+{
+
+}
+
+void MainMenuState::setButton(GUI::TextButton& btn)
+{
+	btn.setFont(getContext().fonts->get("aria"));
+	btn.setSize(31);
+	packComponent(&btn);
+}
+
+void MainMenuState::packComponent(GUI::Component* cmp)
+{
+	nComponents.push_back(cmp);
+}
+
+
+

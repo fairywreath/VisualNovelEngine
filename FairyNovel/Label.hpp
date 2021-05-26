@@ -34,6 +34,8 @@ public:
 	void setSize(unsigned int size);
 	void setColor(const sf::Color& color);
 
+	int getSize() const;
+
 	void centerOriginX();
 	void refreshOrigin();		// set origin to bottom line of text
 	// same as

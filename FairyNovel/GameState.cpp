@@ -12,7 +12,9 @@ GameState::GameState(StateStack& stack, Context context) :
 	nCommandManager(*context.commandManager),
 	nEngine(context),
 	nConfigBtn(context, "CONFIG"),
-	nBacklogBtn(context, "BACKLOG")
+	nBacklogBtn(context, "BACKLOG"),
+	nAutoModeBtn(context, "AUTO"),
+	nExitBtn(context, "EXIT")
 {
 	nBackgroundSprite.setTexture(context.textures->get("MMBG"));
 
@@ -22,17 +24,35 @@ GameState::GameState(StateStack& stack, Context context) :
 
 	nCommandManager.setEngine(nEngine);
 
+	setButton(nExitBtn);
+	nExitBtn.setPosition(ButtonsStartY, ButtonsY);
+	nExitBtn.setCallback([this]() {
+		requestStackPop();
+		});
+
 	setButton(nConfigBtn);
-	nConfigBtn.setPosition(800.f, ButtonsY);
+	nConfigBtn.setPosition(nExitBtn.getBoundingRect().left - nConfigBtn.getBoundingRect().width -
+		ButtonsDist, ButtonsY);
 	nConfigBtn.setCallback([this]() {
 		requestStackPush(States::ID::Config);
 		});
 
 	setButton(nBacklogBtn);
-	nBacklogBtn.setPosition(600.f, ButtonsY);
+	nBacklogBtn.setPosition(nConfigBtn.getBoundingRect().left - nBacklogBtn.getBoundingRect().width - 
+		ButtonsDist, ButtonsY);
 	nBacklogBtn.setCallback([this]() {
 		requestStackPush(States::ID::Backlog);
 		});
+
+	setButton(nAutoModeBtn);
+	nAutoModeBtn.setPosition(nBacklogBtn.getBoundingRect().left - nAutoModeBtn.getBoundingRect().width -
+		ButtonsDist, ButtonsY);
+	nAutoModeBtn.setCallback([&engine = nEngine]() {
+		engine.setAuto(!engine.getAuto());
+		});
+
+
+
 }
 
 GameState::~GameState()
@@ -92,7 +112,7 @@ void GameState::refresh()
 void GameState::setButton(GUI::TextButton& btn)
 {
 	btn.setFont(getContext().fonts->get("aria"));
-	btn.setSize(20);
+	btn.setSize(25);
 	packComponent(&btn);
 }
 

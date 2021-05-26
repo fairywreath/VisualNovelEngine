@@ -1,30 +1,14 @@
 #include "BacklogPanel.hpp"
+#include "Utility.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
 
 GUI::BacklogPanel::BacklogPanel() 
 {
-	nTextLabel.setSize(FontSize);
-	nIdLabel.setSize(FontSize);
+	nTextLabel.setColor(sf::Color::Black);
+	nIdLabel.setColor(sf::Color::Black);
 
-	nTextLabel.setColor(sf::Color::White);
-	nIdLabel.setColor(sf::Color::White);
-	refreshOrigins();
-
-	nIdLabel.setPosition(0.f, 0.f);
-	nTextLabel.setPosition(0.f, DistY);
-}
-
-GUI::BacklogPanel::BacklogPanel(const sf::Font& font) :
-	nTextLabel("", font),
-	nIdLabel("", font)
-{
-	nTextLabel.setSize(FontSize);
-	nIdLabel.setSize(FontSize);
-
-	nTextLabel.setColor(sf::Color::White);
-	nIdLabel.setColor(sf::Color::White);
 	refreshOrigins();
 
 	nIdLabel.setPosition(0.f, 0.f);
@@ -33,13 +17,11 @@ GUI::BacklogPanel::BacklogPanel(const sf::Font& font) :
 
 GUI::BacklogPanel::BacklogPanel(const std::string& text, const std::string& identifier, const sf::Font& font) :
 	nTextLabel(text, font),
-	nIdLabel(identifier, font)
-{
-	nTextLabel.setSize(FontSize);
-	nIdLabel.setSize(FontSize);
-	
-	nTextLabel.setColor(sf::Color::White);
-	nIdLabel.setColor(sf::Color::White);
+	nIdLabel(identifier, font),
+	nFont(font)
+{	
+	nTextLabel.setColor(sf::Color::Black);
+	nIdLabel.setColor(sf::Color::Black);
 
 	refreshOrigins();
 
@@ -55,14 +37,24 @@ void GUI::BacklogPanel::setIdentifier(const std::string& id)
 
 void GUI::BacklogPanel::setText(const std::string& text)
 {
-	nTextLabel.setText(text);
+	sf::String wrapped = Util::wrapText(sf::String(text), MaxTextWidth, nFont, nTextLabel.getSize(), 0);
+
+	nTextLabel.setText(wrapped);
 	refreshOrigins();
 }
 
 void GUI::BacklogPanel::setFont(const sf::Font& font)
 {
+	nFont = font;
 	nTextLabel.setFont(font);
 	nIdLabel.setFont(font);
+	refreshOrigins();
+}
+
+void GUI::BacklogPanel::setSize(int size)
+{
+	nTextLabel.setSize(size);
+	nIdLabel.setSize(size);
 	refreshOrigins();
 }
 

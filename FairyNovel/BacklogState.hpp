@@ -26,6 +26,8 @@ public:
 
 	void refresh() override;
 
+	void updateBacklog(int delta);		
+
 private:
 	void packComponent(GUI::Component* cmp);
 	void setBacklogText(Command& command, GUI::BacklogPanel& backlog);
@@ -34,15 +36,23 @@ private:
 
 private:
 	static constexpr auto PanelX = 300.f;
-	static constexpr auto PanelY = 300.f;
-	static constexpr auto PanelDist = 100.f;
-	static constexpr auto Count = 3;
+	static constexpr auto PanelY = 500.f;
+	static constexpr auto PanelDist = 150.f;
+	static constexpr auto Count = 4;
+	static constexpr auto FontSize = 25;
+	static constexpr auto TitleLabelX = 1200.f;
+	static constexpr auto TitleLabelY = 680.f;
 
 	/*
 		GUI
 	*/
+	GUI::Label nSectionLabel;
+
 	std::vector<GUI::BacklogPanel> nBacklogs;
 	std::vector<GUI::Component*> nComponents;
+
+	sf::RectangleShape nBackground;
+	sf::Sprite nSprite;
 	
 	CommandItr nIP;
 	std::vector<Command*>& nDisplayCommands;

@@ -49,7 +49,7 @@ private:
 	static constexpr auto Row1Y = 80.f;
 	static constexpr auto RowDist = 60.f;
 
-	static constexpr auto TitleLabelX = 820.f;
+	static constexpr auto TitleLabelX = 1200.f;
 	static constexpr auto TitleLabelY = 680.f;
 
 

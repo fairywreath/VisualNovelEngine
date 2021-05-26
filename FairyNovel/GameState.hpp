@@ -12,7 +12,7 @@
 class GameState : public State
 {
 public:
-	typedef std::unique_ptr<Command> CommandPtr;
+	using CommandPtr = std::unique_ptr<Command>;
 
 public:
 	GameState(StateStack& stack, Context context);
@@ -29,13 +29,16 @@ private:
 	void packComponent(GUI::Component* cmp);
 
 private:
-	static constexpr auto ButtonsY = 700;
-
+	static constexpr auto ButtonsY = 710;
+	static constexpr auto ButtonsDist = 40;
+	static constexpr auto ButtonsStartY = 1100;
 	/*
 		GUI
 	*/
 	GUI::TextButton nConfigBtn;
 	GUI::TextButton nBacklogBtn;
+	GUI::TextButton nAutoModeBtn;
+	GUI::TextButton nExitBtn;
 
 	std::vector<GUI::Component*> nComponents;
 	

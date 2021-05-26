@@ -56,6 +56,7 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 	*/
 	nSectionLabel.setSize(100);
 	nSectionLabel.setColor(sf::Color(249, 169, 178));
+	nSectionLabel.setOriginRight();
 	nSectionLabel.setPosition(TitleLabelX, TitleLabelY);
 	packComponent(&nSectionLabel);
 
@@ -182,8 +183,8 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 
 	nBackground.setFillColor(sf::Color::White);
 	nBackground.setPosition(0, 0);
-	nSprite.setPosition(900, 20);
-	context.musicPlayer->play("mainmenu");
+	nSprite.setPosition(880, 20);
+//	context.musicPlayer->play("mainmenu");
 
 
 	/*

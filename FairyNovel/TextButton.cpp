@@ -120,3 +120,8 @@ void GUI::TextButton::move(float time, const sf::Vector2f& dest, const sf::Vecto
 {
 	nMover.move(time, dest, source);
 }
+
+sf::FloatRect GUI::TextButton::getBoundingRect() const
+{
+	return getTransform().transformRect(nText.getGlobalBounds());
+}

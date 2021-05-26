@@ -47,6 +47,19 @@ namespace GUI
 		nIsActive = false;
 	}
 
+	sf::FloatRect Component::getBoundingRect() const
+	{
+		return sf::FloatRect();
+	}
+
+	void Component::fade(float time, int start, int end)
+	{
+	}
+
+	void Component::move(float time, const sf::Vector2f& target, const sf::Vector2f& start)
+	{
+	}
+
 
 
 }

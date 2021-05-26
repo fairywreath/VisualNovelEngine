@@ -81,7 +81,6 @@ Engine::Engine(State::Context context) :
 	//fadeDialogueBox(3, 0);
 }
 
-bool trek = false;
 void Engine::draw(sf::RenderTarget& target, sf::RenderStates states)  const
 {
 	target.draw(nBackground, states);
@@ -118,7 +117,7 @@ void Engine::update(sf::Time dt)
 			size_t pos = nTextPos;
 			while (nTextString[pos] != ' ' && pos < nTextString.size()) pos++;
 
-			sf::String wrapped = Util::wrapText(sf::String(str), 800, nFont, TextSize, (int)(pos - nTextPos));
+			sf::String wrapped = Util::wrapText(sf::String(str), MaxTextWidth, nFont, TextSize, (int)(pos - nTextPos));
 			nText.setString(wrapped);
 		}
 		nTextTime = sf::Time::Zero;
@@ -218,6 +217,11 @@ void Engine::setAutoSpeed(int amount)
 
 	nDelaySpeed = amount;
 	nDelay = BaseDelay - (amount * DelaySpeedDelta);
+}
+
+bool Engine::getAuto() const
+{
+	return nAutoMode;
 }
 
 void Engine::skipAnimations()
@@ -407,7 +411,6 @@ bool Engine::addCharacter(const std::string& id)
 		return false;
 	}
 	nCharacters.push_back(std::make_unique<Character>(nCharacterBPs.at(id)));
-	std::cout << "CHARACTER SIZE: " << nCharacters.size() << std::endl;
 	return true;
 }
 

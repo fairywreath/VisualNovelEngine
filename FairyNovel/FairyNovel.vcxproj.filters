@@ -249,6 +249,9 @@
     <ClCompile Include="BacklogState.cpp">
       <Filter>Header Files\State</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceIdentifiers.hpp">

@@ -45,6 +45,7 @@ public:
 	void skipDialogueLine();
 
 	void setAutoSpeed(int amount);
+	bool getAuto() const;
 	
 	/*
 		@animation state
@@ -117,6 +118,8 @@ private:
 	static constexpr auto TextSize = 29;
 
 private:
+	static constexpr auto MaxTextWidth = 900;
+
 	MusicPlayer& nMusicPlayer;
 	SoundPlayer& nSoundPlayer;
 	TextureManager& nTextures;

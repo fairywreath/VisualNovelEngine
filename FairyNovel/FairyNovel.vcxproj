@@ -239,6 +239,7 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMentuState.cpp" />
+    <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Movable.cpp" />
     <ClCompile Include="MoveEntityCommand.cpp" />
     <ClCompile Include="MusicPlayer.cpp" />

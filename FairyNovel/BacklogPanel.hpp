@@ -11,7 +11,6 @@ class BacklogPanel : public Component
 
 public:
 	BacklogPanel();
-	explicit BacklogPanel(const sf::Font& font);
 	BacklogPanel(const std::string& text, const std::string& identifier, const sf::Font& font);
 	
 	~BacklogPanel() override = default;
@@ -19,6 +18,7 @@ public:
 	void setIdentifier(const std::string& id);
 	void setText(const std::string& id);
 	void setFont(const sf::Font& font);
+	void setSize(int size);
 
 	/*
 		@component member functions
@@ -31,12 +31,13 @@ private:
 	void refreshOrigins();
 
 private:
-	static constexpr auto FontSize = 24;
-	static constexpr auto DistY = 20;
+	static constexpr auto MaxTextWidth = 800;
+	static constexpr auto DistY = 24;
 
 	Label nTextLabel;
 	Label nIdLabel;
 
+	sf::Font nFont;
 };
 
 }

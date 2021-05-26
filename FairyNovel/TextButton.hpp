@@ -26,8 +26,10 @@ public:
 
 	void update(sf::Time dt) override;
 
-	void fade(float time, int targetAlpha, int startAlpha);
-	void move(float time, const sf::Vector2f& dest, const sf::Vector2f& source);
+	void fade(float time, int targetAlpha, int startAlpha) override;
+	void move(float time, const sf::Vector2f& dest, const sf::Vector2f& source) override;
+
+	sf::FloatRect getBoundingRect() const override;
 
 private:
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;

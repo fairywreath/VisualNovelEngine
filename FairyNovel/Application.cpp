@@ -5,6 +5,7 @@
 #include "GameState.hpp"
 #include "ConfigState.hpp"
 #include "BacklogState.hpp"
+#include "MainMenuState.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <iostream>
@@ -26,7 +27,7 @@ Application::Application(const std::string& configPath) :
 {
 	initialize(configPath);
 
-	nStateStack.pushState(States::ID::Game);
+	nStateStack.pushState(States::ID::MainMenu);
 }
 
 void Application::initialize(const std::string& configPath)
@@ -163,6 +164,7 @@ void Application::registerStates()
 	nStateStack.registerState<GameState>(States::ID::Game);
 	nStateStack.registerState<ConfigState>(States::ID::Config);
 	nStateStack.registerState<BacklogState>(States::ID::Backlog);
+	nStateStack.registerState<MainMenuState>(States::ID::MainMenu);
 }
 
 
