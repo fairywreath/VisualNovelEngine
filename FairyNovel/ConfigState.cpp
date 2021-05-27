@@ -187,6 +187,7 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 //	context.musicPlayer->play("mainmenu");
 
 
+
 	/*
 		@misc animations
 	*/
@@ -218,6 +219,7 @@ void ConfigState::draw()
 	window.draw(nSprite);
 
 	for (const auto& cmp : nComponents) window.draw(*cmp);
+
 }
 
 

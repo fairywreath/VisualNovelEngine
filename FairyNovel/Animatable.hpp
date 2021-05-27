@@ -38,6 +38,8 @@ public:
 
 	void setObjectColor(const sf::Color& color);
 
+	void setOutlineOnly(bool status);
+
 private:
 	void setObjectAlpha(int alpha);
 
@@ -55,6 +57,7 @@ private:
 	float nFadeTime;
 	bool nInFade;
 	sf::Time nFadeElapsed;
+	bool nOutlineOnly;
 
 	/*
 		@blur colours, defaults are white

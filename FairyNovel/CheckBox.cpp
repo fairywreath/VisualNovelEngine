@@ -9,21 +9,28 @@ GUI::CheckBox::CheckBox(State::Context context) :
 	nWindow(*context.window),
 	nChecked(false),
 	nRect(),
+	//nSprite(),
 	nSprite(context.textures->get("checkmark")),
 	OutlineColor(249, 169, 178),
 	HoverColor(252, 219, 226),
 	nAnimeRect(nRect),
 	nAnimeSprite(nSprite)
 {
-	nRect.setPosition(0, 0);
+	nAnimeRect.setOutlineOnly(true);
+	nAnimeRect.setObjectColor(OutlineColor);
 	nRect.setSize(sf::Vector2f(BoxHeight, BoxHeight));
 	nRect.setFillColor(sf::Color::White);
 	nRect.setOutlineColor(OutlineColor);
 	nRect.setOutlineThickness(OutlineThickness);
+	nRect.setPosition(0, 0);
 
-	nSprite.setPosition(1.f, 1.f);
+	/*
+		@note, set origin can actually destroy the image
+	*/
+	setOrigin(0,  nRect.getGlobalBounds().top + nRect.getGlobalBounds().height);
 
-	setOrigin(0, nRect.getGlobalBounds().top + nRect.getGlobalBounds().height);
+	nSprite.setTexture(context.textures->get("checkmark"));
+	nSprite.setColor(sf::Color(255, 255, 255, 125));
 }
 
 void GUI::CheckBox::handleEvent(const sf::Event& event)
@@ -75,6 +82,8 @@ void GUI::CheckBox::update(sf::Time dt)
 void GUI::CheckBox::fade(float time, int targetAlpha, int startAlpha)
 {
 	nAnimeRect.fade(time, targetAlpha, startAlpha);
+
+	if (targetAlpha > 125) targetAlpha = 125;
 	nAnimeSprite.fade(time, targetAlpha, startAlpha);
 }
 
@@ -83,7 +92,7 @@ void GUI::CheckBox::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 	states.transform *= getTransform();
 
 	target.draw(nRect, states);
-	if (nChecked) target.draw(nSprite, states);
+	if(nChecked) target.draw(nSprite, states);
 }
 
 bool GUI::CheckBox::checkMouseLocation() const

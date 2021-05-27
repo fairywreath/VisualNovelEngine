@@ -74,7 +74,7 @@ void Application::initialize(const std::string& configPath)
 	nFonts.load("ttcommons", "Media/Fonts/TT Commons Regular.otf");
 	nFonts.load("sinkins", "Media/Fonts/SinkinSans-100Thin.otf");
 	nFonts.load("aria", "Media/Fonts/Aria Pro Regular.otf");
-
+	nFonts.load("veljovic", "Media/Fonts/VeljovicStd-Book.otf");
 
 	/*
 		@setup misc text
@@ -88,7 +88,6 @@ void Application::initialize(const std::string& configPath)
 	/*
 		@need guards 
 	*/
-	nTextures.load("checkmark", "Media/GUI/checkmark.JPG");
 }
 
 void Application::run()

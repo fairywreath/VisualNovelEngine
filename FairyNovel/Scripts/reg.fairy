@@ -6,6 +6,9 @@
 <Texture> (EteLogo) "Media/Images/flowers_ete_logo.png"
 <Texture> (MMLogo) "Media/Images/automne_tlogo.png"
 
+<Texture> (checkbox) "Media/GUI/checkbox.png"
+<Texture> (checkmark) "Media/GUI/checkmark3.png"
+
 <Music> (title) "Media/Music/SecondaryTheme.ogg"
 <Music> (AutomneMM) "Media/Music/AutomneMM.ogg"
 

@@ -43,7 +43,7 @@ private:
 	static constexpr float BoxWidth = 22;
 	static constexpr float BoxHeight = 22;
 
-	static constexpr float OutlineThickness = 1.5;
+	static constexpr float OutlineThickness = 1;
 	const sf::Color OutlineColor;
 	const sf::Color HoverColor;
 

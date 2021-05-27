@@ -1,3 +1,4 @@
+#include "Animatable.hpp"
 template<typename T>
 Animatable<T>::Animatable() :
 	nObject(nullptr),
@@ -12,6 +13,7 @@ Animatable<T>::Animatable() :
 	nFadeTime(0),
 	nTargetOpacity(255),
 	nFadeElapsed(sf::Time::Zero),
+	nOutlineOnly(false),
 	/*
 		@blurs
 	*/
@@ -39,6 +41,7 @@ Animatable<T>::Animatable(T& resource) :
 	nFadeTime(0),
 	nTargetOpacity(255),
 	nFadeElapsed(sf::Time::Zero),
+	nOutlineOnly(false),
 	/*
 		@blurs
 	*/
@@ -246,11 +249,24 @@ void Animatable<T>::setObjectColor(const sf::Color& color)
 }
 
 template<typename T>
+void Animatable<T>::setOutlineOnly(bool status)
+{
+	nOutlineOnly = true;
+}
+
+template<typename T>
 void Animatable<T>::setObjectAlpha(int alpha)
 {
 	assert(nObject);
 
-	nObject->setFillColor(sf::Color(nColorR, nColorG, nColorB, alpha));
+	if (nOutlineOnly)
+	{
+		nObject->setOutlineColor(sf::Color(nColorR, nColorG, nColorB, alpha));
+	}
+	else
+	{
+		nObject->setFillColor(sf::Color(nColorR, nColorG, nColorB, alpha));
+	}
 }
 
 template<typename T>

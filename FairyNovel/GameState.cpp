@@ -28,6 +28,8 @@ GameState::GameState(StateStack& stack, Context context) :
 	nExitBtn.setPosition(ButtonsStartY, ButtonsY);
 	nExitBtn.setCallback([this]() {
 		requestStackPop();
+		requestStackPush(States::ID::MainMenu);
+
 		});
 
 	setButton(nConfigBtn);

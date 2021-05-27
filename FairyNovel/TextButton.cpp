@@ -11,11 +11,14 @@ GUI::TextButton::TextButton(State::Context context, const std::string& text) :
 	NormalColor(sf::Color(249, 169, 178)),
 	HoverColor(232, 126, 146),
 	FilledColor(252, 219, 226),
-	OutlineHoverColor(237, 228, 128, 125)
+	OutlineHoverColor(237, 228, 128, 125),
+	nBaseOutlineThickness(0),
+	nOutlineDist(2)
 {
 	nText.setCharacterSize(30);
 	nText.setFillColor(NormalColor);
 	nText.setOutlineColor(OutlineHoverColor);
+	nText.setLetterSpacing(1.6f);
 
 	nAnimeText.setObjectColor(NormalColor);
 }
@@ -73,11 +76,11 @@ void GUI::TextButton::updateApperance(ButtonState state)
 	{
 	case ButtonState::Hover:
 		nText.setFillColor(HoverColor);
-		nText.setOutlineThickness(4.f);
+		nText.setOutlineThickness(nBaseOutlineThickness + nOutlineDist);
 		break;
 	case ButtonState::Normal:
 		nText.setFillColor(NormalColor);
-		nText.setOutlineThickness(0);
+		nText.setOutlineThickness(nBaseOutlineThickness);
 		break;
 	case ButtonState::Pressed:
 		nText.setFillColor(FilledColor);
@@ -119,6 +122,44 @@ void GUI::TextButton::fade(float time, int targetAlpha, int startAlpha)
 void GUI::TextButton::move(float time, const sf::Vector2f& dest, const sf::Vector2f& source)
 {
 	nMover.move(time, dest, source);
+}
+
+void GUI::TextButton::setBold()
+{
+	nText.setStyle(sf::Text::Bold);
+}
+
+void GUI::TextButton::setHoverColor(const sf::Color& color)
+{
+	HoverColor = color;
+}
+
+void GUI::TextButton::setOutlineColor(const sf::Color& color)
+{
+	OutlineHoverColor = color;
+	nText.setOutlineColor(color);
+}
+
+void GUI::TextButton::setFilledColor(const sf::Color& color)
+{
+	FilledColor = color;
+}
+
+void GUI::TextButton::setNormalColor(const sf::Color& color)
+{
+	NormalColor = color;
+	nText.setFillColor(color);
+}
+
+void GUI::TextButton::setOutlineThicknes(float amount)
+{
+	nBaseOutlineThickness = amount;
+	nText.setOutlineThickness(amount);
+}
+
+void GUI::TextButton::setHoverOutlineDist(float amount)
+{
+	nOutlineDist = amount;
 }
 
 sf::FloatRect GUI::TextButton::getBoundingRect() const

@@ -29,6 +29,14 @@ public:
 	void fade(float time, int targetAlpha, int startAlpha) override;
 	void move(float time, const sf::Vector2f& dest, const sf::Vector2f& source) override;
 
+	void setBold();
+	void setHoverColor(const sf::Color& color);
+	void setOutlineColor(const sf::Color& color);
+	void setFilledColor(const sf::Color& color);
+	void setNormalColor(const sf::Color& color);
+	void setOutlineThicknes(float amount);
+	void setHoverOutlineDist(float amount);
+
 	sf::FloatRect getBoundingRect() const override;
 
 private:
@@ -43,13 +51,16 @@ private:
 
 	Movable nMover;
 
-	const sf::Color FilledColor;
-	const sf::Color HoverColor;
-	const sf::Color NormalColor;
+	sf::Color FilledColor;
+	sf::Color HoverColor;
+	sf::Color NormalColor;
 
-	const sf::Color OutlineHoverColor;
+	sf::Color OutlineHoverColor;
 
 	sf::RenderWindow& nWindow;
+
+	float nBaseOutlineThickness;
+	float nOutlineDist;
 };
 
 }
