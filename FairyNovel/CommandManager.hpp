@@ -33,6 +33,8 @@ public:
 	void setEngine(Engine& engine);
 	void releaseEngine();			// set to null
 
+	void jumpCommandLabel(const std::string& label) noexcept;
+
 private:
 	std::vector<CommandPtr>::const_iterator nIP;		// instruction pointer
 

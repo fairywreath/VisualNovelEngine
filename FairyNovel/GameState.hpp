@@ -9,10 +9,14 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
+#include <unordered_map>
+
 class GameState : public State
 {
 public:
 	using CommandPtr = std::unique_ptr<Command>;
+
+	using BtnItr = std::vector<GUI::Component*>::const_iterator;
 
 public:
 	GameState(StateStack& stack, Context context);
@@ -28,7 +32,25 @@ private:
 	void setButton(GUI::TextButton& btn);
 	void packComponent(GUI::Component* cmp);
 
+	/*
+		@decision making
+	*/
+public:
+	void setDecisionState();
+	void addDecisionButton(const std::string& text, const std::string& targetLabel);
+	
 private:
+	static constexpr auto DecisionX = 300;
+	static constexpr auto DecisionStartY = 200;
+	static constexpr auto DecisionDist = 100;
+
+	std::vector<std::unique_ptr<GUI::TextButton>> nDecisionBtns;
+	void clearDecisions();
+	bool nInDecision;
+	
+
+private:
+
 	static constexpr auto ButtonsY = 710;
 	static constexpr auto ButtonsDist = 40;
 	static constexpr auto ButtonsStartY = 1100;

@@ -55,6 +55,7 @@ public:
 		// change these to entity
 		DisplaySprite,		// need be removed?
 
+		Decision,
 		Label,
 		Jump		// jump between labels, for decision making
 	};

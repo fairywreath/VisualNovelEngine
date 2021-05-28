@@ -72,6 +72,12 @@ public:
 	*/
 	virtual void refresh();
 
+	/*
+		@will need to add this
+	*/
+	// void fade();
+	// bool removed() const;
+
 protected:
 	void requestStackPush(States::ID stateID);
 	void requestStackPop();

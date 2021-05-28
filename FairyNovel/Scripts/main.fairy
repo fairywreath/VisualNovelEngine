@@ -11,7 +11,6 @@
 <ShowDialogueBox> () "Time: 1.77"
  
 
-
 <DisplayText> (Suoh) "Hello? Anybody there?"
 
 <DisplayCharacter> (mayuri) "Pos: 500,50;State: state2;   Fade: 1.5; Wait: True"
@@ -21,6 +20,7 @@
 
 <MoveEntity> (mayuri) "Target: 300,50; Time: 1.32; Wait: True"
 
+<Label> (wife)
 <DisplayText> (Suoh) "Yes Mayuri, this is your wife."
 <DisplayEntity> (suoh2) "Pos: 100,30; Fade:  0.5"       
 
@@ -31,6 +31,9 @@
 <DisplayText> (Suoh) "Uhm Mayuri, can you move back a bit? I am getting a little nervous here."
 
 <CharacterState> (mayuri) "State: state1; Fade: 0.5; Wait: False"
+
+<Label> (nervous)
+<Jump> (wife)
 <DisplayText> (Mayuri) "Ahahahah, sure Suoh. You always get nervous when I get close to you. But this never happense when we are on the bed though"
 <MoveEntity> (mayuri) "Target: 700,50; Time: 1.32; Wait: True"
 

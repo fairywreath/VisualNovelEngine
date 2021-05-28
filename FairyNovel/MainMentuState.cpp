@@ -60,7 +60,6 @@ void MainMenuState::setupButtons()
 
 	for (int i = 0; i < ButtonCount; i++)
 	{
-		//nComponents[i]->fade(0.5, 255, 0);
 		nComponents[i]->move(0.5, sf::Vector2f((float)ButtonsX, (float)(ButtonsStartY + (i * ButtonsDist))), 
 			sf::Vector2f((float)(ButtonsX + 40), (float)(ButtonsStartY + (i * ButtonsDist))));
 	}
@@ -69,8 +68,6 @@ void MainMenuState::setupButtons()
 	nGUIWindow.setOutlineColor(sf::Color(249, 169, 178));
 	nGUIWindow.setFillColor(sf::Color(255, 255, 255, 125));
 	nGUIWindow.setOutlineThickness(6);
-	
-	// nAnimeRect.fade(0.5, 220, 0);
 
 	nRectMover.move(0.5, sf::Vector2f(ButtonsX - 40, -10), sf::Vector2f(ButtonsX, -10));
 }
@@ -127,8 +124,14 @@ bool MainMenuState::handleEvent(const sf::Event& event)
 		/*
 			@skipp all anims
 		*/
-		nBgDone = true;
-		nTitleDone = true;
+		if (!nBgDone || !nTitleDone)
+		{
+			nBgDone = true;
+			nTitleDone = true;
+			nBackground.skipAnimation();
+			nTitle.skipAnimation();
+			setupButtons();
+		}
 	}
 
 	if (nTitleDone)

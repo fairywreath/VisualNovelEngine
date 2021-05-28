@@ -10,7 +10,8 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Font.hpp>
 
-// need to add namespace 
+#include <utility>
+
 namespace Util
 {
 	template <typename Type>
@@ -27,6 +28,9 @@ namespace Util
 	std::string trimEnds(const std::string& str);
 
 	std::vector<std::string> splitAndTrim(const std::string& str, char delimiter);
+
+	std::vector<std::pair<std::string, std::string>> getCommandArgumentPairs(const std::string& str);
+
 
 	// vector operations
 	float length(sf::Vector2f vector);			// get modulus

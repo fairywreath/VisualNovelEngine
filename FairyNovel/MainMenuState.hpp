@@ -51,7 +51,7 @@ private:
 	Entity nBackground;
 	Entity nTitle;
 
-	static constexpr auto ButtonsX = 1100;
+	static constexpr auto ButtonsX = 1080;
 	static constexpr auto ButtonsDist = 90;
 	static constexpr auto ButtonsStartY = 150;
 	static constexpr auto ButtonCount = 5;

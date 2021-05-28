@@ -27,21 +27,15 @@ void CommandManager::update(sf::Time dt)
 	{
 		if ((*nIP)->getType() == Command::Type::Jump)
 		{
-			if (nCommandLabels.find((*nIP)->getIdentifier()) == nCommandLabels.cend())
-			{
-				std::string msg = "Could not find script label " + (*nIP)->getIdentifier();
-				LOGGER->Log("Command Jump error", msg);
-				//	std::cout << msg << std::endl;
-				nIP++;		// for now just go to next 
-			}
-			else
-			{
-				auto newIP = nCommandLabels.at((*nIP)->getIdentifier());
-				assert((*newIP)->getType() == Command::Type::Label &&
-					(*newIP)->getIdentifier() == (*nIP)->getIdentifier());
-				std::cout << "Found jump/label identifier " + (*newIP)->getIdentifier() << std::endl;
-				nIP = std::next(newIP);
-			}
+			jumpCommandLabel((*nIP)->getIdentifier());
+		}
+		else if ((*nIP)->getType() == Command::Type::Decision)
+		{
+			/*
+				@handle in gamestate UI
+			*/
+			// maybe fade and handle engine animations
+			nEngine->setWait(true);
 		}
 		else 		// normal case
 		{
@@ -86,6 +80,24 @@ void CommandManager::setEngine(Engine& engine)
 void CommandManager::releaseEngine()
 {
 	nEngine = nullptr;
+}
+
+void CommandManager::jumpCommandLabel(const std::string& label) noexcept
+{
+	if (nCommandLabels.find(label) == nCommandLabels.cend())
+	{
+		std::string msg = "Could not find script label " + label + " after decision";
+		LOGGER->Log("Decision/Command Jump error", msg);
+		nIP++;				// skip to next command
+		return;
+	}
+	
+	auto newIP = nCommandLabels.at(label);
+	assert((*newIP)->getType() == Command::Type::Label &&
+		(*newIP)->getIdentifier() == label);
+	
+	nIP = std::next(newIP);
+	nEngine->setWait(false);
 }
 
 

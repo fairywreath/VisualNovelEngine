@@ -233,6 +233,8 @@ bool ConfigState::update(sf::Time dt)
 
 bool ConfigState::handleEvent(const sf::Event& event)
 {
+	for (const auto& cmp : nComponents) cmp->handleEvent(event);
+
 	if (event.type == sf::Event::KeyPressed || event.type == sf::Event::MouseButtonPressed)
 	{
 	//	requestStackPop();;
@@ -244,9 +246,7 @@ bool ConfigState::handleEvent(const sf::Event& event)
 		requestStackPop();
 	}
 
-	for (const auto& cmp : nComponents) cmp->handleEvent(event);
-
-	return false;
+	return false;			
 }
 
 void ConfigState::setNormalLabel(GUI::Label& label)

@@ -2,7 +2,6 @@
 #include "Logger.hpp"
 #include "Command.hpp"
 
-
 #include <sfml/Graphics/RenderWindow.hpp>
 
 #include <iostream>
@@ -14,7 +13,8 @@ GameState::GameState(StateStack& stack, Context context) :
 	nConfigBtn(context, "CONFIG"),
 	nBacklogBtn(context, "BACKLOG"),
 	nAutoModeBtn(context, "AUTO"),
-	nExitBtn(context, "EXIT")
+	nExitBtn(context, "EXIT"),
+	nInDecision(false)
 {
 	nBackgroundSprite.setTexture(context.textures->get("MMBG"));
 
@@ -53,8 +53,13 @@ GameState::GameState(StateStack& stack, Context context) :
 		engine.setAuto(!engine.getAuto());
 		});
 
+	unsigned NumComponents = 10;		// use 10 for now
+	nComponents.reserve(NumComponents);
+	nDecisionBtns.reserve(NumComponents / 2);
 
-
+	//setDecisionState();
+	//addDecisionButton("This is your wife", "wife");
+	//addDecisionButton("You always get nervous", "nervous");
 }
 
 GameState::~GameState()
@@ -80,6 +85,7 @@ bool GameState::update(sf::Time dt)
 	nCommandManager.update(dt);
 	for (const auto& cmp : nComponents) cmp->update(dt);
 
+	if (!nInDecision && nDecisionBtns.size() != 0) clearDecisions();
 
 	return false;
 }
@@ -98,7 +104,8 @@ bool GameState::handleEvent(const sf::Event& event)
 		return false;
 	}
 
-	nEngine.handleEvent(event);
+	if (!nInDecision)
+		nEngine.handleEvent(event);
 
 	/*
 		@return true for cascading events between states
@@ -121,4 +128,35 @@ void GameState::setButton(GUI::TextButton& btn)
 void GameState::packComponent(GUI::Component* cmp)
 {
 	nComponents.push_back(cmp);
+}
+
+void GameState::setDecisionState()
+{
+	nInDecision = true;
+}
+
+void GameState::addDecisionButton(const std::string& text, const std::string& targetLabel)
+{
+	auto button = std::make_unique<GUI::TextButton>(getContext(), text);
+	button->setPosition((float)DecisionX, (float)(DecisionStartY + (nDecisionBtns.size() * DecisionDist)));
+
+	button->setCallback([this, targetLabel]() {
+		getContext().commandManager->jumpCommandLabel(targetLabel);
+		nInDecision = false;		
+		});
+
+	nComponents.push_back(button.get());
+	nDecisionBtns.push_back(std::move(button));
+}
+
+void GameState::clearDecisions()
+{
+	/*
+		@decision is always at the end of the components vector
+	*/
+	for (int i = 0; i < nDecisionBtns.size(); i++)
+	{
+		nComponents.pop_back();
+	}
+	nDecisionBtns.clear();
 }

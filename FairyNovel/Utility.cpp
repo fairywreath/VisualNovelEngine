@@ -60,6 +60,29 @@ std::vector<std::string> Util::splitAndTrim(const std::string& str, char delimit
 	return res;
 }
 
+std::vector<std::pair<std::string, std::string>> Util::getCommandArgumentPairs(const std::string& str)
+{
+	// maybe have constexpr delimiter or something
+	std::vector<std::string> argumentSplit = splitAndTrim(str, ';');		
+
+	std::vector<std::pair<std::string, std::string>> result;
+
+	for (const auto& arg : argumentSplit)
+	{
+		std::vector<std::string> keywordSplit = splitAndTrim(arg, ':');
+		if (keywordSplit.size() != 2)
+		{
+			result.push_back(std::make_pair("error", arg));			// give error as keywrod and arg as the argument
+		}
+		else
+		{
+			result.push_back(std::make_pair(keywordSplit[0], keywordSplit[1]));
+		}
+	}
+
+	return result;
+}
+
 sf::String Util::wrapText(sf::String string, unsigned width, const sf::Font& font, unsigned characterSize, unsigned extraLen, bool bold)
 {
 	unsigned currentOffset = 0;

@@ -83,7 +83,7 @@ void GUI::TextButton::updateApperance(ButtonState state)
 		nText.setOutlineThickness(nBaseOutlineThickness);
 		break;
 	case ButtonState::Pressed:
-		nText.setFillColor(FilledColor);
+		nText.setFillColor(NormalColor);
 		break;
 	default:
 		break;
