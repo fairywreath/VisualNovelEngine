@@ -7,7 +7,8 @@ CommandManager::CommandManager() :
 	nCommandLabels(),
 	nBacklogCommands(),
 	nIP(nCommands.begin()),
-	nEngine(nullptr)
+	nEngine(nullptr),
+	nPlayer(nullptr)
 {
 }
 

@@ -26,6 +26,8 @@ public:
 	bool isSelectable() const override;
 	void handleEvent(const sf::Event & event) override;
 
+	
+
 private:
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void refreshOrigins();

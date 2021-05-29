@@ -17,8 +17,9 @@ Application::Application(const std::string& configPath) :
 	nSoundPlayer(),
 	nMusicPlayer(),
 	nCharacters(),
+	nVoicePlayer(),
 	nStateStack(State::Context(nWindow, nTextures, nFonts, nMusicPlayer, nSoundPlayer, 
-		nCommandManager, nCharacters, nGameConfigManager)),		// create new state context here and pass it in
+		nCommandManager, nCharacters, nGameConfigManager, nVoicePlayer)),		// create new state context here and pass it in
 	nStatisticsText(),
 	nStatisticsUpdateTime(),
 	nTimePerFrame(),
@@ -57,7 +58,11 @@ void Application::initialize(const std::string& configPath)
 	nCommandManager.getCommands().clear();
 	scanner.scanCommands();				// read rest of game commands
 
-
+	// link characters to voice volumes
+	for (const auto& chr : nCharacters)
+	{
+		nVoicePlayer.insertCharacter(chr.first);
+	}
 
 	// set up window
 	nTimePerFrame = sf::seconds(1.f / (float)config.getOption("FPS"));

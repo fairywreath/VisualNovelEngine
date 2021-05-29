@@ -8,6 +8,7 @@
 #include "Config.hpp"
 #include "CharacterBlueprint.hpp"
 #include "ConfigManager.hpp"
+#include "VoicePlayer.hpp"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Window/Event.hpp>
@@ -39,7 +40,7 @@ public:
 		Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts,
 			MusicPlayer& music, SoundPlayer& sound, CommandManager& commandManager,
 			std::unordered_map<std::string, CharacterBlueprint>& characters,
-			ConfigManager& configManager);
+			ConfigManager& configManager, VoicePlayer& voicePlayer);
 
 		sf::RenderWindow* window;
 		TextureManager* textures;
@@ -47,13 +48,12 @@ public:
 		MusicPlayer* musicPlayer;
 		SoundPlayer* soundPlayer;
 
-		//std::vector<CommandPtr>* commands;
-		//std::unordered_map<std::string, CommandLbl>* commandLabels;
-
 		std::unordered_map<std::string, CharacterBlueprint>* characters;
 
 		ConfigManager* configManager;
 		CommandManager* commandManager;
+
+		VoicePlayer* voicePlayer;
 	};
 
 public:

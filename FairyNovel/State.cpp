@@ -5,7 +5,7 @@
 State::Context::Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts,
 	MusicPlayer& music, SoundPlayer& sound, CommandManager& commandManager,
 	std::unordered_map<std::string, CharacterBlueprint>& characters,
-	ConfigManager &configManager):
+	ConfigManager &configManager, VoicePlayer& voicePlayer):
 	window(&window),		
 	textures(&textures),
 	fonts(&fonts),
@@ -13,7 +13,8 @@ State::Context::Context(sf::RenderWindow& window, TextureManager& textures, Font
 	soundPlayer(&sound),
 	characters(&characters),
 	configManager(&configManager),
-	commandManager(&commandManager)
+	commandManager(&commandManager),
+	voicePlayer(&voicePlayer)
 {
 }
 

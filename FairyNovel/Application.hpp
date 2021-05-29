@@ -51,6 +51,7 @@ private:
 	FontManager nFonts;
 	SoundPlayer nSoundPlayer;
 	MusicPlayer nMusicPlayer;
+	VoicePlayer nVoicePlayer;
 
 	StateStack nStateStack;
 

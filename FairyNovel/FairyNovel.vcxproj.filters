@@ -198,7 +198,7 @@
     <ClCompile Include="CharacterStateCommand.cpp">
       <Filter>Header Files\Commands-Characters/entities</Filter>
     </ClCompile>
-    <ClCompile Include="MainMentuState.cpp">
+    <ClCompile Include="MainMenuState.cpp">
       <Filter>Header Files\State</Filter>
     </ClCompile>
     <ClCompile Include="ConfigState.cpp">
@@ -252,14 +252,14 @@
     <ClCompile Include="BacklogState.cpp">
       <Filter>Header Files\State</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenuState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Header Files\Player</Filter>
     </ClCompile>
     <ClCompile Include="Achievement.cpp">
       <Filter>Header Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="VoicePlayer.cpp">
+      <Filter>Header Files\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -445,6 +445,9 @@
     </ClInclude>
     <ClInclude Include="Achievement.hpp">
       <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="VoicePlayer.hpp">
+      <Filter>Header Files\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

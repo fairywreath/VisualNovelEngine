@@ -50,7 +50,10 @@ void GUI::Button::activate()
 		nCallback();
 
 	if (!nIsToggle)
+	{
 		deactivate();
+		deselect();
+	}
 
 	nSounds.play("ButtonClick");
 }

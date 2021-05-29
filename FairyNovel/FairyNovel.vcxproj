@@ -203,6 +203,7 @@
     <ClInclude Include="TextButton.hpp" />
     <ClInclude Include="TitleState.hpp" />
     <ClInclude Include="Utility.hpp" />
+    <ClInclude Include="VoicePlayer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Achievement.cpp" />
@@ -241,7 +242,6 @@
     <ClCompile Include="LabelCommand.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainMentuState.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Movable.cpp" />
     <ClCompile Include="MoveEntityCommand.cpp" />
@@ -264,6 +264,7 @@
     <ClCompile Include="TextButton.cpp" />
     <ClCompile Include="TitleState.cpp" />
     <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="VoicePlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Animatable.inl" />

@@ -3,6 +3,7 @@
 
 #include "Command.hpp"
 #include "DisplayTextCommand.hpp"
+#include "Player.hpp"
 
 /*
 	@stores and runs commands on engine
@@ -49,6 +50,9 @@ private:
 	std::vector<Command*> nBacklogCommands;
 
 	Engine* nEngine;
+
+	// TODO
+	Player* nPlayer;
 };
 
 

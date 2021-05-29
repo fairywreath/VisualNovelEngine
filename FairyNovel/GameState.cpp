@@ -57,9 +57,9 @@ GameState::GameState(StateStack& stack, Context context) :
 	nComponents.reserve(NumComponents);
 	nDecisionBtns.reserve(NumComponents / 2);
 
-	//setDecisionState();
-	//addDecisionButton("This is your wife", "wife");
-	//addDecisionButton("You always get nervous", "nervous");
+	setDecisionState();
+	addDecisionButton("This is your wife", "wife");
+	addDecisionButton("You always get nervous", "nervous");
 }
 
 GameState::~GameState()
