@@ -23,7 +23,7 @@ void CharacterBlueprint::insertState(const std::string& id, const std::string& t
 	nTexturesMap.insert(std::make_pair(id, &nTextures.get(texture)));
 }
 
-bool CharacterBlueprint::stateExists(const std::string& state)
+bool CharacterBlueprint::stateExists(const std::string& state) const
 {
 	if (nTexturesMap.find(state) != nTexturesMap.end())
 	{
@@ -33,7 +33,7 @@ bool CharacterBlueprint::stateExists(const std::string& state)
 	return false;
 }
 
-const sf::Texture& CharacterBlueprint::getTexture(const std::string& state) noexcept
+const sf::Texture& CharacterBlueprint::getTexture(const std::string& state) const noexcept
 {
 	// no except, state ALWAYS exists
 	return *nTexturesMap.at(state);

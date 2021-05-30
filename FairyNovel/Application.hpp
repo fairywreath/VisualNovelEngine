@@ -12,6 +12,7 @@
 #include "CharacterBlueprint.hpp"
 #include "ConfigManager.hpp"
 #include "CommandManager.hpp"
+#include "CharacterManager.hpp"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -42,8 +43,6 @@ private:
 	void initialize(const std::string& configPath);
 
 private:
-	std::unordered_map<std::string, CharacterBlueprint> nCharacters;
-
 	sf::Time nTimePerFrame;		// 1/FPS
 	sf::RenderWindow nWindow;
 
@@ -51,12 +50,11 @@ private:
 	FontManager nFonts;
 	SoundPlayer nSoundPlayer;
 	MusicPlayer nMusicPlayer;
-	VoicePlayer nVoicePlayer;
-
-	StateStack nStateStack;
-
+	CharacterManager nCharacterManager;
 	ConfigManager nGameConfigManager;
 	CommandManager nCommandManager;
+
+	StateStack nStateStack;
 
 	sf::Text nStatisticsText;
 	sf::Time nStatisticsUpdateTime;

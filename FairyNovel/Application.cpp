@@ -16,10 +16,9 @@ Application::Application(const std::string& configPath) :
 	nFonts(),
 	nSoundPlayer(),
 	nMusicPlayer(),
-	nCharacters(),
-	nVoicePlayer(),
+	nCharacterManager(nTextures),
 	nStateStack(State::Context(nWindow, nTextures, nFonts, nMusicPlayer, nSoundPlayer, 
-		nCommandManager, nCharacters, nGameConfigManager, nVoicePlayer)),		// create new state context here and pass it in
+		nCommandManager, nGameConfigManager, nCharacterManager)),		
 	nStatisticsText(),
 	nStatisticsUpdateTime(),
 	nTimePerFrame(),
@@ -47,7 +46,7 @@ void Application::initialize(const std::string& configPath)
 		(std::string)config.getOption("REG_PATH"), commandFactory,
 		nCommandManager.getCommands(), nCommandManager.getCommandLabels());
 
-	RegisterEngine regEngine(nTextures, nFonts, nSoundPlayer, nMusicPlayer, nCharacters);
+	RegisterEngine regEngine(nTextures, nFonts, nSoundPlayer, nMusicPlayer, nCharacterManager.getCharacterBlueprints());
 
 	scanner.scanCommands(false);		// reserve register vector
 	for (const auto& ptr : nCommandManager.getCommands())
@@ -57,12 +56,6 @@ void Application::initialize(const std::string& configPath)
 
 	nCommandManager.getCommands().clear();
 	scanner.scanCommands();				// read rest of game commands
-
-	// link characters to voice volumes
-	for (const auto& chr : nCharacters)
-	{
-		nVoicePlayer.insertCharacter(chr.first);
-	}
 
 	// set up window
 	nTimePerFrame = sf::seconds(1.f / (float)config.getOption("FPS"));

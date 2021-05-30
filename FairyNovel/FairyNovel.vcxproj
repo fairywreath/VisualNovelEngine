@@ -147,6 +147,7 @@
     <ClInclude Include="BacklogState.hpp" />
     <ClInclude Include="BlurEntityCommand.hpp" />
     <ClInclude Include="Button.hpp" />
+    <ClInclude Include="CharacterManager.hpp" />
     <ClInclude Include="CharacterStateCommand.hpp" />
     <ClInclude Include="Character.hpp" />
     <ClInclude Include="CharacterBlueprint.hpp" />
@@ -203,7 +204,6 @@
     <ClInclude Include="TextButton.hpp" />
     <ClInclude Include="TitleState.hpp" />
     <ClInclude Include="Utility.hpp" />
-    <ClInclude Include="VoicePlayer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Achievement.cpp" />
@@ -212,6 +212,7 @@
     <ClCompile Include="BacklogState.cpp" />
     <ClCompile Include="BlurEntityCommand.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CharacterManager.cpp" />
     <ClCompile Include="CharacterStateCommand.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CharacterBlueprint.cpp" />
@@ -264,7 +265,6 @@
     <ClCompile Include="TextButton.cpp" />
     <ClCompile Include="TitleState.cpp" />
     <ClCompile Include="Utility.cpp" />
-    <ClCompile Include="VoicePlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Animatable.inl" />

@@ -12,7 +12,7 @@
 class Character : public sf::Drawable
 {
 public:
-	explicit Character(CharacterBlueprint& blueprint);
+	explicit Character(const CharacterBlueprint& blueprint);
 	~Character() = default;
 
 	void update(sf::Time dt);
@@ -41,7 +41,7 @@ private:
 
 private:
 	// change to reference later
-	CharacterBlueprint nBlueprint;
+	const CharacterBlueprint& nBlueprint;
 
 	Entity nEntity;
 	Entity nSecondaryEntity;

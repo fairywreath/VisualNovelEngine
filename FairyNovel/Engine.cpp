@@ -12,7 +12,7 @@ Engine::Engine(State::Context context) :
 	nTextures(*context.textures),
 	nFont(context.fonts->get("overlock")),
 	nSoundPlayer(*context.soundPlayer),
-	nCharacterBPs(*context.characters),
+	nCharacterManager(*context.characterManager),
 	nLinePrinted(true),
 	nTextPos(-1),
 	nFadeTime(0),
@@ -405,12 +405,13 @@ Character* Engine::getCharacter(const std::string& id)
 
 bool Engine::addCharacter(const std::string& id)
 {
-	if (nCharacterBPs.find(id) == nCharacterBPs.end())
+	if (!nCharacterManager.characterExists(id))
 	{
 		// log error
 		return false;
 	}
-	nCharacters.push_back(std::make_unique<Character>(nCharacterBPs.at(id)));
+
+	nCharacters.push_back(std::make_unique<Character>(nCharacterManager.getBlueprint(id)));
 	return true;
 }
 

@@ -13,9 +13,9 @@ public:
 		const std::string& defTexture, TextureManager& textures);
 
 	void insertState(const std::string& id, const std::string& texture);
-	bool stateExists(const std::string& state);
+	bool stateExists(const std::string& state) const;
 
-	const sf::Texture& getTexture(const std::string& state) noexcept;
+	const sf::Texture& getTexture(const std::string& state) const noexcept;
 
 	std::string getDefaultState() const;
 	std::string getIdentifier() const;

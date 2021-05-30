@@ -258,7 +258,7 @@
     <ClCompile Include="Achievement.cpp">
       <Filter>Header Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="VoicePlayer.cpp">
+    <ClCompile Include="CharacterManager.cpp">
       <Filter>Header Files\Resources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -446,7 +446,7 @@
     <ClInclude Include="Achievement.hpp">
       <Filter>Header Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="VoicePlayer.hpp">
+    <ClInclude Include="CharacterManager.hpp">
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
   </ItemGroup>

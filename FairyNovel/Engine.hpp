@@ -4,6 +4,8 @@
 #include "State.hpp"
 #include "Entity.hpp"
 #include "Character.hpp"
+#include "CharacterManager.hpp"
+
 
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/System/Time.hpp>
@@ -123,8 +125,8 @@ private:
 	MusicPlayer& nMusicPlayer;
 	SoundPlayer& nSoundPlayer;
 	TextureManager& nTextures;
-	sf::Font& nFont;		// most likely can be removed later
-	std::unordered_map<std::string, CharacterBlueprint>& nCharacterBPs;
+	sf::Font& nFont;	
+	CharacterManager& nCharacterManager;
 
 	sf::RectangleShape nTextWindow;
 

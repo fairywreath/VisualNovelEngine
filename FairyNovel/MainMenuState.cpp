@@ -16,7 +16,7 @@ MainMenuState::MainMenuState(StateStack& stack, Context context) :
 {
 	initialize();
 
-	// context.voicePlayer->play("", "Media/VoiceLines/suoh_intro.ogg");
+	context.characterManager->playVoice("", "Media/VoiceLines/suoh_intro.ogg");
 }
 
 MainMenuState::~MainMenuState()

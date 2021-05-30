@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <iostream>
 
-Character::Character(CharacterBlueprint& blueprint) :
+Character::Character(const CharacterBlueprint& blueprint) :
 	nEntity(blueprint.getIdentifier(), blueprint.getTexture(blueprint.getDefaultState())),
 	nSecondaryEntity(blueprint.getIdentifier(), blueprint.getTexture(blueprint.getDefaultState())),
 	nBlueprint(blueprint),

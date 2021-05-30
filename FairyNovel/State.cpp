@@ -4,17 +4,15 @@
 
 State::Context::Context(sf::RenderWindow& window, TextureManager& textures, FontManager& fonts,
 	MusicPlayer& music, SoundPlayer& sound, CommandManager& commandManager,
-	std::unordered_map<std::string, CharacterBlueprint>& characters,
-	ConfigManager &configManager, VoicePlayer& voicePlayer):
+	ConfigManager& configManager, CharacterManager& characterManager) :
 	window(&window),		
 	textures(&textures),
 	fonts(&fonts),
 	musicPlayer(&music),
 	soundPlayer(&sound),
-	characters(&characters),
 	configManager(&configManager),
 	commandManager(&commandManager),
-	voicePlayer(&voicePlayer)
+	characterManager(&characterManager)
 {
 }
 
