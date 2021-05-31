@@ -5,9 +5,8 @@ Fadable<T>::Fadable(T& resource) :
 	/*
 		@fades
 	*/
-	nColorR(255),
-	nColorG(255),
-	nColorB(255),
+	nFillColor(sf::Color::White),
+	nOutlineColor(sf::Color::White),
 	nInFade(false),
 	nOpacity(255),
 	nFadeTime(0),
@@ -108,7 +107,8 @@ void Fadable<T>::setOpacityAlpha(int alpha)
 template<typename T>
 int Fadable<T>::getOpacityAlpha() const
 {
-	assert(!inAnimation());
+//	assert(!inAnimation());
+	if (inAnimation()) return nTargetOpacity;
 
 	return nOpacity;
 }
@@ -116,9 +116,13 @@ int Fadable<T>::getOpacityAlpha() const
 template<typename T>
 void Fadable<T>::setObjectColor(const sf::Color& color)
 {
-	nColorR = color.r;
-	nColorG = color.g;
-	nColorB = color.b;
+	nFillColor = color;
+}
+
+template<typename T>
+void Fadable<T>::setOutlineColor(const sf::Color& color)
+{
+	nOutlineColor = color;
 }
 
 template<typename T>
@@ -142,18 +146,14 @@ void Fadable<T>::setObjectAlpha(int alpha)
 		return;
 	}
 
-	if (nOutlineOnly)
+	if (nOutlineOnly || nBothFillOutline)
 	{
-		nObject->setOutlineColor(sf::Color(nColorR, nColorG, nColorB, alpha));
+		nObject->setOutlineColor(sf::Color(nOutlineColor.r, nOutlineColor.g, nOutlineColor.b, alpha));
 	}
-	else if (nBothFillOutline)
+
+	if (!nOutlineOnly)
 	{
-		nObject->setOutlineColor(sf::Color(nColorR, nColorG, nColorB, alpha));
-		nObject->setFillColor(sf::Color(nColorR, nColorG, nColorB, alpha));
-	}
-	else
-	{
-		nObject->setFillColor(sf::Color(nColorR, nColorG, nColorB, alpha));
+		nObject->setFillColor(sf::Color(nFillColor.r, nFillColor.g, nFillColor.b, alpha));
 	}
 }
 

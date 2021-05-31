@@ -37,6 +37,8 @@ void StateStack::handleEvent(const sf::Event& event)
 
 void StateStack::update(sf::Time dt)
 {
+	int count = 0;
+
 	for (auto itr = nStack.rbegin(); itr != nStack.rend();)
 	{
 		State::UpdateState state = (*itr)->getUpdateState();
@@ -50,17 +52,19 @@ void StateStack::update(sf::Time dt)
 		
 		if (state != State::UpdateState::DoNotUpdate)
 		{
+			count++;
 			(*itr)->update(dt);
 		}
 
 		itr++;
 	}
-
+	std::cout << "UPDATE COUNT: " << count << std::endl;
 	applyPendingChanges();
 }
 
 void StateStack::draw()
 {
+	int count = 0;
 	for (auto itr = nStack.begin(); itr != nStack.end(); itr++)
 	{
 		State::UpdateState state = (*itr)->getUpdateState();
@@ -68,9 +72,11 @@ void StateStack::draw()
 		{
 			continue;
 		}
-
+		count++;
 		(*itr)->draw();
 	}
+
+	std::cout << "DRAW COUNT: " << count << std::endl;
 }
 
 
@@ -84,9 +90,10 @@ void StateStack::applyPendingChanges()
 		{
 			if (!nStack.empty())
 			{
-				nStack.back()->setUpdateState(State::UpdateState::InHideAnimation);
+				nStack.back()->stopUpdateAfter(1.f);		// current standard is 1 sec, maybe change to constexpr in state
 			}
-			nStack.push_back(createState(change.stateID));			
+			nStack.push_back(createState(change.stateID));		
+			// nStack.back()->setUpdateState(State::UpdateState::OnTop);
 			break;
 		}
 
@@ -95,7 +102,7 @@ void StateStack::applyPendingChanges()
 			nStack.back()->setUpdateState(State::UpdateState::InRemovalAnimation);
 			if (nStack.size() >= 2)
 			{
-				(*++nStack.rbegin())->setUpdateState(State::UpdateState::InShowAnimation);
+				(*++nStack.rbegin())->setUpdateState(State::UpdateState::OnTop);
 			}
 			break;
 		}

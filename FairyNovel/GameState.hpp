@@ -63,8 +63,6 @@ private:
 	GUI::TextButton nExitBtn;
 
 	std::vector<GUI::Component*> nComponents;
-	
-	sf::Sprite nBackgroundSprite;
 
 	Engine nEngine;
 	CommandManager& nCommandManager;

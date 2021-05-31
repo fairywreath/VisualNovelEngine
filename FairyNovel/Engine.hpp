@@ -64,7 +64,6 @@ public:
 	void fadeInBackground(float time) noexcept;
 
 	/*
-		@fade/clear whole screen, including all entities except the textbox and bg
 		@no starting opacity set, all starting opacity is current opacity
 	*/
 	void clearScreen(float time) noexcept;
@@ -113,8 +112,6 @@ public:
 
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
-	void fadeScreen(float time, int targetAlpha) noexcept;
 
 private:
 	static constexpr auto TextSize = 29;

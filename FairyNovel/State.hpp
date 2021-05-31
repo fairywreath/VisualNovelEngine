@@ -59,7 +59,7 @@ public:
 	State& operator=(const State&) = delete;
 
 	virtual void draw() = 0;		
-	virtual bool update(sf::Time dt) = 0;
+	virtual bool update(sf::Time dt);
 	virtual bool handleEvent(const sf::Event& event) = 0;
 
 public:
@@ -67,8 +67,6 @@ public:
 	{
 		OnTop,
 		InRemovalAnimation,
-		InHideAnimation,
-		InShowAnimation,
 		ShouldBeRemoved,
 		DoNotUpdate
 	};
@@ -78,8 +76,15 @@ public:
 	virtual void setUpdateState(UpdateState state);
 	UpdateState getUpdateState() const;
 
+	void stopUpdateAfter(float time);
+	void removeAfter(float time);
+
 private:
 	UpdateState nUpdateState;
+	sf::Time nStopUpdateTime;
+	bool nInStopUpdate;
+	bool nInRemove;
+	float nStopUpdateAmount;
 
 protected:
 	void requestStackPush(States::ID stateID);

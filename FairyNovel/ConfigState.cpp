@@ -198,7 +198,7 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 	/*
 		@misc animations
 	*/
-	setUpdateState(UpdateState::InShowAnimation);
+	setUpdateState(UpdateState::OnTop);
 }
 
 void ConfigState::refreshUI()
@@ -234,29 +234,7 @@ bool ConfigState::update(sf::Time dt)
 	nFadableBg.update(dt);
 	nFadeSprite.update(dt);
 
-	if (getUpdateState() == UpdateState::InHideAnimation || getUpdateState() == UpdateState::InRemovalAnimation
-		|| getUpdateState() == UpdateState::InShowAnimation)
-	{
-		nAnimationTime += dt;
-		if (nAnimationTime.asSeconds() > FadeTime)
-		{
-			nAnimationTime += dt;
-			switch (getUpdateState())
-			{
-			case UpdateState::InHideAnimation:
-				State::setUpdateState(UpdateState::DoNotUpdate);
-				break;
-			case UpdateState::InRemovalAnimation:
-				State::setUpdateState(UpdateState::ShouldBeRemoved);
-				break;
-			case UpdateState::InShowAnimation:
-				State::setUpdateState(UpdateState::OnTop);
-				break;
-			default:
-				break;
-			}
-		}
-	}
+	State::update(dt);
 
 	return false;
 }
@@ -277,7 +255,7 @@ bool ConfigState::handleEvent(const sf::Event& event)
 void ConfigState::setUpdateState(UpdateState state)
 {
 	State::setUpdateState(state);
-	if (state == UpdateState::InHideAnimation || state == UpdateState::InRemovalAnimation)
+	if (state == UpdateState::InRemovalAnimation)
 	{
 		for (const auto& cmp : nComponents)
 		{
@@ -286,8 +264,10 @@ void ConfigState::setUpdateState(UpdateState state)
 
 		nFadableBg.fade(FadeTime, 0, 255);
 		nFadeSprite.fade(FadeTime, 0, 255);
+
+		removeAfter(FadeTime);
 	}
-	else if (state == UpdateState::InShowAnimation)
+	else if (state == UpdateState::OnTop)
 	{
 		for (const auto& cmp : nComponents)
 		{

@@ -16,8 +16,9 @@ GUI::CheckBox::CheckBox(State::Context context) :
 	nFadableRect(nRect),
 	nFadableSprite(nSprite)
 {
-	nFadableRect.setOutlineOnly(true);
-	nFadableRect.setObjectColor(OutlineColor);
+	nFadableRect.setBothFillOutline(true);
+	nFadableRect.setOutlineColor(OutlineColor);
+	nFadableRect.setObjectColor(sf::Color::White);
 	nRect.setSize(sf::Vector2f(BoxHeight, BoxHeight));
 	nRect.setFillColor(sf::Color::White);
 	nRect.setOutlineColor(OutlineColor);
@@ -29,6 +30,7 @@ GUI::CheckBox::CheckBox(State::Context context) :
 	*/
 	setOrigin(0,  nRect.getGlobalBounds().top + nRect.getGlobalBounds().height);
 
+	nFadableSprite.setObjectColor(sf::Color(232, 126, 146));
 	nSprite.setTexture(context.textures->get("checkmark"));
 	nSprite.setColor(sf::Color(255, 255, 255, 125));
 }

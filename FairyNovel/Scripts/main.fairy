@@ -1,6 +1,6 @@
 
 <Label> (reunion)
-<HideDialogueBox> () "Time: 0"
+#<HideDialogueBox> () "Time: 0"
 
 
 <PlayMusic> (title)
@@ -8,7 +8,7 @@
 
 <DisplayBackground> (BG1) "Time: 1.1; Wait: False"
 
-<ShowDialogueBox> () "Time: 1.77"
+#<ShowDialogueBox> () "Time: 1.77"
  
 
 <DisplayText> (Suoh) "Hello? Anybody there?"

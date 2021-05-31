@@ -16,8 +16,6 @@ GameState::GameState(StateStack& stack, Context context) :
 	nExitBtn(context, "EXIT"),
 	nInDecision(false)
 {
-	nBackgroundSprite.setTexture(context.textures->get("MMBG"));
-
 	context.configManager->applySettings(nEngine);
 
 	std::cout << "COMMAND SIZE: " << nCommandManager.getCommands().size() << std::endl;
@@ -60,6 +58,8 @@ GameState::GameState(StateStack& stack, Context context) :
 	//setDecisionState();
 	//addDecisionButton("This is your wife", "wife");
 	//addDecisionButton("You always get nervous", "nervous");
+
+	setUpdateState(State::UpdateState::OnTop);
 }
 
 GameState::~GameState()
@@ -86,6 +86,8 @@ bool GameState::update(sf::Time dt)
 	for (const auto& cmp : nComponents) cmp->update(dt);
 
 	if (!nInDecision && nDecisionBtns.size() != 0) clearDecisions();
+
+	State::update(dt);
 
 	return false;
 }
@@ -117,15 +119,17 @@ void GameState::setUpdateState(UpdateState state)
 {
 	State::setUpdateState(state);
 
-	if (state == UpdateState::InShowAnimation)
+	if (state == UpdateState::OnTop)
 	{
 		getContext().configManager->applySettings(nEngine);
-		State::setUpdateState(UpdateState::OnTop);
+		nEngine.fadeInScreen(1.f);
 	}
 	else if (state == UpdateState::InRemovalAnimation)
 	{
-		State::setUpdateState(UpdateState::ShouldBeRemoved);
+		for (auto& cmp : nComponents) cmp->fade(1.f, 0, 255);
+		nEngine.clearScreen(1.f);
 
+		removeAfter(1.f);
 	}
 	else
 	{

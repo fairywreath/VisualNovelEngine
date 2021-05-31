@@ -20,8 +20,7 @@ GUI::TextButton::TextButton(State::Context context, const std::string& text) :
 	nText.setOutlineColor(OutlineHoverColor);
 	nText.setLetterSpacing(1.6f);
 
-	nFadableText.setObjectColor(NormalColor);
-//	nFadableText.setBothFillOutline(true);
+	nFadableText.setBothFillOutline(true);
 }
 
 void GUI::TextButton::handleEvent(const sf::Event& event)
@@ -117,6 +116,8 @@ void GUI::TextButton::update(sf::Time dt)
 
 void GUI::TextButton::fade(float time, int targetAlpha, int startAlpha)
 {
+	nFadableText.setObjectColor(nText.getFillColor());
+	nFadableText.setOutlineColor(nText.getOutlineColor());
 	nFadableText.fade(time, targetAlpha, startAlpha);
 }
 

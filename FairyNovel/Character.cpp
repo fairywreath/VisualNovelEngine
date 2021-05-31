@@ -102,6 +102,11 @@ bool Character::setState(const std::string& id, float transitionTime) noexcept
 	return setState(id);		// instant
 }
 
+void Character::stopTransition()
+{
+	nInTransition = false;
+}
+
 
 bool Character::inAnimation() const
 {

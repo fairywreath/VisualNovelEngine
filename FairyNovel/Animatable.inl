@@ -51,7 +51,7 @@ void Animatable<T>::setOpacityAlpha(int alpha)
 template<typename T>
 int Animatable<T>::getOpacityAlpha() const
 {
-	assert(!inAnimation());
+//	assert(!inAnimation());
 
 	return nFadable.getOpacityAlpha();
 }

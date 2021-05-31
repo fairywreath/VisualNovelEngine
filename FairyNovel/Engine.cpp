@@ -293,22 +293,31 @@ void Engine::fadeInBackground(float time) noexcept
 */
 void Engine::clearScreen(float time) noexcept
 {
-	fadeScreen(time, 0);
+	// fadeScreen(time, 0);
+	for (auto& ch : nCharacters) ch->getEntity()->fade(time, 0);
+	for (auto& ent : nEntities) ent->fade(time, 0);
+
+	nBackground.fade(time, 0);
+	nDialogueBox.fade(time, 0);
+	nTextBackground.fade(time, 0);
 }
 
 void Engine::fadeInScreen(float time) noexcept
 {
-	fadeScreen(time, 255);
+	for (auto& ch : nCharacters) 
+	{
+		ch->stopTransition();
+		ch->getEntity()->fade(time, ch->getEntity()->getOpacityAlpha(), 0);
+	}
+	for (auto& ent : nEntities) 
+	{
+		ent->fade(time, ent->getOpacityAlpha(), 0);
+	}
+
+	nBackground.fade(time, nBackground.getOpacityAlpha(), 0);
+	nDialogueBox.fade(time, nDialogueBox.getOpacityAlpha(), 0);
+	nTextBackground.fade(time, nTextBackground.getOpacityAlpha(), 0);
 }
-
-void Engine::fadeScreen(float time, int targetAlpha) noexcept
-{
-	for (auto& ch : nCharacters) ch->getEntity()->fade(time, targetAlpha);
-	for (auto& ent : nEntities) ent->fade(time, targetAlpha);
-
-	nBackground.fade(time, targetAlpha);
-}
-
 
 /*
 	@entity cleanup

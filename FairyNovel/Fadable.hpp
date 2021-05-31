@@ -29,6 +29,8 @@ public:
 	int getOpacityAlpha() const;
 
 	void setObjectColor(const sf::Color& color);
+	void setOutlineColor(const sf::Color& color);
+
 	void setOutlineOnly(bool status);					// for outline squares for example
 	void setBothFillOutline(bool status);
 
@@ -53,10 +55,7 @@ private:
 	/*
 		@fade colours, defaults are white
 	*/
-	uint8_t nColorR;
-	uint8_t nColorG;
-	uint8_t nColorB;
-
+	sf::Color nFillColor;
 	sf::Color nOutlineColor;
 };
 

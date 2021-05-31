@@ -73,8 +73,9 @@ void MainMenuState::setupButtons()
 	nGUIWindow.setFillColor(sf::Color(255, 255, 255, 125));
 	nGUIWindow.setOutlineThickness(6);
 
-//	nFadableRect.setOutlineOnly(true);
-	nFadableRect.setObjectColor(sf::Color(255, 255, 255));
+	nFadableRect.setBothFillOutline(true);
+	nFadableRect.setOutlineColor(sf::Color(249, 169, 178));
+	nFadableRect.setObjectColor(sf::Color::White);
 
 	nRectMover.move(0.5, sf::Vector2f(ButtonsX - 40, -10), sf::Vector2f(ButtonsX, -10));
 }
@@ -97,30 +98,6 @@ void MainMenuState::draw()
 
 bool MainMenuState::update(sf::Time dt)
 {
-	if (getUpdateState() == UpdateState::InHideAnimation || getUpdateState() == UpdateState::InRemovalAnimation
-		|| getUpdateState() == UpdateState::InShowAnimation)
-	{
-		nAnimationTime += dt;
-		if (nAnimationTime.asSeconds() > FadeTime)
-		{
-			nAnimationTime = sf::Time::Zero;
-			switch (getUpdateState())
-			{
-			case UpdateState::InHideAnimation:
-				State::setUpdateState(UpdateState::DoNotUpdate);
-				break;
-			case UpdateState::InRemovalAnimation:
-				State::setUpdateState(UpdateState::ShouldBeRemoved);
-				break;
-			case UpdateState::InShowAnimation:
-				State::setUpdateState(UpdateState::OnTop);
-				break;
-			default:
-				break;
-			}
-		}
-	}
-
 	/*
 		@setup slideshow here
 	*/
@@ -144,6 +121,8 @@ bool MainMenuState::update(sf::Time dt)
 		nFadableRect.update(dt);
 		nRectMover.update(dt);
 	}
+
+	State::update(dt);
 
 	return false;
 }
@@ -176,25 +155,27 @@ bool MainMenuState::handleEvent(const sf::Event& event)
 void MainMenuState::setUpdateState(UpdateState state)
 {
 	State::setUpdateState(state);
-	if (state == UpdateState::InHideAnimation || state == UpdateState::InRemovalAnimation)
+	if (state == UpdateState::InRemovalAnimation)
 	{
 		for (const auto& cmp : nComponents)
 		{
 			cmp->fade(FadeTime, 0, 255);
 		}
 
-		nFadableRect.fade(FadeTime, 0, 255);
+		nFadableRect.fade(FadeTime, 0, 125);
 		nBackground.fade(FadeTime, 0, 255);
 		nTitle.fade(FadeTime, 0, 255);
+
+		removeAfter(FadeTime);
 	}
-	else if (state == UpdateState::InShowAnimation)
+	else if (state == UpdateState::OnTop)
 	{
 		for (const auto& cmp : nComponents)
 		{
 			cmp->fade(FadeTime, 255, 0);
 		}
 
-		nFadableRect.fade(FadeTime, 255, 0);
+		nFadableRect.fade(FadeTime, 125, 0);
 		nBackground.fade(FadeTime, 255, 0);
 		nTitle.fade(FadeTime, 255, 0);
 	}

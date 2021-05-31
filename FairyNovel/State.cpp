@@ -19,7 +19,11 @@ State::Context::Context(sf::RenderWindow& window, TextureManager& textures, Font
 State::State(StateStack& stack, Context context) :
 	nStack(&stack),		
 	nContext(context),
-	nUpdateState(UpdateState::OnTop)
+	nUpdateState(UpdateState::OnTop),
+	nInStopUpdate(false),
+	nStopUpdateTime(sf::Time::Zero),
+	nStopUpdateAmount(0.f),
+	nInRemove(false)
 {
 }
 
@@ -27,6 +31,29 @@ State::State(StateStack& stack, Context context) :
 State::~State()
 {
 	// do nothing here
+}
+
+bool State::update(sf::Time dt)
+{
+	if (nInStopUpdate)
+	{
+		nStopUpdateTime += dt;
+		if (nStopUpdateTime.asSeconds() > nStopUpdateAmount)
+		{
+			if (nInRemove)
+			{
+				setUpdateState(UpdateState::ShouldBeRemoved);
+			}
+			else
+			{
+				setUpdateState(UpdateState::DoNotUpdate);
+				nStopUpdateTime = sf::Time::Zero;
+			}
+			nInStopUpdate = false;
+		}
+	}
+
+	return false;
 }
 
 void State::setUpdateState(UpdateState state)
@@ -37,6 +64,18 @@ void State::setUpdateState(UpdateState state)
 State::UpdateState State::getUpdateState() const
 {
 	return nUpdateState;
+}
+
+void State::stopUpdateAfter(float time)
+{
+	nInStopUpdate = true;
+	nStopUpdateAmount = time;
+}
+
+void State::removeAfter(float time)
+{
+	stopUpdateAfter(time);
+	nInRemove = true;
 }
 
 void State::requestStackPush(States::ID stateID)

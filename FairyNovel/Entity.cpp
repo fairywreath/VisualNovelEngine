@@ -92,7 +92,7 @@ void Entity::setOpacityAlpha(int alpha)
 
 int Entity::getOpacityAlpha() const
 {
-	assert(!inAnimation());
+//	assert(!inAnimation());
 	
 	return nAnimeSprite.getOpacityAlpha();
 }

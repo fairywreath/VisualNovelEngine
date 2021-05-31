@@ -35,6 +35,7 @@ public:
 	bool setState(const std::string& id) noexcept;
 	bool setState(const std::string& id, float transitionTime) noexcept;
 
+	void stopTransition();
 
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
