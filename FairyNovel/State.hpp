@@ -62,29 +62,24 @@ public:
 	virtual bool update(sf::Time dt) = 0;
 	virtual bool handleEvent(const sf::Event& event) = 0;
 
-	/*
-		@do right when current state is at the top
-	*/
-	virtual void refresh();
-
 public:
-
+	enum class UpdateState
+	{
+		OnTop,
+		InRemovalAnimation,
+		InHideAnimation,
+		InShowAnimation,
+		ShouldBeRemoved,
+		DoNotUpdate
+	};
 	/*
 		@for in between fades
 	*/
-	virtual void setToRemovalAnimation();
-	
-	bool inRemovalAnimation() const;
-	void setShouldBeRemoved();
-	bool shouldBeRemoved() const;
+	virtual void setUpdateState(UpdateState state);
+	UpdateState getUpdateState() const;
 
 private:
-	/*
-		@for in between fades
-	*/
-	bool nInRemovalAnimation;
-	bool nShouldBeRemoved;
-
+	UpdateState nUpdateState;
 
 protected:
 	void requestStackPush(States::ID stateID);

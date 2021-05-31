@@ -3,7 +3,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 GUI::ConfigLabel::ConfigLabel(const std::string& text, const sf::Font& font) :
-	Label(text, font)
+	Label(text, font),
+	nFadableRect(nRect)
 {
 	/*
 		@default fixed values
@@ -18,6 +19,18 @@ GUI::ConfigLabel::ConfigLabel(const std::string& text, const sf::Font& font) :
 	nRect.setFillColor(sf::Color(232, 126, 146));
 
 	setOriginBottom();
+}
+
+void GUI::ConfigLabel::update(sf::Time dt)
+{
+	Label::update(dt);
+	nFadableRect.update(dt);
+}
+
+void GUI::ConfigLabel::fade(float time, int targetAlpha, int startAlpha)
+{
+	Label::fade(time, targetAlpha, startAlpha);
+	nFadableRect.fade(time, targetAlpha, startAlpha);
 }
 
 void GUI::ConfigLabel::draw(sf::RenderTarget& target, sf::RenderStates states) const

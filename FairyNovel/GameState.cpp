@@ -113,9 +113,24 @@ bool GameState::handleEvent(const sf::Event& event)
 	return false;
 }
 
-void GameState::refresh()
+void GameState::setUpdateState(UpdateState state)
 {
-	getContext().configManager->applySettings(nEngine);
+	State::setUpdateState(state);
+
+	if (state == UpdateState::InShowAnimation)
+	{
+		getContext().configManager->applySettings(nEngine);
+		State::setUpdateState(UpdateState::OnTop);
+	}
+	else if (state == UpdateState::InRemovalAnimation)
+	{
+		State::setUpdateState(UpdateState::ShouldBeRemoved);
+
+	}
+	else
+	{
+
+	}
 }
 
 void GameState::setButton(GUI::TextButton& btn)

@@ -12,6 +12,7 @@ GUI::ConfigButton::ConfigButton(State::Context context) :
 	NormalColor(252, 219, 226),
 	nAmount(5),
 	nRectangles(NumRects),
+	nFadableRects(NumRects),
 	ButtonBounds(-RectDist, 0,
 		((NumRects + 1) * RectWidth) + (NumRects * (RectDist - RectWidth)), RectHeight)
 {
@@ -19,6 +20,23 @@ GUI::ConfigButton::ConfigButton(State::Context context) :
 	updateColors();
 
 	setOrigin(0, nRectangles[0].getGlobalBounds().top + nRectangles[0].getGlobalBounds().height);
+}
+
+void GUI::ConfigButton::update(sf::Time dt)
+{
+	for (auto& fadRect : nFadableRects)
+	{
+		fadRect->update(dt);
+	}
+}
+
+void GUI::ConfigButton::fade(float time, int targetAlpha, int startAlpha)
+{
+	for (int i = 0; i < NumRects; i++)
+	{
+	//	nFadableRects[i]->setObjectColor(nRectangles[i].getFillColor());
+		nFadableRects[i]->fade(time, targetAlpha, startAlpha);
+	}
 }
 
 void GUI::ConfigButton::handleEvent(const sf::Event& event)
@@ -93,12 +111,14 @@ void GUI::ConfigButton::initializeRectangles()
 	float x{ 0.f };
 	float y{ 0.f };
 
-	for (auto& rect : nRectangles)
+	for (int i = 0; i < NumRects; i++)
 	{
-		rect.setSize(sf::Vector2f(RectWidth, RectHeight));
-		rect.setPosition(x, y);
+		nRectangles[i].setSize(sf::Vector2f(RectWidth, RectHeight));
+		nRectangles[i].setPosition(x, y);
 
 		x += RectDist;
+
+		nFadableRects[i] = std::make_unique<FadableRectShape>(nRectangles[i]);
 	}
 }
 
@@ -106,12 +126,15 @@ void GUI::ConfigButton::updateColors(bool hover)
 {
 	for (int i = 0; i < NumRects; i++)
 	{
-		if (i < nAmount) {
+		if (i < nAmount) 
+		{
 			if (hover) nRectangles[i].setFillColor(HoverColor);
 			else nRectangles[i].setFillColor(FilledColor);
 		} else {
 			nRectangles[i].setFillColor(NormalColor);
 		}
+
+		nFadableRects[i]->setObjectColor(nRectangles[i].getFillColor());
 	}
 }
 

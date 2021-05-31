@@ -18,7 +18,7 @@ public:
 	bool update(sf::Time dt) override;
 	bool handleEvent(const sf::Event& event) override;
 
-	void refresh() override;
+	void setUpdateState(UpdateState state) override;
 
 private:
 	void setButton(GUI::TextButton& btn);
@@ -32,6 +32,9 @@ private:
 	void setupButtons();
 
 private:
+	sf::Time nAnimationTime;			// animation time for in between states fading
+	static constexpr auto FadeTime = 1.f;
+
 	/*
 		@manual variables for "slideshow"
 	*/
@@ -41,7 +44,7 @@ private:
 	/*
 		@GUI background :p, so bad but who cares
 	*/
-	AnimatableRectShape nAnimeRect;
+	FadableRectShape nFadableRect;
 	Movable nRectMover;
 	sf::RectangleShape nGUIWindow;
 

@@ -8,6 +8,7 @@
 #include "CheckBox.hpp"
 #include "Container.hpp"
 #include "TextButton.hpp"
+#include "Components.hpp"
 
 #include <SFML/Graphics/RectangleShape.hpp>
 
@@ -20,7 +21,7 @@ public:
 	bool update(sf::Time dt) override;
 	bool handleEvent(const sf::Event& event) override;
 
-	void setToRemovalAnimation() override;
+	void setUpdateState(UpdateState state) override;
 
 private:
 	/*
@@ -107,7 +108,12 @@ private:
 		@bg
 	*/
 	sf::RectangleShape nBackground;
+	FadableRectShape nFadableBg;
 	sf::Sprite nSprite;
+	FadableSprite nFadeSprite;
+
+	static constexpr auto FadeTime = 1.f;
+	sf::Time nAnimationTime;
 };
 
 

@@ -19,8 +19,7 @@ State::Context::Context(sf::RenderWindow& window, TextureManager& textures, Font
 State::State(StateStack& stack, Context context) :
 	nStack(&stack),		
 	nContext(context),
-	nInRemovalAnimation(false),
-	nShouldBeRemoved(false)
+	nUpdateState(UpdateState::OnTop)
 {
 }
 
@@ -30,28 +29,14 @@ State::~State()
 	// do nothing here
 }
 
-void State::refresh()
+void State::setUpdateState(UpdateState state)
 {
+	nUpdateState = state;
 }
 
-void State::setToRemovalAnimation()
+State::UpdateState State::getUpdateState() const
 {
-	nInRemovalAnimation = true;
-}
-
-bool State::inRemovalAnimation() const
-{
-	return nInRemovalAnimation;
-}
-
-void State::setShouldBeRemoved() 
-{
-	nShouldBeRemoved = true;
-}
-
-bool State::shouldBeRemoved() const
-{
-	return nShouldBeRemoved;
+	return nUpdateState;
 }
 
 void State::requestStackPush(States::ID stateID)

@@ -26,7 +26,7 @@ public:
 	bool update(sf::Time dt) override;
 	bool handleEvent(const sf::Event& event) override;
 
-	void refresh() override;
+	void setUpdateState(UpdateState state) override;
 
 private:
 	void setButton(GUI::TextButton& btn);

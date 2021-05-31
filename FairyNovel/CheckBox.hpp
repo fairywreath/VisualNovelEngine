@@ -47,8 +47,8 @@ private:
 	const sf::Color OutlineColor;
 	const sf::Color HoverColor;
 
-	AnimatableRectShape nAnimeRect;
-	AnimatableSprite nAnimeSprite;
+	FadableRectShape nFadableRect;
+	FadableSprite nFadableSprite;
 
 	sf::RenderWindow& nWindow;
 

@@ -24,8 +24,6 @@ public:
 	bool update(sf::Time dt) override;
 	bool handleEvent(const sf::Event& event) override;
 
-	void refresh() override;
-
 	void updateBacklog(int delta);		
 
 private:

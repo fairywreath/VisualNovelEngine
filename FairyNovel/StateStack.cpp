@@ -1,6 +1,7 @@
 #include "StateStack.hpp"
 
 #include <cassert>
+#include <iostream>
 
 
 StateStack::StateStack(State::Context context) :
@@ -24,14 +25,6 @@ State::Ptr StateStack::createState(States::ID stateID)
 
 void StateStack::handleEvent(const sf::Event& event)
 {
-	//for (auto itr = nStack.rbegin(); itr != nStack.rend(); itr++)
-	//{
-	//	if (!(*itr)->handleEvent(event))
-	//	{
-	//		break;
-	//	}
-
-	//}
 	if (!nStack.empty())
 	{
 		(*nStack.rbegin())->handleEvent(event);
@@ -44,15 +37,23 @@ void StateStack::handleEvent(const sf::Event& event)
 
 void StateStack::update(sf::Time dt)
 {
-	//for (auto itr = nStack.rbegin(); itr != nStack.rend(); itr++)
-	//{
-	//	if (!(*itr)->update(dt))		
-	//		break;
-	//}
-
-	if (!nStack.empty())
+	for (auto itr = nStack.rbegin(); itr != nStack.rend();)
 	{
-		(*nStack.rbegin())->update(dt);
+		State::UpdateState state = (*itr)->getUpdateState();
+
+		if (state == State::UpdateState::ShouldBeRemoved)
+		{
+			itr = decltype(itr)(nStack.erase(std::next(itr).base()));
+			continue;
+		}
+
+		
+		if (state != State::UpdateState::DoNotUpdate)
+		{
+			(*itr)->update(dt);
+		}
+
+		itr++;
 	}
 
 	applyPendingChanges();
@@ -60,11 +61,16 @@ void StateStack::update(sf::Time dt)
 
 void StateStack::draw()
 {
-	//for (const auto& state : nStack)
-	//{
-	//	state->draw();
-	//}
-	if (!nStack.empty()) (*nStack.rbegin())->draw();
+	for (auto itr = nStack.begin(); itr != nStack.end(); itr++)
+	{
+		State::UpdateState state = (*itr)->getUpdateState();
+		if (state == State::UpdateState::DoNotUpdate || state == State::UpdateState::ShouldBeRemoved)
+		{
+			continue;
+		}
+
+		(*itr)->draw();
+	}
 }
 
 
@@ -76,16 +82,20 @@ void StateStack::applyPendingChanges()
 		{
 		case Action::Push:
 		{
+			if (!nStack.empty())
+			{
+				nStack.back()->setUpdateState(State::UpdateState::InHideAnimation);
+			}
 			nStack.push_back(createState(change.stateID));			
 			break;
 		}
 
 		case Action::Pop:
 		{
-			nStack.pop_back();
-			if (!nStack.empty())
+			nStack.back()->setUpdateState(State::UpdateState::InRemovalAnimation);
+			if (nStack.size() >= 2)
 			{
-				(*nStack.rbegin())->refresh();
+				(*++nStack.rbegin())->setUpdateState(State::UpdateState::InShowAnimation);
 			}
 			break;
 		}

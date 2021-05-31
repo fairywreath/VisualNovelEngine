@@ -5,7 +5,8 @@
 
 #include <iostream>
 
-GUI::Label::Label()
+GUI::Label::Label() :
+	nFadableText(nText)
 {
 }
 

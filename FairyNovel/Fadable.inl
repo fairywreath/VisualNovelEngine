@@ -1,3 +1,4 @@
+#include "Fadable.hpp"
 template<typename T>
 Fadable<T>::Fadable(T& resource) :
 	nObject(&resource),
@@ -12,7 +13,8 @@ Fadable<T>::Fadable(T& resource) :
 	nFadeTime(0),
 	nTargetOpacity(255),
 	nFadeElapsed(sf::Time::Zero),
-	nOutlineOnly(false)
+	nOutlineOnly(false),
+	nBothFillOutline(false)
 {
 }
 
@@ -122,7 +124,13 @@ void Fadable<T>::setObjectColor(const sf::Color& color)
 template<typename T>
 void Fadable<T>::setOutlineOnly(bool status)
 {
-	nOutlineOnly = true;
+	nOutlineOnly = status;
+}
+
+template<typename T>
+void Fadable<T>::setBothFillOutline(bool status)
+{
+	nBothFillOutline = status;
 }
 
 template<typename T>
@@ -137,6 +145,11 @@ void Fadable<T>::setObjectAlpha(int alpha)
 	if (nOutlineOnly)
 	{
 		nObject->setOutlineColor(sf::Color(nColorR, nColorG, nColorB, alpha));
+	}
+	else if (nBothFillOutline)
+	{
+		nObject->setOutlineColor(sf::Color(nColorR, nColorG, nColorB, alpha));
+		nObject->setFillColor(sf::Color(nColorR, nColorG, nColorB, alpha));
 	}
 	else
 	{

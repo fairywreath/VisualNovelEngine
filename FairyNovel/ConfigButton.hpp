@@ -2,6 +2,7 @@
 #define CONFIGBUTTON_CPP
 
 #include "Button.hpp"
+#include "Components.hpp"
 
 #include <SFML/Graphics/RectangleShape.hpp>
 
@@ -13,11 +14,16 @@ namespace GUI
 
 class ConfigButton : public Button
 {
+public:
+	using FadableRectPtr = std::unique_ptr<FadableRectShape>;
 
 public:
 	explicit ConfigButton(State::Context context);
 	~ConfigButton() override = default;
 	
+	void update(sf::Time dt) override;
+	void fade(float time, int targetAlpha, int startAlpha) override;
+
 	void handleEvent(const sf::Event& event) override;
 
 	int getAmount() const;
@@ -53,6 +59,11 @@ private:
 	const sf::RenderWindow& nWindow;
 
 	std::vector<sf::RectangleShape> nRectangles;
+	/*
+		@could be better with a single fadable object with array but whatever
+	*/
+	std::vector<FadableRectPtr> nFadableRects;
+
 	int nAmount;
 };
 

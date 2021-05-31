@@ -177,7 +177,3 @@ void BacklogState::updateBacklogs()
 {
 
 }
-
-void BacklogState::refresh()
-{
-}

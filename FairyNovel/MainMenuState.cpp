@@ -11,12 +11,13 @@ MainMenuState::MainMenuState(StateStack& stack, Context context) :
 	nExitBtn(context, "EXIT"),
 	nBgDone(false),
 	nTitleDone(false),
-	nAnimeRect(nGUIWindow),
-	nRectMover(&nGUIWindow)
+	nFadableRect(nGUIWindow),
+	nRectMover(&nGUIWindow),
+	nAnimationTime(sf::Time::Zero)
 {
 	initialize();
 
-	context.characterManager->playVoice("", "Media/VoiceLines/suoh_intro.ogg");
+	//context.characterManager->playVoice("", "Media/VoiceLines/suoh_intro.ogg");
 }
 
 MainMenuState::~MainMenuState()
@@ -53,6 +54,7 @@ void MainMenuState::setupButtons()
 		});
 
 	nConfigBtn.setCallback([this]() {
+	//	requestStackPop();
 		requestStackPush(States::ID::Config);
 		});
 
@@ -71,6 +73,9 @@ void MainMenuState::setupButtons()
 	nGUIWindow.setFillColor(sf::Color(255, 255, 255, 125));
 	nGUIWindow.setOutlineThickness(6);
 
+//	nFadableRect.setOutlineOnly(true);
+	nFadableRect.setObjectColor(sf::Color(255, 255, 255));
+
 	nRectMover.move(0.5, sf::Vector2f(ButtonsX - 40, -10), sf::Vector2f(ButtonsX, -10));
 }
 
@@ -85,13 +90,37 @@ void MainMenuState::draw()
 
 	if (nTitleDone)
 	{
-		window.draw(nAnimeRect);
+		window.draw(nFadableRect);
 		for (const auto& cmp : nComponents) window.draw(*cmp);
 	}
 }
 
 bool MainMenuState::update(sf::Time dt)
 {
+	if (getUpdateState() == UpdateState::InHideAnimation || getUpdateState() == UpdateState::InRemovalAnimation
+		|| getUpdateState() == UpdateState::InShowAnimation)
+	{
+		nAnimationTime += dt;
+		if (nAnimationTime.asSeconds() > FadeTime)
+		{
+			nAnimationTime = sf::Time::Zero;
+			switch (getUpdateState())
+			{
+			case UpdateState::InHideAnimation:
+				State::setUpdateState(UpdateState::DoNotUpdate);
+				break;
+			case UpdateState::InRemovalAnimation:
+				State::setUpdateState(UpdateState::ShouldBeRemoved);
+				break;
+			case UpdateState::InShowAnimation:
+				State::setUpdateState(UpdateState::OnTop);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
 	/*
 		@setup slideshow here
 	*/
@@ -112,7 +141,7 @@ bool MainMenuState::update(sf::Time dt)
 	if (nTitleDone)
 	{
 		for (const auto& cmp : nComponents) cmp->update(dt);
-		nAnimeRect.update(dt);
+		nFadableRect.update(dt);
 		nRectMover.update(dt);
 	}
 
@@ -144,9 +173,35 @@ bool MainMenuState::handleEvent(const sf::Event& event)
 	return false;
 }
 
-void MainMenuState::refresh()
+void MainMenuState::setUpdateState(UpdateState state)
 {
+	State::setUpdateState(state);
+	if (state == UpdateState::InHideAnimation || state == UpdateState::InRemovalAnimation)
+	{
+		for (const auto& cmp : nComponents)
+		{
+			cmp->fade(FadeTime, 0, 255);
+		}
 
+		nFadableRect.fade(FadeTime, 0, 255);
+		nBackground.fade(FadeTime, 0, 255);
+		nTitle.fade(FadeTime, 0, 255);
+	}
+	else if (state == UpdateState::InShowAnimation)
+	{
+		for (const auto& cmp : nComponents)
+		{
+			cmp->fade(FadeTime, 255, 0);
+		}
+
+		nFadableRect.fade(FadeTime, 255, 0);
+		nBackground.fade(FadeTime, 255, 0);
+		nTitle.fade(FadeTime, 255, 0);
+	}
+	else
+	{
+
+	}
 }
 
 void MainMenuState::setButton(GUI::TextButton& btn)
@@ -159,6 +214,7 @@ void MainMenuState::setButton(GUI::TextButton& btn)
 	btn.setHoverOutlineDist(0);
 	btn.setNormalColor(sf::Color(255, 255, 255));
 	btn.setHoverColor(sf::Color(161, 100, 108));
+
 	packComponent(&btn);
 }
 

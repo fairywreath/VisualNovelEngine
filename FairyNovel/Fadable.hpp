@@ -30,6 +30,7 @@ public:
 
 	void setObjectColor(const sf::Color& color);
 	void setOutlineOnly(bool status);					// for outline squares for example
+	void setBothFillOutline(bool status);
 
 private:
 	void setObjectAlpha(int alpha);
@@ -47,6 +48,7 @@ private:
 	bool nInFade;
 	sf::Time nFadeElapsed;
 	bool nOutlineOnly;
+	bool nBothFillOutline;
 
 	/*
 		@fade colours, defaults are white
@@ -54,6 +56,8 @@ private:
 	uint8_t nColorR;
 	uint8_t nColorG;
 	uint8_t nColorB;
+
+	sf::Color nOutlineColor;
 };
 
 /*

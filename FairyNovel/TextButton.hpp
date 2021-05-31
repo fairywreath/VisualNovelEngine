@@ -2,9 +2,7 @@
 #define TEXTBUTTON_HPP
 
 #include "Button.hpp"
-
 #include "Components.hpp"
-#include "Animatable.hpp"
 #include "Movable.hpp"
 
 namespace GUI
@@ -46,7 +44,7 @@ private:
 	bool checkMouseLocation() const;
 
 private:
-	AnimatableText nAnimeText;
+	FadableText nFadableText;
 	sf::Text nText;
 
 	Movable nMover;

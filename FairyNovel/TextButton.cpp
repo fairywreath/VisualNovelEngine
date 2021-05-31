@@ -6,7 +6,7 @@ GUI::TextButton::TextButton(State::Context context, const std::string& text) :
 	Button(context),
 	nWindow(*context.window),
 	nText(text, context.fonts->get("aria")),
-	nAnimeText(nText),
+	nFadableText(nText),
 	nMover(this),
 	NormalColor(sf::Color(249, 169, 178)),
 	HoverColor(232, 126, 146),
@@ -20,7 +20,8 @@ GUI::TextButton::TextButton(State::Context context, const std::string& text) :
 	nText.setOutlineColor(OutlineHoverColor);
 	nText.setLetterSpacing(1.6f);
 
-	nAnimeText.setObjectColor(NormalColor);
+	nFadableText.setObjectColor(NormalColor);
+//	nFadableText.setBothFillOutline(true);
 }
 
 void GUI::TextButton::handleEvent(const sf::Event& event)
@@ -110,13 +111,13 @@ void GUI::TextButton::refreshOrigin()
 
 void GUI::TextButton::update(sf::Time dt)
 {
-	if (nAnimeText.inAnimation()) nAnimeText.update(dt);
+	if (nFadableText.inAnimation()) nFadableText.update(dt);
 	if (nMover.inMovement()) nMover.update(dt);
 }
 
 void GUI::TextButton::fade(float time, int targetAlpha, int startAlpha)
 {
-	nAnimeText.fade(time, targetAlpha, startAlpha);
+	nFadableText.fade(time, targetAlpha, startAlpha);
 }
 
 void GUI::TextButton::move(float time, const sf::Vector2f& dest, const sf::Vector2f& source)

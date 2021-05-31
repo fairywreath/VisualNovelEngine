@@ -6,6 +6,7 @@
 */
 
 #include "Button.hpp"
+#include "Components.hpp"
 
 namespace GUI
 {

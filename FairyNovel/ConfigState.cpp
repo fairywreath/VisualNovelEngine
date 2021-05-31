@@ -14,7 +14,9 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 		@bg
 	*/
 	nBackground(static_cast<sf::Vector2f>(context.window->getSize())),
+	nFadableBg(nBackground),
 	nSprite(context.textures->get("EteFlowers")),
+	nFadeSprite(nSprite),
 	/*
 		@labels
 	*/
@@ -49,7 +51,11 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 		@text buttons
 	*/
 	nExitButton(context, "EXIT"),
-	nSetupDefaultButton(context, "SETUP DEFAULT")
+	nSetupDefaultButton(context, "SETUP DEFAULT"),
+	/*
+		@misc
+	*/
+	nAnimationTime(sf::Time::Zero)
 {
 	/*
 		@title label
@@ -66,7 +72,6 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 	setNormalLabel(nBgmLbl);
 	nBgmLbl.setPosition(Label1X, Row1Y);
 	packComponent(&nBgmLbl);
-	nBgmLbl.fade(2, 255, 0);
 
 	setNormalLabel(nSeLbl);
 	nSeLbl.setPosition(Label2X, Row1Y);
@@ -184,6 +189,7 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 
 	nBackground.setFillColor(sf::Color::White);
 	nBackground.setPosition(0, 0);
+	nFadableBg.setObjectColor(sf::Color::White);
 	nSprite.setPosition(880, 20);
 //	context.musicPlayer->play("mainmenu");
 
@@ -192,10 +198,7 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 	/*
 		@misc animations
 	*/
-	nSetupDefaultButton.fade(0.6f, 255, 0);
-	nAutoModeCB.fade(2.f, 255, 0);
-	nAutoModeCB.setStatus(true);
-	//nSetupDefaultButton.move(5, sf::Vector2f(170.f, TitleLabelY), sf::Vector2f(100, 100));
+	setUpdateState(UpdateState::InShowAnimation);
 }
 
 void ConfigState::refreshUI()
@@ -228,6 +231,33 @@ bool ConfigState::update(sf::Time dt)
 {
 	for (const auto& cmp : nComponents) cmp->update(dt);
 
+	nFadableBg.update(dt);
+	nFadeSprite.update(dt);
+
+	if (getUpdateState() == UpdateState::InHideAnimation || getUpdateState() == UpdateState::InRemovalAnimation
+		|| getUpdateState() == UpdateState::InShowAnimation)
+	{
+		nAnimationTime += dt;
+		if (nAnimationTime.asSeconds() > FadeTime)
+		{
+			nAnimationTime += dt;
+			switch (getUpdateState())
+			{
+			case UpdateState::InHideAnimation:
+				State::setUpdateState(UpdateState::DoNotUpdate);
+				break;
+			case UpdateState::InRemovalAnimation:
+				State::setUpdateState(UpdateState::ShouldBeRemoved);
+				break;
+			case UpdateState::InShowAnimation:
+				State::setUpdateState(UpdateState::OnTop);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
 	return false;
 }
 
@@ -235,12 +265,6 @@ bool ConfigState::update(sf::Time dt)
 bool ConfigState::handleEvent(const sf::Event& event)
 {
 	for (const auto& cmp : nComponents) cmp->handleEvent(event);
-
-	if (event.type == sf::Event::KeyPressed || event.type == sf::Event::MouseButtonPressed)
-	{
-	//	requestStackPop();;
-	//	requestStackPush(States::ID::Game);
-	}
 
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 	{
@@ -250,9 +274,36 @@ bool ConfigState::handleEvent(const sf::Event& event)
 	return false;			
 }
 
-void ConfigState::setToRemovalAnimation()
+void ConfigState::setUpdateState(UpdateState state)
 {
+	State::setUpdateState(state);
+	if (state == UpdateState::InHideAnimation || state == UpdateState::InRemovalAnimation)
+	{
+		for (const auto& cmp : nComponents)
+		{
+			cmp->fade(FadeTime, 0, 255);
+		}
+
+		nFadableBg.fade(FadeTime, 0, 255);
+		nFadeSprite.fade(FadeTime, 0, 255);
+	}
+	else if (state == UpdateState::InShowAnimation)
+	{
+		for (const auto& cmp : nComponents)
+		{
+			cmp->fade(FadeTime, 255, 0);
+		}
+
+		nFadableBg.fade(FadeTime, 255, 0);
+		nFadeSprite.fade(FadeTime, 255, 0);
+	}
+	else
+	{
+
+	}
 }
+
+
 
 void ConfigState::setNormalLabel(GUI::Label& label)
 {
