@@ -3,6 +3,7 @@
 
 #include "Component.hpp"
 #include "ResourceIdentifiers.hpp"
+#include "Components.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 
@@ -37,20 +38,21 @@ public:
 	int getSize() const;
 
 	void centerOriginX();
-	void refreshOrigin();		// set origin to bottom line of text
-	// same as
 	void setOriginBottom();
 
 	void setOriginLeft();
 	void setOriginRight();
 	void setOriginTop();
 
+	void fade(float time, int targetAlpha, int startAlpha) override;
+	void update(sf::Time dt) override;
+
 protected:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 protected:
 	sf::Text nText;
-
+	FadableText nFadableText;
 };
 
 }

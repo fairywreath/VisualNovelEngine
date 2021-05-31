@@ -170,6 +170,8 @@
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Animatable.hpp" />
     <ClInclude Include="Entity.hpp" />
+    <ClInclude Include="Blurable.hpp" />
+    <ClInclude Include="Fadable.hpp" />
     <ClInclude Include="FadeEntityCommand.hpp" />
     <ClInclude Include="FadeOutBackgroundCommand.hpp" />
     <ClInclude Include="ConfigManager.hpp" />
@@ -207,7 +209,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Achievement.cpp" />
-    <ClCompile Include="Animatable.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BacklogState.cpp" />
     <ClCompile Include="BlurEntityCommand.cpp" />
@@ -233,6 +234,7 @@
     <ClCompile Include="DisplayTextCommand.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Fadable.cpp" />
     <ClCompile Include="FadeEntityCommand.cpp" />
     <ClCompile Include="FadeOutBackgroundCommand.cpp" />
     <ClCompile Include="ConfigManager.cpp" />
@@ -256,6 +258,7 @@
     <ClCompile Include="RegisterEngine.cpp" />
     <ClCompile Include="RemoveEntityCommand.cpp" />
     <ClCompile Include="Scanner.cpp" />
+    <ClCompile Include="Blurable.cpp" />
     <ClCompile Include="ShowDialogueBoxCommand.cpp" />
     <ClCompile Include="SlideShow.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
@@ -269,6 +272,7 @@
   <ItemGroup>
     <None Include="Animatable.inl" />
     <None Include="Blur.frag" />
+    <None Include="Fadable.inl" />
     <None Include="Media\Shaders\Add.frag" />
     <None Include="Media\Shaders\Blur2.frag" />
     <None Include="Media\Shaders\Brightness.frag" />

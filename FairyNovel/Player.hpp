@@ -16,20 +16,17 @@ public:
 	void addPoints(const std::string& route, int amount);
 	int getPoints(const std::string& route) const;
 
-	void unlock(const std::string& achievement);
+	bool unlock(const std::string& achievement);		// return false if achievement doesnt exist
 	void unlockIfPointsSuffice(int points, const std::string& route, const std::string& achievement);
 
-	const std::vector<Achievement*>& getUnlocked() const;
-	const std::vector<AchPtr>& getAchievments() const;
-
+	bool isUnlocked(const std::string& achivement) const;
 
 	void addRoute(const std::string& name);
 	void addAchievement(const std::string& id, const sf::Texture& locked, const sf::Texture& unlocked);
 
 private:
 	std::unordered_map<std::string, int> nRoutesMap;
-	std::vector<AchPtr> nAchievements;
-	std::vector<Achievement*> nUnlocked;
+	std::unordered_map<std::string, AchPtr> nAchievements;
 
 };
 

@@ -4,8 +4,7 @@
 
 Player::Player() :
 	nRoutesMap(),
-	nAchievements(),
-	nUnlocked()
+	nAchievements()
 {
 }
 
@@ -22,7 +21,14 @@ void Player::addRoute(const std::string& name)
 
 void Player::addAchievement(const std::string& id, const sf::Texture& locked, const sf::Texture& unlocked)
 {
-	nAchievements.push_back(std::make_unique<Achievement>(id, locked, unlocked));
+	if (nAchievements.find(id) == nAchievements.end())
+	{
+		// log
+		return;
+	}
+
+	nAchievements.insert(std::make_pair(id, 
+		std::make_unique<Achievement>(id, locked, unlocked)));
 }
 
 void Player::addPoints(const std::string& route, int amount)
@@ -46,21 +52,16 @@ int Player::getPoints(const std::string& route) const
 	return nRoutesMap.at(route);
 }
 
-void Player::unlock(const std::string& achievement)
+bool Player::unlock(const std::string& achievement)
 {
-	auto found = std::find_if(nAchievements.begin(), nAchievements.end(), 
-		[&](const AchPtr& ac) {
-			return ac->getIdentifier() == achievement;
-		});
-
-	if (found != nAchievements.end())
-	{
-		(*found)->unlock();
-	}
-	else
+	if (nAchievements.find(achievement) == nAchievements.end())
 	{
 		// log
+		return false;
 	}
+
+	nAchievements.at(achievement)->unlock();
+	return true;
 }
 
 void Player::unlockIfPointsSuffice(int points, const std::string& route,  const std::string& achievement)
@@ -76,14 +77,15 @@ void Player::unlockIfPointsSuffice(int points, const std::string& route,  const 
 	unlock(achievement);
 }
 
-const std::vector<Achievement*>& Player::getUnlocked() const
+bool Player::isUnlocked(const std::string& achievement) const
 {
-	return nUnlocked;
-}
+	if (nAchievements.find(achievement) == nAchievements.end())
+	{
+		// log
+		return false;
+	}
 
-const std::vector<Player::AchPtr>& Player::getAchievments() const
-{
-	return nAchievements;
+	return !nAchievements.at(achievement)->isLocked();
 }
 
 

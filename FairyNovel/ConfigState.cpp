@@ -66,6 +66,7 @@ ConfigState::ConfigState(StateStack& stack, Context context) :
 	setNormalLabel(nBgmLbl);
 	nBgmLbl.setPosition(Label1X, Row1Y);
 	packComponent(&nBgmLbl);
+	nBgmLbl.fade(2, 255, 0);
 
 	setNormalLabel(nSeLbl);
 	nSeLbl.setPosition(Label2X, Row1Y);
@@ -247,6 +248,10 @@ bool ConfigState::handleEvent(const sf::Event& event)
 	}
 
 	return false;			
+}
+
+void ConfigState::setToRemovalAnimation()
+{
 }
 
 void ConfigState::setNormalLabel(GUI::Label& label)

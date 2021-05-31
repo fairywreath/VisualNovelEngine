@@ -41,7 +41,7 @@ public:
 
 	virtual sf::FloatRect getBoundingRect() const;
 
-	virtual void fade(float time, int start, int end);
+	virtual void fade(float time, int targetAlpha, int startAlpha);
 	virtual void move(float time, const sf::Vector2f& target, const sf::Vector2f& start);
 
 private:

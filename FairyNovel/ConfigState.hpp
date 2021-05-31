@@ -20,6 +20,7 @@ public:
 	bool update(sf::Time dt) override;
 	bool handleEvent(const sf::Event& event) override;
 
+	void setToRemovalAnimation() override;
 
 private:
 	/*

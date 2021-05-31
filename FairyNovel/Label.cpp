@@ -10,15 +10,16 @@ GUI::Label::Label()
 }
 
 GUI::Label::Label(const std::string& text, const sf::Font& font) :
-	nText(text, font)
+	nText(text, font),
+	nFadableText(nText)
 {
 	/*
 		@default size
 	*/
 	nText.setCharacterSize(18);
 
-	// Util::centerOrigin<sf::Text>(nText);
-	refreshOrigin();
+	setOriginBottom();
+	nFadableText.setObjectColor(nText.getFillColor());
 }
 
 bool GUI::Label::isSelectable() const
@@ -36,25 +37,25 @@ void GUI::Label::handleEvent(const sf::Event& event)
 void GUI::Label::setText(const std::string& text)
 {
 	nText.setString(text);
-	// Util::centerOrigin<sf::Text>(nText);
-	refreshOrigin();
+	setOriginBottom();
 }
 
 void GUI::Label::setFont(const sf::Font& font)
 {
 	nText.setFont(font);
-	refreshOrigin();
+	setOriginBottom();
 }
 
 void GUI::Label::setSize(unsigned int size)
 {
 	nText.setCharacterSize(size);
-	refreshOrigin();
+	setOriginBottom();
 }
 
 void GUI::Label::setColor(const sf::Color& color)
 {
 	nText.setFillColor(color);
+	nFadableText.setObjectColor(nText.getFillColor());
 }
 
 int GUI::Label::getSize() const
@@ -64,6 +65,9 @@ int GUI::Label::getSize() const
 
 void GUI::Label::centerOriginX()
 {
+	/*
+		@set origin center and bottom
+	*/
 	std::string curr = nText.getString();
 	nText.setString("SHINOBU");			// all caps
 	setOrigin((nText.getGlobalBounds().width + nText.getGlobalBounds().left) / 2.f
@@ -71,19 +75,12 @@ void GUI::Label::centerOriginX()
 	nText.setString(curr);
 }
 
-void GUI::Label::refreshOrigin()
+
+void GUI::Label::setOriginBottom()
 {
 	/*
 		@refresh without underlying below line strokes
 	*/
-	std::string curr = nText.getString();
-	nText.setString("SHINOBU");			// all caps
-	setOrigin(0,nText.getGlobalBounds().top +  nText.getGlobalBounds().height);
-	nText.setString(curr);
-}
-
-void GUI::Label::setOriginBottom()
-{
 	std::string curr = nText.getString();
 	nText.setString("SHINOBU");			// all caps
 	setOrigin(getOrigin().x, nText.getGlobalBounds().top + nText.getGlobalBounds().height);
@@ -108,6 +105,16 @@ void GUI::Label::setOriginTop()
 	nText.setString("SHINOBU");			// all caps
 	setOrigin(getOrigin().x, nText.getGlobalBounds().top);
 	nText.setString(curr);
+}
+
+void GUI::Label::fade(float time, int targetAlpha, int startAlpha)
+{
+	nFadableText.fade(time, targetAlpha, startAlpha);
+}
+
+void GUI::Label::update(sf::Time dt)
+{
+	nFadableText.update(dt);
 }
 
 void GUI::Label::draw(sf::RenderTarget& target, sf::RenderStates states) const

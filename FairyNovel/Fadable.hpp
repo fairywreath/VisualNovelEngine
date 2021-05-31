@@ -1,13 +1,10 @@
-#ifndef ANIMATABLE_HPP
-#define ANIMATABLE_HPP
+#ifndef FADABLE_HPP
+#define FADABLE_HPP
 
 #include <cassert>
 #include <stdint.h>
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
-#include "Fadable.hpp"
-#include "Blurable.hpp"
 #include "Logger.hpp"
 
 /*
@@ -16,39 +13,54 @@
 */
 
 template <typename T>
-class Animatable : public sf::Drawable
+class Fadable : public sf::Drawable
 {
-public:		
-	explicit Animatable(T& resource);
+public:
+	explicit Fadable(T& resource);
 
 	void update(sf::Time dt);
 
 	void fade(float time, int targetAlpha, int startAlpha);;
-	void blur(float time, float endPerc, float startPerc);
 
 	bool inAnimation() const;
 	void skipAnimation();
 
 	void setOpacityAlpha(int alpha);
 	int getOpacityAlpha() const;
-	float getBlurPercentage() const;
-
-	void setShaderUniform(float args);
 
 	void setObjectColor(const sf::Color& color);
-
-	void setOutlineOnly(bool status);
+	void setOutlineOnly(bool status);					// for outline squares for example
 
 private:
+	void setObjectAlpha(int alpha);
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
 
 private:
 	T* nObject;
+	/*
+		@fading
+	*/
+	int nOpacity;
+	int nTargetOpacity;
+	float nFadeTime;
+	bool nInFade;
+	sf::Time nFadeElapsed;
+	bool nOutlineOnly;
 
-	Fadable<T> nFadable;
-	Blurable nBlurable;
+	/*
+		@fade colours, defaults are white
+	*/
+	uint8_t nColorR;
+	uint8_t nColorG;
+	uint8_t nColorB;
 };
 
-#include "Animatable.inl"
-#endif
+/*
+	@full member specializations
+*/
+template<>
+void Fadable<sf::Sprite>::setObjectAlpha(int alpha);
 
+#include "Fadable.inl"
+#endif

@@ -8,7 +8,6 @@
 #include "Config.hpp"
 #include "CharacterBlueprint.hpp"
 #include "ConfigManager.hpp"
-#include "VoicePlayer.hpp"
 #include "CharacterManager.hpp"
 
 #include <SFML/System/Time.hpp>
@@ -68,11 +67,24 @@ public:
 	*/
 	virtual void refresh();
 
+public:
+
 	/*
-		@will need to add this
+		@for in between fades
 	*/
-	// void fade();
-	// bool removed() const;
+	virtual void setToRemovalAnimation();
+	
+	bool inRemovalAnimation() const;
+	void setShouldBeRemoved();
+	bool shouldBeRemoved() const;
+
+private:
+	/*
+		@for in between fades
+	*/
+	bool nInRemovalAnimation;
+	bool nShouldBeRemoved;
+
 
 protected:
 	void requestStackPush(States::ID stateID);

@@ -228,9 +228,6 @@
     <ClCompile Include="CommandManager.cpp">
       <Filter>Header Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Animatable.cpp">
-      <Filter>Header Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Movable.cpp">
       <Filter>Header Files\Entities</Filter>
     </ClCompile>
@@ -260,6 +257,12 @@
     </ClCompile>
     <ClCompile Include="CharacterManager.cpp">
       <Filter>Header Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Blurable.cpp">
+      <Filter>Header Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Fadable.cpp">
+      <Filter>Header Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -449,6 +452,12 @@
     <ClInclude Include="CharacterManager.hpp">
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="Blurable.hpp">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Fadable.hpp">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ResourceManager.inl">
@@ -479,6 +488,9 @@
       <Filter>Header Files\ShaderFIles</Filter>
     </None>
     <None Include="Animatable.inl">
+      <Filter>Header Files\Entities</Filter>
+    </None>
+    <None Include="Fadable.inl">
       <Filter>Header Files\Entities</Filter>
     </None>
   </ItemGroup>

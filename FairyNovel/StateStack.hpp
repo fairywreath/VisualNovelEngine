@@ -7,6 +7,7 @@
 #include "State.hpp"
 #include "StateIdentifiers.hpp"
 
+#include <list>
 #include <vector>
 #include <functional>
 #include <map>
@@ -61,7 +62,7 @@ private:
 
 
 private:
-	std::vector<State::Ptr> nStack;				
+	std::list<State::Ptr> nStack;				
 	std::vector<PendingChange> nPendingList;			
 
 	State::Context nContext;			

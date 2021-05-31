@@ -17,8 +17,10 @@ State::Context::Context(sf::RenderWindow& window, TextureManager& textures, Font
 }
 
 State::State(StateStack& stack, Context context) :
-	nStack(&stack),		// set statestack pointer
-	nContext(context)		// initialize context
+	nStack(&stack),		
+	nContext(context),
+	nInRemovalAnimation(false),
+	nShouldBeRemoved(false)
 {
 }
 
@@ -30,6 +32,26 @@ State::~State()
 
 void State::refresh()
 {
+}
+
+void State::setToRemovalAnimation()
+{
+	nInRemovalAnimation = true;
+}
+
+bool State::inRemovalAnimation() const
+{
+	return nInRemovalAnimation;
+}
+
+void State::setShouldBeRemoved() 
+{
+	nShouldBeRemoved = true;
+}
+
+bool State::shouldBeRemoved() const
+{
+	return nShouldBeRemoved;
 }
 
 void State::requestStackPush(States::ID stateID)
