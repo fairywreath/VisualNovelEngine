@@ -33,7 +33,7 @@
 <CharacterState> (mayuri) "State: state1; Fade: 0.5; Wait: False"
 
 <Label> (nervous)
-<Jump> (wife)
+#<Jump> (wife)
 <DisplayText> (Mayuri) "Ahahahah, sure Suoh. You always get nervous when I get close to you. But this never happense when we are on the bed though"
 <MoveEntity> (mayuri) "Target: 700,50; Time: 1.32; Wait: True"
 

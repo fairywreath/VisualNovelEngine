@@ -8,7 +8,6 @@
 #include "StateIdentifiers.hpp"
 
 #include <list>
-#include <vector>
 #include <functional>
 #include <map>
 
@@ -26,7 +25,9 @@ public:
 	enum class Action	
 	{
 		Push,
+		PushAfter,
 		Pop,
+		PopAfter,
 		Clear
 	};
 
@@ -42,10 +43,14 @@ public:
 	void handleEvent(const sf::Event& event);
 	
 	void pushState(States::ID stateID);
+	void pushStateAfter(States::ID stateId, float duration);
 	void popState();
+	void popStateAfter(float duration);
 	void clearStates();
 
 	bool isEmpty() const;				// check state of the statestack
+
+	static constexpr auto UpdateTime = 0.7f;
 
 private:
 	State::Ptr createState(States::ID stateID);
@@ -55,24 +60,38 @@ private:
 private:
 	struct PendingChange
 	{
-		explicit PendingChange(Action action, States::ID stateID = States::ID::None);			// set default to none if not given
+		explicit PendingChange(Action action, States::ID stateID = States::ID::None);			
+		PendingChange(Action action, float duration,  States::ID stateID = States::ID::None);			
 		Action action;			
 		States::ID stateID;
+
+		sf::Time time;
+		float duration;
 	};
 
+	/*
+		@change UpdateState of state
+	*/
 	struct TimedChange
 	{
 		TimedChange(State* pointer, State::UpdateState updateState, float duration);
 		State* statePtr;
 		State::UpdateState updateState;
+
 		float duration;
 		sf::Time time;
 	};
 
+	struct TimedStackChange
+	{
+		PendingChange pendingChange;
+		sf::Time time;
+	};
+
 private:
-	std::list <TimedChange> nTimedChangeList;
+	std::list<TimedChange> nTimedChangeList;
 	std::list<State::Ptr> nStack;				
-	std::vector<PendingChange> nPendingList;			
+	std::list<PendingChange> nPendingList;			
 
 	State::Context nContext;			
 	std::map<States::ID, std::function<State::Ptr()>> nFactories;			

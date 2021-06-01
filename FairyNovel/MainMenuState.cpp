@@ -50,7 +50,7 @@ void MainMenuState::setupButtons()
 
 	nStartBtn.setCallback([this]() {
 		requestStackPop();
-		requestStackPush(States::ID::Game);
+		requestStackPushAfter(States::ID::Game, 1.f);
 		});
 
 	nConfigBtn.setCallback([this]() {

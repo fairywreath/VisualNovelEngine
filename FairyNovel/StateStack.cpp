@@ -38,6 +38,14 @@ void StateStack::handleEvent(const sf::Event& event)
 
 void StateStack::update(sf::Time dt)
 {
+	for (auto& change : nPendingList)
+	{
+		if (change.action == Action::PopAfter || change.action == Action::PushAfter)
+		{
+			change.time += dt;
+		}
+	}
+
 	for (auto itr = nTimedChangeList.begin(); itr != nTimedChangeList.end();)
 	{
 		(*itr).time += dt;
@@ -97,8 +105,9 @@ void StateStack::draw()
 
 void StateStack::applyPendingChanges()
 {
-	for (const PendingChange& change : nPendingList)
+	for (auto itr = nPendingList.begin(); itr != nPendingList.end();)
 	{
+		auto& change = (*itr);
 		switch (change.action)
 		{
 		case Action::Push:
@@ -112,7 +121,8 @@ void StateStack::applyPendingChanges()
 					nTimedChangeList.push_back(TimedChange(nStack.back().get(), State::UpdateState::DoNotUpdateAndDraw, 1.f));
 				}
 			}
-			nStack.push_back(createState(change.stateID));		
+			nStack.push_back(createState(change.stateID));	
+			itr = nPendingList.erase(itr);
 			break;
 		}
 
@@ -124,15 +134,45 @@ void StateStack::applyPendingChanges()
 			{
 				(*++nStack.rbegin())->setUpdateState(State::UpdateState::OnTop);
 			}
+			itr = nPendingList.erase(itr);
 			break;
 		}
 		case Action::Clear:
+		{
 			nStack.clear();
 			break;
 		}
+		case Action::PushAfter:
+		{
+			if (change.time.asSeconds() >= change.duration)
+			{
+				std::cout << "time excedded " << change.time.asSeconds() << " " << change.duration;
+				nPendingList.push_back(PendingChange(Action::Push, change.stateID));
+				itr = nPendingList.erase(itr);
+			}
+			else
+			{
+				itr++;
+			}
+			break;
+		}
+		case Action::PopAfter:
+		{
+			if (change.time.asSeconds() >= change.duration)
+			{
+				nPendingList.push_back(PendingChange(Action::Pop));
+				itr = nPendingList.erase(itr);
+			}
+			else
+			{
+				itr++;
+			}
+			break;
+		}
+		}
 	}
 
-	nPendingList.clear();
+//	nPendingList.clear();
 }
 
 void StateStack::pushState(States::ID stateID)
@@ -140,9 +180,19 @@ void StateStack::pushState(States::ID stateID)
 	nPendingList.push_back(PendingChange(Action::Push, stateID));
 }
 
+void StateStack::pushStateAfter(States::ID stateId, float duration)
+{
+	nPendingList.push_back(PendingChange(Action::PushAfter, duration, stateId));
+}
+
 void StateStack::popState()
 {
 	nPendingList.push_back(PendingChange(Action::Pop));				
+}
+
+void StateStack::popStateAfter(float duration)
+{
+	nPendingList.push_back(PendingChange(Action::PopAfter, duration));
 }
 
 void StateStack::clearStates()
@@ -152,7 +202,7 @@ void StateStack::clearStates()
 
 bool StateStack::isEmpty() const
 {
-	return nStack.empty();
+	return (nStack.empty() && nPendingList.empty());
 }
 
 /*
@@ -168,7 +218,17 @@ StateStack::TimedChange::TimedChange(State* pointer, State::UpdateState updateSt
 
 StateStack::PendingChange::PendingChange(Action action, States::ID stateID) :
 	action(action),
-	stateID(stateID)
+	stateID(stateID),
+	time(sf::Time::Zero),
+	duration(0.f)
 {
 
+}
+
+StateStack::PendingChange::PendingChange(Action action, float time, States::ID stateID) :
+	action(action),
+	stateID(stateID),
+	time(sf::Time::Zero),
+	duration(time)
+{
 }

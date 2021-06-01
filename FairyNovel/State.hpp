@@ -84,6 +84,8 @@ protected:
 	void requestStackPush(States::ID stateID);
 	void requestStackPop();
 	void requestStateClear();
+	void requestStackPushAfter(States::ID stateID, float duration);
+	void requestStackPopAfter(float duration);
 
 	Context getContext() const;
 

@@ -54,6 +54,16 @@ void State::requestStateClear()
 	nStack->clearStates();
 }
 
+void State::requestStackPushAfter(States::ID stateID, float duration)
+{
+	nStack->pushStateAfter(stateID, duration);
+}
+
+void State::requestStackPopAfter(float duration)
+{
+	nStack->popStateAfter(duration);
+}
+
 State::Context State::getContext() const
 {
 	return nContext;

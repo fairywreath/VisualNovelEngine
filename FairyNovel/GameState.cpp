@@ -26,8 +26,7 @@ GameState::GameState(StateStack& stack, Context context) :
 	nExitBtn.setPosition(ButtonsStartY, ButtonsY);
 	nExitBtn.setCallback([this]() {
 		requestStackPop();
-		requestStackPush(States::ID::MainMenu);
-
+		requestStackPushAfter(States::ID::MainMenu, 1.f);
 		});
 
 	setButton(nConfigBtn);
@@ -55,9 +54,9 @@ GameState::GameState(StateStack& stack, Context context) :
 	nComponents.reserve(NumComponents);
 	nDecisionBtns.reserve(NumComponents / 2);
 
-	//setDecisionState();
-	//addDecisionButton("This is your wife", "wife");
-	//addDecisionButton("You always get nervous", "nervous");
+	setDecisionState();
+	addDecisionButton("This is your wife", "wife");
+	addDecisionButton("You always get nervous", "nervous");
 
 	setUpdateState(State::UpdateState::OnTop);
 }
