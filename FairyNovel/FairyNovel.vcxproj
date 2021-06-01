@@ -163,6 +163,7 @@
     <ClInclude Include="ConfigState.hpp" />
     <ClInclude Include="Container.hpp" />
     <ClInclude Include="Decision.hpp" />
+    <ClInclude Include="DecisionCommand.hpp" />
     <ClInclude Include="DisplayBackgroundCommand.hpp" />
     <ClInclude Include="DisplayCharacterCommand.hpp" />
     <ClInclude Include="DisplayEntityCommand.hpp" />
@@ -228,6 +229,7 @@
     <ClCompile Include="ConfigState.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Decision.cpp" />
+    <ClCompile Include="DecisionCommand.cpp" />
     <ClCompile Include="DisplayBackgroundCommand.cpp" />
     <ClCompile Include="DisplayCharacterCommand.cpp" />
     <ClCompile Include="DisplayEntityCommand.cpp" />

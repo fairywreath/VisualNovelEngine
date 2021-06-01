@@ -264,6 +264,9 @@
     <ClCompile Include="Fadable.cpp">
       <Filter>Header Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="DecisionCommand.cpp">
+      <Filter>Header Files\Commands-System/Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceIdentifiers.hpp">
@@ -457,6 +460,9 @@
     </ClInclude>
     <ClInclude Include="Fadable.hpp">
       <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="DecisionCommand.hpp">
+      <Filter>Header Files\Commands-System/Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

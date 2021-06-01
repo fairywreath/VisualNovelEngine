@@ -5,7 +5,7 @@
 
 <PlayMusic> (title)
 
-#<Decision> (What should I do?) "Give her the apple: reunion;Give her the orange: wife"
+
 
 <DisplayBackground> (BG1) "Time: 1.1; Wait: False"
 
@@ -13,6 +13,8 @@
  
 
 <DisplayText> (Suoh) "Hello? Anybody there?"
+
+<Decision> (What) "Give her the apple :   reunion;Give her the orange   :wife"
 
 <DisplayCharacter> (mayuri) "Pos: 500,50;State: state2;   Fade: 1.5; Wait: True"
 

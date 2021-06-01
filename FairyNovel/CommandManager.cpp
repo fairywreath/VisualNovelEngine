@@ -8,7 +8,8 @@ CommandManager::CommandManager() :
 	nBacklogCommands(),
 	nIP(nCommands.begin()),
 	nEngine(nullptr),
-	nPlayer(nullptr)
+	nPlayer(nullptr),
+	nRunning(true)
 {
 }
 
@@ -17,7 +18,7 @@ CommandManager::CommandManager() :
 */
 void CommandManager::update(sf::Time dt)
 {
-	if (nEngine == nullptr) return;
+	if (nEngine == nullptr || !nRunning) return;
 
 	while (nIP != nCommands.cend() && (*nIP) == nullptr)
 	{
@@ -30,15 +31,7 @@ void CommandManager::update(sf::Time dt)
 		{
 			jumpCommandLabel((*nIP)->getIdentifier());
 		}
-		else if ((*nIP)->getType() == Command::Type::Decision)
-		{
-			/*
-				@handle in gamestate UI
-			*/
-			// maybe fade and handle engine animations
-			nEngine->setWait(true);
-		}
-		else 		// normal case
+		else 		
 		{
 			if ((*nIP)->getType() == Command::Type::DisplayText)
 			{
@@ -99,6 +92,16 @@ void CommandManager::jumpCommandLabel(const std::string& label) noexcept
 	
 	nIP = std::next(newIP);
 	nEngine->setWait(false);
+}
+
+void CommandManager::stop()
+{
+	nRunning = false;
+}
+
+void CommandManager::resume()
+{
+	nRunning = true;
 }
 
 

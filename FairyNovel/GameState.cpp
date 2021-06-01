@@ -54,10 +54,6 @@ GameState::GameState(StateStack& stack, Context context) :
 	nComponents.reserve(NumComponents);
 	nDecisionBtns.reserve(NumComponents / 2);
 
-	setDecisionState();
-	addDecisionButton("This is your wife", "wife");
-	addDecisionButton("You always get nervous", "nervous");
-
 	setUpdateState(State::UpdateState::OnTop);
 }
 
@@ -122,12 +118,14 @@ void GameState::setUpdateState(UpdateState state)
 	if (state == UpdateState::OnTop)
 	{
 		getContext().configManager->applySettings(nEngine);
-
+		nCommandManager.resume();
 		nEngine.fadeInScreen(1.f);
 	}
 	else if (state == UpdateState::InRemovalAnimation)
 	{
 		for (auto& cmp : nComponents) cmp->fade(1.f, 0, 255);
+
+		nCommandManager.stop();
 		nEngine.stopAllAnimations();
 		nEngine.clearScreen(1.f);
 	}
@@ -151,13 +149,21 @@ void GameState::packComponent(GUI::Component* cmp)
 
 void GameState::setDecisionState()
 {
+	// reset if buttons currently exit to prevent race condition(very unlikely in actual scripting though)
+	if (!nInDecision && (nDecisionBtns.size() != 0))
+	{
+		clearDecisions();
+	}
+	
 	nInDecision = true;
 }
 
 void GameState::addDecisionButton(const std::string& text, const std::string& targetLabel)
 {
 	auto button = std::make_unique<GUI::TextButton>(getContext(), text);
+	nComponents.push_back(button.get());
 	button->setPosition((float)DecisionX, (float)(DecisionStartY + (nDecisionBtns.size() * DecisionDist)));
+	button->fade(0.6f, 255, 0);
 
 	button->setCallback([this, targetLabel]() {
 		getContext().commandManager->jumpCommandLabel(targetLabel);
@@ -168,7 +174,6 @@ void GameState::addDecisionButton(const std::string& text, const std::string& ta
 		nInDecision = false;		
 		});
 
-	nComponents.push_back(button.get());
 	nDecisionBtns.push_back(std::move(button));
 }
 

@@ -36,6 +36,9 @@ public:
 
 	void jumpCommandLabel(const std::string& label) noexcept;
 
+	void stop();
+	void resume();
+
 private:
 	std::vector<CommandPtr>::const_iterator nIP;		// instruction pointer
 
@@ -50,10 +53,11 @@ private:
 	std::vector<Command*> nBacklogCommands;
 
 	Engine* nEngine;
-	GameState* nGameState;
 
 	// TODO
 	Player* nPlayer;
+
+	bool nRunning;
 };
 
 

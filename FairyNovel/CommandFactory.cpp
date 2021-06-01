@@ -20,7 +20,7 @@
 #include "ShowDialogueBoxCommand.hpp"
 #include "HideDialogueBoxCommand.hpp"
 
-
+#include "DecisionCommand.hpp"
 
 #include "Logger.hpp"
 
@@ -57,8 +57,8 @@ CommandFactory::CommandFactory() :
     */
     registerCommand<LabelCommand>("Label");
     registerCommand<JumpCommand>("Jump");
-
-
+    registerCommand<DecisionCommand>("Decision");
+    
 }
 
 CommandFactory::CommandPtr CommandFactory::generateCommand(const std::string& kw, const std::string& id,
