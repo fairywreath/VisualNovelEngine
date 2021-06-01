@@ -234,8 +234,6 @@ bool ConfigState::update(sf::Time dt)
 	nFadableBg.update(dt);
 	nFadeSprite.update(dt);
 
-	State::update(dt);
-
 	return false;
 }
 
@@ -264,8 +262,6 @@ void ConfigState::setUpdateState(UpdateState state)
 
 		nFadableBg.fade(FadeTime, 0, 255);
 		nFadeSprite.fade(FadeTime, 0, 255);
-
-		removeAfter(FadeTime);
 	}
 	else if (state == UpdateState::OnTop)
 	{

@@ -20,6 +20,7 @@ public:
 
 	bool inAnimation() const;
 	void skipAnimation();
+	void stopAnimation();			// not safe, only use when removing from game state
 
 	float getBlurPercentage() const;
 

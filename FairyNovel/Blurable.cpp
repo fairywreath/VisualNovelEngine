@@ -97,6 +97,15 @@ void Blurable::skipAnimation()
 	}
 }
 
+void Blurable::stopAnimation()
+{
+	if (nInBlurAnimation)
+	{
+		nInBlurAnimation = false;
+		nUseShader = true;			// always assumed to be true, thats why it is unsafe
+	}
+}
+
 float Blurable::getBlurPercentage() const
 {
 	return 100 * (nBlurRadius / MaxBlurRadius);

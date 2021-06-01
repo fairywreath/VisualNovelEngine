@@ -110,13 +110,15 @@ public:
 	void setWaitAnimation(bool w);
 	bool shouldWait() const;
 
+	void stopAllAnimations();		// for in between state transitions, stoping all game animations
+
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
 	static constexpr auto TextSize = 29;
 
-private:
+private:					
 	static constexpr auto MaxTextWidth = 900;
 
 	MusicPlayer& nMusicPlayer;

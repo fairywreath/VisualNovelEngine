@@ -55,3 +55,12 @@ void Movable::skipMovement()
 	}
 
 }
+
+void Movable::stopMovement()
+{
+	if (nInMovement)
+	{
+		nInMovement = false;
+		nMoveElapsed = sf::Time::Zero;
+	}
+}

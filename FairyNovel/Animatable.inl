@@ -1,3 +1,4 @@
+#include "Animatable.hpp"
 template<typename T>
 Animatable<T>::Animatable(T& resource) :
 	nObject(&resource),
@@ -38,6 +39,13 @@ void Animatable<T>::skipAnimation()
 {
 	nFadable.skipAnimation();
 	nBlurable.skipAnimation();
+}
+
+template<typename T>
+void Animatable<T>::stopAnimation()
+{
+	nFadable.stopAnimation();
+	nBlurable.stopAnimation();
 }
 
 template<typename T>

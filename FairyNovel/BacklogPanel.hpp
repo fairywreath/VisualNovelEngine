@@ -26,7 +26,8 @@ public:
 	bool isSelectable() const override;
 	void handleEvent(const sf::Event & event) override;
 
-	
+	void update(sf::Time dt);
+	void fade(float time, int target, int start) override;
 
 private:
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;

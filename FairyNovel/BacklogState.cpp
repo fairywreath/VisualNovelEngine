@@ -9,13 +9,17 @@ BacklogState::BacklogState(StateStack& stack, Context context) :
 	nBacklogs(Count),
 	nBackground(static_cast<sf::Vector2f>(context.window->getSize())),
 	nSprite(context.textures->get("EteFlowers")),
-	nSectionLabel("BACKLOG", context.fonts->get("sinkins"))
+	nSectionLabel("BACKLOG", context.fonts->get("sinkins")),
+	nFadableBg(nBackground),
+	nFadableSprite(nSprite),
+	nExitButton(context, "EXIT")
 {
 	/*
 		@setup background
 	*/
 	nBackground.setFillColor(sf::Color::White);
 	nBackground.setPosition(0, 0);
+	nFadableBg.setObjectColor(sf::Color::White);
 	nSprite.setPosition(880, 20);
 	// context.musicPlayer->play("mainmenu");
 
@@ -27,6 +31,14 @@ BacklogState::BacklogState(StateStack& stack, Context context) :
 	nSectionLabel.setOriginRight();
 	nSectionLabel.setPosition(TitleLabelX, TitleLabelY);
 	packComponent(&nSectionLabel);
+
+	nExitButton.setFont(context.fonts->get("huxleyv"));
+	nExitButton.setSize(55);
+	nExitButton.setPosition(80.f, TitleLabelY);
+	nExitButton.setCallback([this]() {
+		requestStackPop();
+		});
+	packComponent(&nExitButton);
 
 	nIP = nDisplayCommands.crbegin();
 	
@@ -46,6 +58,17 @@ BacklogState::BacklogState(StateStack& stack, Context context) :
 	}
 
 	for (auto& bl : nBacklogs) packComponent(&bl);
+
+	/*
+		@intro fade animation
+	*/
+	for (const auto& cmp : nComponents)
+	{
+		cmp->fade(FadeTime, 255, 0);
+	}
+
+	nFadableBg.fade(FadeTime, 255, 0);
+	nFadableSprite.fade(FadeTime, 255, 0);
 }
 
 BacklogState::~BacklogState()
@@ -65,7 +88,8 @@ void BacklogState::draw()
 bool BacklogState::update(sf::Time dt)
 {
 	for (const auto& cmp : nComponents) cmp->update(dt);
-
+	nFadableBg.update(dt);
+	nFadableSprite.update(dt);
 
 	return false;
 }
@@ -131,6 +155,35 @@ void BacklogState::updateBacklog(int delta)
 	}
 }
 
+void BacklogState::setUpdateState(UpdateState state)
+{
+	State::setUpdateState(state);
+	if (state == UpdateState::InRemovalAnimation)
+	{
+		for (const auto& cmp : nComponents)
+		{
+			cmp->fade(FadeTime, 0, 255);
+		}
+
+		nFadableBg.fade(FadeTime, 0, 255);
+		nFadableSprite.fade(FadeTime, 0, 255);
+	}
+	else if (state == UpdateState::OnTop)
+	{
+		for (const auto& cmp : nComponents)
+		{
+			cmp->fade(FadeTime, 255, 0);
+		}
+
+		nFadableBg.fade(FadeTime, 255, 0);
+		nFadableSprite.fade(FadeTime, 255, 0);
+	}
+	else
+	{
+
+	}
+}
+
 bool BacklogState::handleEvent(const sf::Event& event)
 {
 	for (const auto& cmp : nComponents) cmp->handleEvent(event);
@@ -173,7 +226,3 @@ void BacklogState::setBacklogText(Command& command, GUI::BacklogPanel& backlog)
 	backlog.setText(command.getArgumentString());
 }
 
-void BacklogState::updateBacklogs()
-{
-
-}

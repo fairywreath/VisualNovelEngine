@@ -87,8 +87,6 @@ bool GameState::update(sf::Time dt)
 
 	if (!nInDecision && nDecisionBtns.size() != 0) clearDecisions();
 
-	State::update(dt);
-
 	return false;
 }
 
@@ -122,14 +120,14 @@ void GameState::setUpdateState(UpdateState state)
 	if (state == UpdateState::OnTop)
 	{
 		getContext().configManager->applySettings(nEngine);
+
 		nEngine.fadeInScreen(1.f);
 	}
 	else if (state == UpdateState::InRemovalAnimation)
 	{
 		for (auto& cmp : nComponents) cmp->fade(1.f, 0, 255);
+		nEngine.stopAllAnimations();
 		nEngine.clearScreen(1.f);
-
-		removeAfter(1.f);
 	}
 	else
 	{

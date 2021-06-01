@@ -60,8 +60,17 @@ private:
 		States::ID stateID;
 	};
 
+	struct TimedChange
+	{
+		TimedChange(State* pointer, State::UpdateState updateState, float duration);
+		State* statePtr;
+		State::UpdateState updateState;
+		float duration;
+		sf::Time time;
+	};
 
 private:
+	std::list <TimedChange> nTimedChangeList;
 	std::list<State::Ptr> nStack;				
 	std::vector<PendingChange> nPendingList;			
 

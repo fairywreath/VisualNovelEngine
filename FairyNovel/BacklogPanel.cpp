@@ -67,6 +67,18 @@ void GUI::BacklogPanel::handleEvent(const sf::Event& event)
 {
 }
 
+void GUI::BacklogPanel::update(sf::Time dt)
+{
+	nTextLabel.update(dt);
+	nIdLabel.update(dt);
+}
+
+void GUI::BacklogPanel::fade(float time, int target, int start)
+{
+	nTextLabel.fade(time, target, start);
+	nIdLabel.fade(time, target, start);
+}
+
 void GUI::BacklogPanel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();

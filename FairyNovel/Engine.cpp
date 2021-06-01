@@ -102,7 +102,6 @@ void Engine::draw(sf::RenderTarget& target, sf::RenderStates states)  const
 void Engine::update(sf::Time dt)
 {
 	if (!nLinePrinted) nTextTime += dt;
-
 	if (!nLinePrinted && nTextTime.asMilliseconds() > nTextInterval) {
 		nTextTime += dt;
 		nTextPos++;
@@ -205,7 +204,7 @@ void Engine::setAuto(bool autoState)
 
 void Engine::skipDialogueLine()
 {
-	sf::String wrapped = Util::wrapText(sf::String(nTextString), 800, nFont, 35, 0);
+	sf::String wrapped = Util::wrapText(sf::String(nTextString), MaxTextWidth, nFont, 35, 0);
 	nText.setString(wrapped);
 	nLinePrinted = true;
 	nDelayTime = sf::Time::Zero;
@@ -266,6 +265,16 @@ bool Engine::isInAnimation() const
 bool Engine::shouldWait() const
 {
 	return nWait;
+}
+
+void Engine::stopAllAnimations()
+{
+	for (auto& ent : nEntities) ent->stopAnimation();
+	for (auto& chr : nCharacters) chr->stopAnimation();
+
+	nTextBackground.stopAnimation();
+	nDialogueBox.stopAnimation();
+	nBackground.stopAnimation();
 }
 
 bool Engine::setBackground(const std::string& id) 

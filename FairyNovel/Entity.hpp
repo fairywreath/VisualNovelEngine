@@ -37,6 +37,7 @@ public:
 
 	virtual bool inAnimation() const;
 	virtual void skipAnimation();		// skip to final position/opacity
+	virtual void stopAnimation();		// stop at current	
 
 	void fade(float time, int targetAlpha);
 	virtual void fade(float time, int targetAlpha, int startAlpha);
@@ -50,6 +51,7 @@ public:
 	float getBlurPercentage() const; 
 
 	virtual sf::FloatRect getBoundingRect() const;
+
 
 private:	
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

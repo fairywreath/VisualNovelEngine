@@ -24,6 +24,7 @@ public:
 
 	bool inAnimation() const;
 	void skipAnimation();
+	void stopAnimation();		// only set at end, not safe
 
 	void setOpacityAlpha(int alpha);
 	int getOpacityAlpha() const;

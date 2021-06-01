@@ -28,6 +28,7 @@ public:
 
 	bool inAnimation() const;
 	void skipAnimation();
+	void stopAnimation();
 
 	void setOpacityAlpha(int alpha);
 	int getOpacityAlpha() const;

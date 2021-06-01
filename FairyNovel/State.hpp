@@ -59,16 +59,17 @@ public:
 	State& operator=(const State&) = delete;
 
 	virtual void draw() = 0;		
-	virtual bool update(sf::Time dt);
+	virtual bool update(sf::Time dt) = 0;
 	virtual bool handleEvent(const sf::Event& event) = 0;
 
 public:
 	enum class UpdateState
 	{
-		OnTop,
-		InRemovalAnimation,
-		ShouldBeRemoved,
-		DoNotUpdate
+		OnTop,							// current state
+		InRemovalAnimation,				// fading out state
+		ShouldBeRemoved,				// background state that should be removed
+		DoNotUpdate,					// draw but do not update at all
+		DoNotUpdateAndDraw				// do not update and draw, background only
 	};
 	/*
 		@for in between fades
@@ -76,15 +77,8 @@ public:
 	virtual void setUpdateState(UpdateState state);
 	UpdateState getUpdateState() const;
 
-	void stopUpdateAfter(float time);
-	void removeAfter(float time);
-
 private:
 	UpdateState nUpdateState;
-	sf::Time nStopUpdateTime;
-	bool nInStopUpdate;
-	bool nInRemove;
-	float nStopUpdateAmount;
 
 protected:
 	void requestStackPush(States::ID stateID);

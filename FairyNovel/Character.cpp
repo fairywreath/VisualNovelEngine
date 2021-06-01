@@ -122,6 +122,13 @@ void Character::skipAnimation()
 	nTransitionElapsed = sf::Time::Zero;
 }
 
+void Character::stopAnimation()
+{
+	nInTransition = false;
+	nSecondaryEntity.stopAnimation();
+	nEntity.stopAnimation();
+}
+
 Entity* Character::getEntity() 
 {
 	return &nEntity;

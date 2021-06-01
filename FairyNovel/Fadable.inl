@@ -89,6 +89,16 @@ void Fadable<T>::skipAnimation()
 }
 
 template<typename T>
+void Fadable<T>::stopAnimation()
+{
+	if (nInFade)
+	{
+		nInFade = false;
+		nFadeElapsed = sf::Time::Zero;
+	}
+}
+
+template<typename T>
 void Fadable<T>::setOpacityAlpha(int alpha)
 {
 	if (nObject == nullptr) return;

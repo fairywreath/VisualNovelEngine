@@ -8,7 +8,8 @@ StateStack::StateStack(State::Context context) :
 	nStack(),				
 	nPendingList(),
 	nContext(context),
-	nFactories()
+	nFactories(),
+	nTimedChangeList()
 {
 
 }
@@ -37,8 +38,21 @@ void StateStack::handleEvent(const sf::Event& event)
 
 void StateStack::update(sf::Time dt)
 {
-	int count = 0;
+	for (auto itr = nTimedChangeList.begin(); itr != nTimedChangeList.end();)
+	{
+		(*itr).time += dt;
+		if ((*itr).time.asSeconds() >= (*itr).duration)
+		{
+			(*itr).statePtr->setUpdateState((*itr).updateState);
+			itr = nTimedChangeList.erase(itr);
+		}
+		else
+		{
+			itr++;
+		}
+	}
 
+	int count = 0;
 	for (auto itr = nStack.rbegin(); itr != nStack.rend();)
 	{
 		State::UpdateState state = (*itr)->getUpdateState();
@@ -50,7 +64,7 @@ void StateStack::update(sf::Time dt)
 		}
 
 		
-		if (state != State::UpdateState::DoNotUpdate)
+		if (state != State::UpdateState::DoNotUpdate && state != State::UpdateState::DoNotUpdateAndDraw)
 		{
 			count++;
 			(*itr)->update(dt);
@@ -58,25 +72,26 @@ void StateStack::update(sf::Time dt)
 
 		itr++;
 	}
-	std::cout << "UPDATE COUNT: " << count << std::endl;
+//	std::cout << " num updated: " << count << std::endl;
 	applyPendingChanges();
 }
 
 void StateStack::draw()
 {
 	int count = 0;
+
 	for (auto itr = nStack.begin(); itr != nStack.end(); itr++)
 	{
 		State::UpdateState state = (*itr)->getUpdateState();
-		if (state == State::UpdateState::DoNotUpdate || state == State::UpdateState::ShouldBeRemoved)
+		if (state == State::UpdateState::DoNotUpdateAndDraw || state == State::UpdateState::ShouldBeRemoved)
 		{
 			continue;
 		}
 		count++;
 		(*itr)->draw();
 	}
+//	std::cout << " num drawn: " << count << std::endl;
 
-	std::cout << "DRAW COUNT: " << count << std::endl;
 }
 
 
@@ -90,16 +105,21 @@ void StateStack::applyPendingChanges()
 		{
 			if (!nStack.empty())
 			{
-				nStack.back()->stopUpdateAfter(1.f);		// current standard is 1 sec, maybe change to constexpr in state
+				if ((nStack.back()->getUpdateState() != State::UpdateState::InRemovalAnimation) &&
+					(nStack.back()->getUpdateState() != State::UpdateState::ShouldBeRemoved))
+				{
+					nStack.back()->setUpdateState(State::UpdateState::DoNotUpdate);
+					nTimedChangeList.push_back(TimedChange(nStack.back().get(), State::UpdateState::DoNotUpdateAndDraw, 1.f));
+				}
 			}
 			nStack.push_back(createState(change.stateID));		
-			// nStack.back()->setUpdateState(State::UpdateState::OnTop);
 			break;
 		}
 
 		case Action::Pop:
 		{
 			nStack.back()->setUpdateState(State::UpdateState::InRemovalAnimation);
+			nTimedChangeList.push_back(TimedChange(nStack.back().get(), State::UpdateState::ShouldBeRemoved, 1.f));
 			if (nStack.size() >= 2)
 			{
 				(*++nStack.rbegin())->setUpdateState(State::UpdateState::OnTop);
@@ -114,16 +134,6 @@ void StateStack::applyPendingChanges()
 
 	nPendingList.clear();
 }
-
-
-StateStack::PendingChange::PendingChange(Action action, States::ID stateID) :
-	action(action),
-	stateID(stateID)
-{
-
-}
-
-
 
 void StateStack::pushState(States::ID stateID)
 {
@@ -143,4 +153,22 @@ void StateStack::clearStates()
 bool StateStack::isEmpty() const
 {
 	return nStack.empty();
+}
+
+/*
+	@misc structs
+*/
+StateStack::TimedChange::TimedChange(State* pointer, State::UpdateState updateState, float duration) :
+	statePtr(pointer),
+	updateState(updateState),
+	duration(duration),
+	time(sf::Time::Zero)
+{
+}
+
+StateStack::PendingChange::PendingChange(Action action, States::ID stateID) :
+	action(action),
+	stateID(stateID)
+{
+
 }

@@ -6,6 +6,7 @@
 #include "CommandManager.hpp"
 #include "TextButton.hpp"
 #include "BacklogPanel.hpp"
+#include "Components.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <deque>
@@ -25,12 +26,11 @@ public:
 	bool handleEvent(const sf::Event& event) override;
 
 	void updateBacklog(int delta);		
+	void setUpdateState(UpdateState state) override;
 
 private:
 	void packComponent(GUI::Component* cmp);
 	void setBacklogText(Command& command, GUI::BacklogPanel& backlog);
-
-	void updateBacklogs();
 
 private:
 	static constexpr auto PanelX = 300.f;
@@ -41,16 +41,21 @@ private:
 	static constexpr auto TitleLabelX = 1200.f;
 	static constexpr auto TitleLabelY = 680.f;
 
+	static constexpr auto FadeTime = 1.f;
+
 	/*
 		GUI
 	*/
 	GUI::Label nSectionLabel;
+	GUI::TextButton nExitButton;
 
 	std::vector<GUI::BacklogPanel> nBacklogs;
 	std::vector<GUI::Component*> nComponents;
 
 	sf::RectangleShape nBackground;
+	FadableRectShape nFadableBg;
 	sf::Sprite nSprite;
+	FadableSprite nFadableSprite;
 	
 	CommandItr nIP;
 	std::vector<Command*>& nDisplayCommands;

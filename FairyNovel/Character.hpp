@@ -28,6 +28,7 @@ public:
 
 	bool inAnimation() const;
 	void skipAnimation();		
+	void stopAnimation();
 
 	// maybe change later for better implementation
 	Entity* getEntity();

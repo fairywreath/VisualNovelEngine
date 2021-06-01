@@ -108,4 +108,10 @@ void Entity::skipAnimation()
 	nMover.skipMovement();
 }
 
+void Entity::stopAnimation()
+{
+	nAnimeSprite.stopAnimation();
+	nMover.stopMovement();
+}
+
 

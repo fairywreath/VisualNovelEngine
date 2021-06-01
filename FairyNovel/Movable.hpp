@@ -14,6 +14,7 @@ public:
 
 	bool inMovement() const;
 	void skipMovement();
+	void stopMovement();
 
 private:
 	sf::Transformable* nTransformable;

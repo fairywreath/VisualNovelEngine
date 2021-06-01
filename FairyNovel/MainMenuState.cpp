@@ -122,8 +122,6 @@ bool MainMenuState::update(sf::Time dt)
 		nRectMover.update(dt);
 	}
 
-	State::update(dt);
-
 	return false;
 }
 
@@ -165,8 +163,6 @@ void MainMenuState::setUpdateState(UpdateState state)
 		nFadableRect.fade(FadeTime, 0, 125);
 		nBackground.fade(FadeTime, 0, 255);
 		nTitle.fade(FadeTime, 0, 255);
-
-		removeAfter(FadeTime);
 	}
 	else if (state == UpdateState::OnTop)
 	{
