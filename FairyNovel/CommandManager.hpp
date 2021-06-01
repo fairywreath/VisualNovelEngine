@@ -50,6 +50,7 @@ private:
 	std::vector<Command*> nBacklogCommands;
 
 	Engine* nEngine;
+	GameState* nGameState;
 
 	// TODO
 	Player* nPlayer;

@@ -9,7 +9,7 @@
 GameState::GameState(StateStack& stack, Context context) :
 	State(stack, context),
 	nCommandManager(*context.commandManager),
-	nEngine(context),
+	nEngine(context, *this),
 	nConfigBtn(context, "CONFIG"),
 	nBacklogBtn(context, "BACKLOG"),
 	nAutoModeBtn(context, "AUTO"),
@@ -84,7 +84,10 @@ bool GameState::update(sf::Time dt)
 	nCommandManager.update(dt);
 	for (const auto& cmp : nComponents) cmp->update(dt);
 
-	if (!nInDecision && nDecisionBtns.size() != 0) clearDecisions();
+	if (!nInDecision && (nDecisionBtns.size() != 0) && !nDecisionBtns.back()->inAnimation())
+	{
+		clearDecisions();
+	}
 
 	return false;
 }
@@ -158,6 +161,10 @@ void GameState::addDecisionButton(const std::string& text, const std::string& ta
 
 	button->setCallback([this, targetLabel]() {
 		getContext().commandManager->jumpCommandLabel(targetLabel);
+		for (auto& btn : nDecisionBtns)
+		{
+			btn->fade(0.6f, 0, 255);
+		}
 		nInDecision = false;		
 		});
 

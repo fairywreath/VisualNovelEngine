@@ -19,6 +19,8 @@
 	@engine class for graphics and game logic, acts like a 'canvas'
 */
 
+class GameState;
+
 class Engine : public sf::Drawable, private sf::NonCopyable
 {
 public:
@@ -26,7 +28,7 @@ public:
 	using CharacterPtr = std::unique_ptr<Character>;
 
 public:
-	explicit Engine(State::Context context);
+	Engine(State::Context context, GameState& gameState);
 
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;
@@ -112,14 +114,22 @@ public:
 
 	void stopAllAnimations();		// for in between state transitions, stoping all game animations
 
+	/*
+		@controlling game state
+	*/
+	void setDecisionState();
+	void addDecisionButton(const std::string& text, const std::string& targetLabel);
+
+
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
-	static constexpr auto TextSize = 29;
-
-private:					
+	static constexpr auto TextSize = 29;		
 	static constexpr auto MaxTextWidth = 900;
+
+
+	GameState& nGameState;
 
 	MusicPlayer& nMusicPlayer;
 	SoundPlayer& nSoundPlayer;

@@ -1,18 +1,20 @@
 #include "Engine.hpp"
 #include "Utility.hpp"
 #include "Logger.hpp"
+#include "GameState.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include <algorithm>
 #include <iostream>
 
-Engine::Engine(State::Context context) :
+Engine::Engine(State::Context context, GameState& gameState) :
 	nMusicPlayer(*context.musicPlayer),
 	nTextures(*context.textures),
 	nFont(context.fonts->get("overlock")),
 	nSoundPlayer(*context.soundPlayer),
 	nCharacterManager(*context.characterManager),
+	nGameState(gameState),
 	nLinePrinted(true),
 	nTextPos(-1),
 	nFadeTime(0),
@@ -275,6 +277,16 @@ void Engine::stopAllAnimations()
 	nTextBackground.stopAnimation();
 	nDialogueBox.stopAnimation();
 	nBackground.stopAnimation();
+}
+
+void Engine::setDecisionState()
+{
+	nGameState.setDecisionState();
+}
+
+void Engine::addDecisionButton(const std::string& text, const std::string& targetLabel)
+{
+	nGameState.addDecisionButton(text, targetLabel);
 }
 
 bool Engine::setBackground(const std::string& id) 

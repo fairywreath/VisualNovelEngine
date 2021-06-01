@@ -51,7 +51,10 @@ void StateStack::update(sf::Time dt)
 		(*itr).time += dt;
 		if ((*itr).time.asSeconds() >= (*itr).duration)
 		{
-			(*itr).statePtr->setUpdateState((*itr).updateState);
+			if ((*itr).statePtr != nullptr)
+			{
+				(*itr).statePtr->setUpdateState((*itr).updateState);
+			}
 			itr = nTimedChangeList.erase(itr);
 		}
 		else
@@ -121,7 +124,7 @@ void StateStack::applyPendingChanges()
 					nTimedChangeList.push_back(TimedChange(nStack.back().get(), State::UpdateState::DoNotUpdateAndDraw, 1.f));
 				}
 			}
-			nStack.push_back(createState(change.stateID));	
+			nStack.push_back(createState(change.stateID));
 			itr = nPendingList.erase(itr);
 			break;
 		}
@@ -146,7 +149,6 @@ void StateStack::applyPendingChanges()
 		{
 			if (change.time.asSeconds() >= change.duration)
 			{
-				std::cout << "time excedded " << change.time.asSeconds() << " " << change.duration;
 				nPendingList.push_back(PendingChange(Action::Push, change.stateID));
 				itr = nPendingList.erase(itr);
 			}
@@ -172,7 +174,6 @@ void StateStack::applyPendingChanges()
 		}
 	}
 
-//	nPendingList.clear();
 }
 
 void StateStack::pushState(States::ID stateID)

@@ -168,3 +168,13 @@ sf::FloatRect GUI::TextButton::getBoundingRect() const
 {
 	return getTransform().transformRect(nText.getGlobalBounds());
 }
+
+int GUI::TextButton::getOpacityAlpha() const
+{
+	return nFadableText.getOpacityAlpha();
+}
+
+bool GUI::TextButton::inAnimation() const
+{
+	return nFadableText.inAnimation();
+}

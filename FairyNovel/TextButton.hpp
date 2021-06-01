@@ -37,6 +37,9 @@ public:
 
 	sf::FloatRect getBoundingRect() const override;
 
+	int getOpacityAlpha() const;				// for decision states
+	bool inAnimation() const;
+
 private:
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 	void updateApperance(ButtonState state) override;

@@ -5,6 +5,7 @@
 
 <PlayMusic> (title)
 
+#<Decision> (What should I do?) "Give her the apple: reunion;Give her the orange: wife"
 
 <DisplayBackground> (BG1) "Time: 1.1; Wait: False"
 
