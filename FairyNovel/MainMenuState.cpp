@@ -62,6 +62,15 @@ void MainMenuState::setupButtons()
 		requestStackPop();
 		});
 
+	nLoadgBtn.setCallback([this]() {
+		requestStackPush(States::ID::Load);
+		});
+
+	nGalleryBtn.setCallback([this]() {
+		//	requestStackPop();
+		requestStackPush(States::ID::Gallery);
+	});
+
 	for (int i = 0; i < ButtonCount; i++)
 	{
 		nComponents[i]->move(0.5, sf::Vector2f((float)ButtonsX, (float)(ButtonsStartY + (i * ButtonsDist))), 

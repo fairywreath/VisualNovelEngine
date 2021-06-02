@@ -82,6 +82,9 @@
     <Filter Include="Header Files\Player">
       <UniqueIdentifier>{be726728-ecee-4900-b033-a214b7aaaad5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Saves">
+      <UniqueIdentifier>{769ab32f-f075-42a4-8811-0c5ced48abb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scanner.cpp">
@@ -237,9 +240,6 @@
     <ClCompile Include="GameState.cpp">
       <Filter>Header Files\State</Filter>
     </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>Header Files\State</Filter>
-    </ClCompile>
     <ClCompile Include="TitleState.cpp">
       <Filter>Header Files\State</Filter>
     </ClCompile>
@@ -266,6 +266,21 @@
     </ClCompile>
     <ClCompile Include="DecisionCommand.cpp">
       <Filter>Header Files\Commands-System/Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveState.cpp">
+      <Filter>Header Files\Saves</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Header Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SavePanel.cpp">
+      <Filter>Header Files\Saves</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadState.cpp">
+      <Filter>Header Files\Saves</Filter>
+    </ClCompile>
+    <ClCompile Include="GalleryState.cpp">
+      <Filter>Header Files\Saves</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -295,9 +310,6 @@
     </ClInclude>
     <ClInclude Include="Option.hpp">
       <Filter>Header Files\System</Filter>
-    </ClInclude>
-    <ClInclude Include="State.hpp">
-      <Filter>Header Files\State</Filter>
     </ClInclude>
     <ClInclude Include="StateIdentifiers.hpp">
       <Filter>Header Files\State</Filter>
@@ -463,6 +475,21 @@
     </ClInclude>
     <ClInclude Include="DecisionCommand.hpp">
       <Filter>Header Files\Commands-System/Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveState.hpp">
+      <Filter>Header Files\Saves</Filter>
+    </ClInclude>
+    <ClInclude Include="State.hpp">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SavePanel.hpp">
+      <Filter>Header Files\Saves</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadState.hpp">
+      <Filter>Header Files\Saves</Filter>
+    </ClInclude>
+    <ClInclude Include="GalleryState.hpp">
+      <Filter>Header Files\Saves</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

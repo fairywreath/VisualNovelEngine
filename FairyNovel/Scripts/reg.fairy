@@ -9,6 +9,8 @@
 <Texture> (checkbox) "Media/GUI/checkbox.png"
 <Texture> (checkmark) "Media/GUI/checkmark3.png"
 
+<Texture> (statebg) "Media/Images/state_background.png"
+
 <Music> (title) "Media/Music/SecondaryTheme.ogg"
 <Music> (AutomneMM) "Media/Music/AutomneMM.ogg"
 

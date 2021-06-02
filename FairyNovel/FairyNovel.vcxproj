@@ -176,11 +176,13 @@
     <ClInclude Include="FadeEntityCommand.hpp" />
     <ClInclude Include="FadeOutBackgroundCommand.hpp" />
     <ClInclude Include="ConfigManager.hpp" />
+    <ClInclude Include="GalleryState.hpp" />
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="HideDialogueBoxCommand.hpp" />
     <ClInclude Include="JumpCommand.hpp" />
     <ClInclude Include="Label.hpp" />
     <ClInclude Include="LabelCommand.hpp" />
+    <ClInclude Include="LoadState.hpp" />
     <ClInclude Include="Logger.hpp" />
     <ClInclude Include="MainMenuState.hpp" />
     <ClInclude Include="Movable.hpp" />
@@ -196,6 +198,8 @@
     <ClInclude Include="RemoveEntityCommand.hpp" />
     <ClInclude Include="ResourceIdentifiers.hpp" />
     <ClInclude Include="ResourceManager.hpp" />
+    <ClInclude Include="SavePanel.hpp" />
+    <ClInclude Include="SaveState.hpp" />
     <ClInclude Include="Scanner.hpp" />
     <ClInclude Include="ShowDialogueBoxCommand.hpp" />
     <ClInclude Include="SlideShow.hpp" />
@@ -240,11 +244,13 @@
     <ClCompile Include="FadeEntityCommand.cpp" />
     <ClCompile Include="FadeOutBackgroundCommand.cpp" />
     <ClCompile Include="ConfigManager.cpp" />
+    <ClCompile Include="GalleryState.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HideDialogueBoxCommand.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="LabelCommand.cpp" />
+    <ClCompile Include="LoadState.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
@@ -259,6 +265,8 @@
     <ClCompile Include="RegisterCommand.cpp" />
     <ClCompile Include="RegisterEngine.cpp" />
     <ClCompile Include="RemoveEntityCommand.cpp" />
+    <ClCompile Include="SavePanel.cpp" />
+    <ClCompile Include="SaveState.cpp" />
     <ClCompile Include="Scanner.cpp" />
     <ClCompile Include="Blurable.cpp" />
     <ClCompile Include="ShowDialogueBoxCommand.cpp" />

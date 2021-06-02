@@ -12,7 +12,11 @@ namespace States
 		Settings,
 		Config,
 		Game,
-		Backlog
+		Backlog,
+		Save,
+		Load,
+		Gallery,
+		ConfirmationPrompt
 	};
 }
 

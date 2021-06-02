@@ -6,6 +6,9 @@
 #include "ConfigState.hpp"
 #include "BacklogState.hpp"
 #include "MainMenuState.hpp"
+#include "SaveState.hpp"
+#include "LoadState.hpp"
+#include "GalleryState.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <iostream>
@@ -162,6 +165,10 @@ void Application::registerStates()
 	nStateStack.registerState<ConfigState>(States::ID::Config);
 	nStateStack.registerState<BacklogState>(States::ID::Backlog);
 	nStateStack.registerState<MainMenuState>(States::ID::MainMenu);
+	nStateStack.registerState<SaveState>(States::ID::Save);
+	nStateStack.registerState<LoadState>(States::ID::Load);
+	nStateStack.registerState<GalleryState>(States::ID::Gallery);
+
 }
 
 
