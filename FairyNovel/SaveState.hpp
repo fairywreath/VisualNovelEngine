@@ -12,6 +12,9 @@
 class SaveState : public State
 {
 public:
+	/*
+		@
+	*/
 	SaveState(StateStack& stack, Context context);
 
 	void draw() override;
@@ -24,10 +27,10 @@ private:
 	void packComponent(GUI::Component* cmpt);
 
 private:
-	struct SerializeSavedFormat
-	{
+	using SavePanelPtr = std::unique_ptr<GUI::SavePanel>;
 
-	};
+	static constexpr auto NumPerPage = 10;
+	std::vector<SavePanelPtr> nSaves;
 
 
 private:
@@ -44,6 +47,7 @@ private:
 
 	std::vector<GUI::Component*> nComponents;
 
+	int nPageNum;
 };
 
 

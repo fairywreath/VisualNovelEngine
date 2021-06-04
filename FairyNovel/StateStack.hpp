@@ -57,6 +57,8 @@ private:
 
 	void applyPendingChanges();
 
+	void removeTimedChangesForState(State* state);
+
 private:
 	struct PendingChange
 	{

@@ -8,7 +8,7 @@ GUI::TextButton::TextButton(State::Context context, const std::string& text) :
 	nText(text, context.fonts->get("aria")),
 	nFadableText(nText),
 	nMover(this),
-	NormalColor(sf::Color(249, 169, 178)),
+	NormalColor(249, 169, 178),
 	HoverColor(232, 126, 146),
 	FilledColor(252, 219, 226),
 	OutlineHoverColor(237, 228, 128, 125),

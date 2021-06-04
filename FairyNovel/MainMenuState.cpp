@@ -63,7 +63,7 @@ void MainMenuState::setupButtons()
 		});
 
 	nLoadgBtn.setCallback([this]() {
-		requestStackPush(States::ID::Load);
+		requestStackPush(States::ID::Save);
 		});
 
 	nGalleryBtn.setCallback([this]() {

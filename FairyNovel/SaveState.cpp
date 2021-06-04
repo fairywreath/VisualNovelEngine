@@ -7,7 +7,9 @@ SaveState::SaveState(StateStack& stack, Context context) :
 	nExitBtn(context, "EXIT"),
 	nBackground(context.textures->get("statebg")),
 	nFadableBg(nBackground),
-	nComponents()
+	nComponents(),
+	nSaves(),
+	nPageNum(0)
 {
 	nSectionLabel.setSize(100);
 	nSectionLabel.setColor(sf::Color(249, 169, 178));
@@ -30,6 +32,31 @@ SaveState::SaveState(StateStack& stack, Context context) :
 	packComponent(&nExitBtn);
 
 	setUpdateState(UpdateState::OnTop);
+
+	/*
+		@setup the save buttons
+	*/
+	const auto centerX = (float)context.window->getSize().x / 2;
+	const auto distX = 30.f;
+	const auto distY = 110.f;
+	const auto startY = 20.f;
+	const auto numCols = 2.f;
+	nSaves.reserve(NumPerPage);
+	for (int i = 0; i < NumPerPage; i++) {
+		nSaves.push_back(std::make_unique<GUI::SavePanel>(context));
+		if (i >= NumPerPage / numCols)
+		{
+			nSaves[i]->setOriginLeft();
+			nSaves[i]->setPosition(centerX + distX, startY + (( i - (NumPerPage / numCols)) * distY));
+		}
+		else
+		{
+			nSaves[i]->setOriginRight();
+			nSaves[i]->setPosition(centerX - distX, startY + (i * distY));
+		}
+		nSaves[i]->setNumber(i + 1);
+		nComponents.push_back(nSaves[i].get());
+	}
 }
 
 void SaveState::draw()

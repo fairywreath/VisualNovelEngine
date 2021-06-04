@@ -26,7 +26,7 @@ State::Ptr StateStack::createState(States::ID stateID)
 
 void StateStack::handleEvent(const sf::Event& event)
 {
-	if (!nStack.empty())
+	if (!nStack.empty() && (*nStack.rbegin())->getUpdateState() != State::UpdateState::InRemovalAnimation)
 	{
 		(*nStack.rbegin())->handleEvent(event);
 	}
@@ -51,6 +51,7 @@ void StateStack::update(sf::Time dt)
 		(*itr).time += dt;
 		if ((*itr).time.asSeconds() >= (*itr).duration)
 		{
+			// 
 			if ((*itr).statePtr != nullptr)
 			{
 				(*itr).statePtr->setUpdateState((*itr).updateState);
@@ -135,6 +136,7 @@ void StateStack::applyPendingChanges()
 			nTimedChangeList.push_back(TimedChange(nStack.back().get(), State::UpdateState::ShouldBeRemoved, 1.f));
 			if (nStack.size() >= 2)
 			{
+				removeTimedChangesForState((*++nStack.rbegin()).get());
 				(*++nStack.rbegin())->setUpdateState(State::UpdateState::OnTop);
 			}
 			itr = nPendingList.erase(itr);
@@ -174,6 +176,13 @@ void StateStack::applyPendingChanges()
 		}
 	}
 
+}
+
+void StateStack::removeTimedChangesForState(State* state)
+{
+	auto rmv = std::remove_if(nTimedChangeList.begin(), nTimedChangeList.end(), [state](const TimedChange& change) {
+		return (state == change.statePtr);
+		});
 }
 
 void StateStack::pushState(States::ID stateID)
