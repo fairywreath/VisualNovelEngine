@@ -26,12 +26,12 @@ public:
 	
 	void setNumber(int num);
 	int getNumber() const;
+	
+	void setSprite(const sf::Texture& texture);
 
 	void setChapter(const std::string& str);
 	void setDate(const std::string& str);
 	void setDialogue(const std::string& str);
-
-	void setSprite(const sf::Texture& texture);
 
 	void setOriginLeft();
 	void setOriginRight();

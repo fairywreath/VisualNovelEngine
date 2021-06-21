@@ -128,7 +128,6 @@ private:
 	static constexpr auto TextSize = 29;		
 	static constexpr auto MaxTextWidth = 900;
 
-
 	GameState& nGameState;
 
 	MusicPlayer& nMusicPlayer;

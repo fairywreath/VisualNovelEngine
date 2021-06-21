@@ -198,6 +198,7 @@
     <ClInclude Include="RemoveEntityCommand.hpp" />
     <ClInclude Include="ResourceIdentifiers.hpp" />
     <ClInclude Include="ResourceManager.hpp" />
+    <ClInclude Include="SaveManager.hpp" />
     <ClInclude Include="SavePanel.hpp" />
     <ClInclude Include="SaveState.hpp" />
     <ClInclude Include="Scanner.hpp" />
@@ -265,6 +266,7 @@
     <ClCompile Include="RegisterCommand.cpp" />
     <ClCompile Include="RegisterEngine.cpp" />
     <ClCompile Include="RemoveEntityCommand.cpp" />
+    <ClCompile Include="SaveManager.cpp" />
     <ClCompile Include="SavePanel.cpp" />
     <ClCompile Include="SaveState.cpp" />
     <ClCompile Include="Scanner.cpp" />

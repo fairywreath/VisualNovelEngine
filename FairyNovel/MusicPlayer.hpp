@@ -22,6 +22,12 @@ public:
 	void play(const std::string& id);
 	void stop();
 
+	void fadeOut(float time);
+	void fadeIn(float time);
+
+	// for volume fades
+	void update(sf::Time dt);
+
 	void setPaused(bool paused);
 
 	bool isMusicPlaying() const;
@@ -42,12 +48,19 @@ public:
 private:
 	static constexpr auto DefaultVolume = 60.f;
 
+	// volume fades
+	float nTargetVolume;
+	float nStartVolume;
+	bool nInFade;
+	sf::Time nFadeElapsed;
+	float nFadeDuration;
+
 	sf::Music nMusic;
 	std::string nCurrentMusic;
 
 	std::map<std::string, std::string> nFileNames;
 
-	float nVolume;
+	float nVolume;	// unchanged during fades
 };
 
 #endif

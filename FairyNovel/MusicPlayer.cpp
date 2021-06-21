@@ -8,11 +8,14 @@ MusicPlayer::MusicPlayer() :
 	nMusic(),
 	nFileNames(),
 	nCurrentMusic("None"),
-	nVolume(DefaultVolume)		
+	nVolume(DefaultVolume),
+	nStartVolume(DefaultVolume),
+	nInFade(false),
+	nFadeElapsed(sf::Time::Zero),
+	nFadeDuration(0.f),
+	nTargetVolume(0.f)
 {
-	// mapping the music files 
-//	nFileNames[Music::Main] = "Media/Music/MainTheme.ogg";
-//	nFileNames[Music::Secondary] = "Media/Music/SecondaryTheme.ogg";
+
 }
 
 void MusicPlayer::play(const std::string& id)
@@ -39,6 +42,42 @@ void MusicPlayer::stop()
 	nCurrentMusic = "None";
 }
 
+void MusicPlayer::fadeOut(float time)
+{
+	nInFade = true;
+	nTargetVolume = 0;
+	nStartVolume = nVolume;
+	nFadeDuration = time;
+}
+
+void MusicPlayer::fadeIn(float time)
+{
+	nInFade = true;
+	nTargetVolume = nVolume;
+	nStartVolume = 0;
+	nFadeDuration = time;
+}
+
+void MusicPlayer::update(sf::Time dt)
+{
+	if (nInFade)
+	{
+		nFadeElapsed += dt;
+		if (nFadeElapsed.asSeconds() >= nFadeDuration)
+		{
+			nInFade = false;
+			nMusic.setVolume(nTargetVolume);
+			nFadeElapsed = sf::Time::Zero;
+		}
+		else
+		{
+			float volume = (float)nStartVolume + ((float)(nTargetVolume - nStartVolume)
+				* nFadeElapsed.asSeconds() / nFadeDuration);
+			nMusic.setVolume(volume);
+		}
+	}
+}
+
 void MusicPlayer::setPaused(bool paused)
 {
 	if (paused)
@@ -49,10 +88,7 @@ void MusicPlayer::setPaused(bool paused)
 
 bool MusicPlayer::isMusicPlaying() const
 {
-	if (nMusic.getStatus() == sf::Music::Status::Playing)
-		return true;
-	else
-		return false;
+	return (nMusic.getStatus() == sf::Music::Status::Playing);
 }
 
 std::string MusicPlayer::getCurrentMusic() const
@@ -86,10 +122,15 @@ void MusicPlayer::setCurrentMusicOffset(const sf::Time& offset)
 
 void MusicPlayer::setVolume(float amount)
 {
+	if (nInFade)
+	{
+		nInFade = false;
+		nFadeElapsed = sf::Time::Zero;
+	}
+
 	// if amount is not in range leave it be
 	if ((amount) >= 0.f && (amount) <= 100.f)
 	{
-		std::cout << "new amount: " << amount << std::endl;
 		nVolume = amount;
 		nMusic.setVolume(nVolume);
 	}

@@ -28,6 +28,7 @@ void MainMenuState::initialize()
 {
 	nBackground.fade(2.5, 255, 0);
 	getContext().musicPlayer->play("AutomneMM");
+	getContext().musicPlayer->setVolume(getContext().musicPlayer->getVolume());	// set to current volume
 
 	nBackground.setPosition(0.f, 0.f);
 
@@ -54,7 +55,6 @@ void MainMenuState::setupButtons()
 		});
 
 	nConfigBtn.setCallback([this]() {
-	//	requestStackPop();
 		requestStackPush(States::ID::Config);
 		});
 
@@ -131,6 +131,8 @@ bool MainMenuState::update(sf::Time dt)
 		nRectMover.update(dt);
 	}
 
+	getContext().musicPlayer->update(dt);
+
 	return false;
 }
 
@@ -172,6 +174,7 @@ void MainMenuState::setUpdateState(UpdateState state)
 		nFadableRect.fade(FadeTime, 0, 125);
 		nBackground.fade(FadeTime, 0, 255);
 		nTitle.fade(FadeTime, 0, 255);
+		getContext().musicPlayer->fadeOut(1.f);
 	}
 	else if (state == UpdateState::OnTop)
 	{
@@ -179,10 +182,10 @@ void MainMenuState::setUpdateState(UpdateState state)
 		{
 			cmp->fade(FadeTime, 255, 0);
 		}
-
 		nFadableRect.fade(FadeTime, 125, 0);
 		nBackground.fade(FadeTime, 255, 0);
 		nTitle.fade(FadeTime, 255, 0);
+		getContext().musicPlayer->setVolume(getContext().musicPlayer->getVolume());
 	}
 	else
 	{

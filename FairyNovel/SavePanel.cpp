@@ -161,14 +161,14 @@ void GUI::SavePanel::setDialogue(const std::string& str)
 	// need use glyphs here
 }
 
-void GUI::SavePanel::setSprite(const sf::Texture& texture)
-{
-	nSprite.setTexture(texture);
-}
-
 void GUI::SavePanel::setOriginLeft()
 {
 	setOrigin(0, 0);
+}
+
+void GUI::SavePanel::setSprite(const sf::Texture& texture)
+{
+	nSprite.setTexture(texture);
 }
 
 void GUI::SavePanel::setOriginRight()

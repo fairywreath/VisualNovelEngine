@@ -85,6 +85,8 @@ bool GameState::update(sf::Time dt)
 		clearDecisions();
 	}
 
+	getContext().musicPlayer->update(dt);
+
 	return false;
 }
 
@@ -120,6 +122,7 @@ void GameState::setUpdateState(UpdateState state)
 		getContext().configManager->applySettings(nEngine);
 		nCommandManager.resume();
 		nEngine.fadeInScreen(1.f);
+		getContext().musicPlayer->fadeIn(1.f);
 	}
 	else if (state == UpdateState::InRemovalAnimation)
 	{
@@ -128,6 +131,7 @@ void GameState::setUpdateState(UpdateState state)
 		nCommandManager.stop();
 		nEngine.stopAllAnimations();
 		nEngine.clearScreen(1.f);
+		getContext().musicPlayer->fadeOut(1.f);
 	}
 	else
 	{

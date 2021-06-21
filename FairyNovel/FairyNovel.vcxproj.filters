@@ -282,6 +282,9 @@
     <ClCompile Include="GalleryState.cpp">
       <Filter>Header Files\Saves</Filter>
     </ClCompile>
+    <ClCompile Include="SaveManager.cpp">
+      <Filter>Header Files\Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceIdentifiers.hpp">
@@ -490,6 +493,9 @@
     </ClInclude>
     <ClInclude Include="GalleryState.hpp">
       <Filter>Header Files\Saves</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveManager.hpp">
+      <Filter>Header Files\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
