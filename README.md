@@ -1,5 +1,5 @@
-# Visual Novel Engine
-FairyNovel - a 2d visual novel game engine made in C++ using the SFML Library.
+# FairyNovel - A Visual Novel Engine
+FairyNovel - a 2D visual novel game engine made in C++ using the SFML Library.
 
 The engine supports a simple scripting language made to run the game commands.
 
